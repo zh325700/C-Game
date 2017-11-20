@@ -32,3 +32,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+unix:!macx: LIBS += -L$$PWD/../../libworld.so/ -lworld
+
+INCLUDEPATH += $$PWD/../../libworld.so
+DEPENDPATH += $$PWD/../../libworld.so
