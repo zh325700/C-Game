@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -8,6 +9,7 @@ int main(int argc, char *argv[])
     w.show();
 
     qDebug() << "Hello world";
+   std::cout<<"nihao";
 
     return a.exec();
 }
