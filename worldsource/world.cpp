@@ -43,7 +43,7 @@ std::vector<std::unique_ptr<Tile>> World::createWorld(QString filename)
     {
     for (int col = 0; col < cols; col++)
       {
-      float val = qGray(world.pixel(col,row))/255.0f;
+      float val = qGray(world.pixel(col,row))/255.0f;  //Returns a gray value (0 to 255)/255
       if (val > 0.0f)
         tiles.push_back(std::unique_ptr <Tile>(new Tile(col, row, val)));
       else
@@ -94,7 +94,7 @@ std::vector<std::unique_ptr<Enemy>> World::getEnemies(unsigned int nrOfEnemies)
     int xPos = en->getXPos();
     int yPos = en->getYPos();
     float val = en->getValue();
-    enemies.pop_back();
+    enemies.pop_back();                                                    // delete one normal enemy but insert a new pEnemy
     auto eptr = std::unique_ptr<PEnemy>(new PEnemy(xPos, yPos, val));
     enemies.push_back(std::move(eptr));
     }

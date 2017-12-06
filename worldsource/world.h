@@ -27,19 +27,23 @@ protected:
     float value;
 };
 
-class Enemy : public Tile
+class Enemy : public QObject, public Tile
 {
+    Q_OBJECT
 public:
     Enemy(int xPosition, int yPosition, float strength);
     virtual ~Enemy() = default;
     bool getDefeated() const {return defeated;}
-    void setDefeated(bool value) {defeated = value;};
+    void setDefeated(bool value) {defeated = value; if (defeated) emit dead();};
+
+  signals:
+    void dead();
 
 private:
     bool defeated; //false by construction
 };
 
-class PEnemy: public QObject, public Enemy
+class PEnemy: public Enemy
 {
     Q_OBJECT
 public:
@@ -52,7 +56,6 @@ public slots:
     bool poison();
 
 signals:
-    void dead();
     void poisonLevelUpdated(int value);
 
 private:
@@ -68,13 +71,15 @@ public:
     void setYPos(int newPos) {yPos = newPos; emit posChanged(xPos, yPos);}
     void setPos(int newX, int newY) {if (xPos != newX || yPos != newY) {xPos = newX; yPos = newY; emit posChanged(xPos, yPos);}}
     float getHealth() const {return health;};
-    void setHealth(float value) {health = value;}
+    void setHealth(float value) {health = value; emit healthChanged(static_cast<int>(health));}
 
     float getEnergy() const {return energy;}
-    void setEnergy(float value) {energy = value;}
+    void setEnergy(float value) {energy = value; emit energyChanged(static_cast<int>(energy));}
 
 signals:
     void posChanged(int x, int y);
+    void healthChanged(int h);
+    void energyChanged(int e);
 
 private:
     float health; //100.0f by construction

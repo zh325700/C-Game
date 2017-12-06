@@ -1,15 +1,14 @@
-#include "mainwindow.h"
+
 #include <QApplication>
-#include <iostream>
+#include "Game.h"
+
+Game *game;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-
-   std::cout<<"nihao";
+    game = new Game();
+    game->show();
 
     return a.exec();
 }

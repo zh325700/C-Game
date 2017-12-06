@@ -19,7 +19,7 @@ QMAKE_CXXFLAGS += -std=c++11
 
 #place where library will be put on deployment, replace this by your own operating system and map
 linux-g++ {
-  target.path = /home/stef/qtprojects/world_v2
+  target.path = /ext/qtprojects/world_v2
   INSTALLS += target
 }
 

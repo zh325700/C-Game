@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+            multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,17 +26,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+    MyEnemy.cpp \
+    Game.cpp \
+    MyProtagonist.cpp \
+    MyTile.cpp \
+    MyPEnemy.cpp \
+    HealthPack.cpp
 
 HEADERS += \
-        mainwindow.h
+    MyEnemy.h \
+    Game.h \
+    MyProtagonist.h \
+    MyTile.h \
+    MyPEnemy.h \
+    HealthPack.h
 
-FORMS += \
-        mainwindow.ui
+FORMS +=
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libworld.so/release/ -lworld
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libworld.so/debug/ -lworld
-else:unix: LIBS += -L$$PWD/libworld.so/ -lworld
 
-INCLUDEPATH += $$PWD/libworld.so
-DEPENDPATH += $$PWD/libworld.so
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libworld/release/ -lworld
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libworld/debug/ -lworld
+else:unix: LIBS += -L$$PWD/libworld/ -lworld
+
+INCLUDEPATH += $$PWD/libworld
+DEPENDPATH += $$PWD/libworld
+
+RESOURCES += \
+    res.qrc
