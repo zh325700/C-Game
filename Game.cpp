@@ -1,4 +1,3 @@
-
 #include <memory>
 #include <QTimer>
 #include "MyEnemy.h"
@@ -14,18 +13,18 @@
 #include "world.h"
 #include "Game.h"
 #include "MyProtagonist.h"
+#include "Graphics_view_zoom.h"
+#include "MainWindow.h"
 
 //in order to use media , you have to add "multimedia" in
 //the .pro file
-
 Game::Game(QWidget *parent){
     std::shared_ptr<World> world = std::make_shared<World>();
-    std::vector<std::unique_ptr<Tile>> mapTiles = world->createWorld(":/images/worldmap.png");
+    std::vector<std::unique_ptr<Tile>> mapTiles = world->createWorld(":/images/maps/worldmap.png");
     std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(500);
     std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(50);
     const std::type_info& typeE = typeid(Enemy);
     const std::type_info& typeP = typeid(PEnemy);
-
 
     cols = world->getCols();
     rows = world->getRows();
@@ -59,6 +58,7 @@ Game::Game(QWidget *parent){
             int yEnemy =unknowEnemy->getYPos();
             float eStrength =unknowEnemy->getValue();
             MyEnemy *aMyEnemy = new MyEnemy(xEnemy,yEnemy,eStrength); //defeated is by default false, no need to pass
+            QObject::connect(aMyEnemy,SIGNAL(dead()),myTilesMap[xEnemy+yEnemy*cols],SLOT(drawBlack()));// connect enemy signal to Tile slot
             myEnemies.push_back((aMyEnemy));
         }
 
@@ -67,8 +67,9 @@ Game::Game(QWidget *parent){
             int xPEnemy = unknowEnemy->getXPos();
             int yPEnemy =unknowEnemy->getYPos();
             float pStrength =unknowEnemy->getValue();
-            MyEnemy *aMyPEnemy = new MyEnemy(xPEnemy,yPEnemy,pStrength); //poisonlevel is strength here
-            myPEnemies.push_back((aMyPEnemy));
+            MyPEnemy *aMyPEnemy = new MyPEnemy(xPEnemy,yPEnemy,pStrength); //poisonlevel is strength here
+            QObject::connect(aMyPEnemy,SIGNAL(dead()),myTilesMap[xPEnemy+yPEnemy*cols],SLOT(drawPoision()));
+            myPEnemies.push_back(aMyPEnemy);
         }
 
         //if it is not a Enemy, I don't know what to do
@@ -78,14 +79,12 @@ Game::Game(QWidget *parent){
     }
 
     // create the scene
-    scene = new QGraphicsScene();
+    scene = new QGraphicsScene(this);
     scene->setSceneRect(0,0,20000,20000); // make the scene 800x600 instead of infinity by infinity (default)
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)
     setScene(scene);
-    //    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
 
 
@@ -98,23 +97,39 @@ Game::Game(QWidget *parent){
          scene->addItem(aPack);
     }
 
-    // create the enemy
-    myEnemy = new MyEnemy(250,250,10.0);
-    myEnemy->setPos(myEnemy->getXPos(),myEnemy->getYPos());
+    // add the Enemies to the scene
+    for(auto &aEnemy:myEnemies){
+         scene->addItem(aEnemy);
+    }
 
-    // add the Enemy to the scene
-    scene->addItem(myEnemy);
+    //add pEnemies to the scene
+    for(auto &aPEnemy:myPEnemies){
+         scene->addItem(aPEnemy);
+    }
 
     //create protagonist
     myProtagonist = new MyProtagonist();
     QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(moveToNextSpot()));
+    QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(aquire_target()));
+
+    //How to let window know that my health changed.
+//    QObject::connect(myProtagonist,SIGNAL(healthChanged(int)),mainWindow,SLOT(refreshEandH()));
+
+
+
     myProtagonist->QGraphicsItem::setPos(myProtagonist->getXPos(),myProtagonist->getYPos());
     myProtagonist->setFlag(QGraphicsItem::ItemIsFocusable);
     myProtagonist->setFocus();
 
+
     // add the protagonist to the scene
     scene->addItem(myProtagonist);
 
+
+    //add auto zoom in and out
+    Graphics_view_zoom* z = new Graphics_view_zoom(this);
+    z->set_modifiers(Qt::NoModifier);
     //show the scene
     show();
+    centerOn(myProtagonist);
 }

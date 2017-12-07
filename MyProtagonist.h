@@ -16,11 +16,15 @@ public:
     MyProtagonist(QGraphicsItem * parent=0);  // allow you yo have a parent point
     void keyPressEvent(QKeyEvent * event);
     float getNextSpotValue(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
+    void decreaseHealth(float healthCost);
+    void recoverHealth();
+    MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
 public slots:
     void moveToNextSpot();
+    void aquire_target();
 private :
-    void decreaseHealth(float health_value);
-    void increaseHealth(float health_value);
+    int sizeOfTile;
+    float stepCost;
 
 };
 

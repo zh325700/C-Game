@@ -31,7 +31,9 @@ SOURCES += \
     MyProtagonist.cpp \
     MyTile.cpp \
     MyPEnemy.cpp \
-    HealthPack.cpp
+    HealthPack.cpp \
+    MainWindow.cpp \
+    Graphics_view_zoom.cpp
 
 HEADERS += \
     MyEnemy.h \
@@ -39,7 +41,9 @@ HEADERS += \
     MyProtagonist.h \
     MyTile.h \
     MyPEnemy.h \
-    HealthPack.h
+    HealthPack.h \
+    MainWindow.h \
+    Graphics_view_zoom.h
 
 FORMS +=
 

@@ -6,11 +6,16 @@
 #include <QGraphicsItem>
 #include <QMediaPlayer>
 #include <QPaintEvent>
+
 #include "world.h"
 
-class MyTile:public Tile, public QGraphicsRectItem{
+class MyTile:public QObject,public Tile, public QGraphicsRectItem{
+    Q_OBJECT
 public:
     MyTile(int xPosition, int yPosition, float tileWeight);
+public slots:
+    void drawBlack();
+    void drawPoision();
 private :
 };
 

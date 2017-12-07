@@ -1,14 +1,15 @@
 <RCC>
     <qresource prefix="/images">
-        <file>enemy.png</file>
-        <file>Protagonist.png</file>
-        <file>maze1.png</file>
-        <file>maze2.png</file>
-        <file>maze3.png</file>
-        <file>worldmap.png</file>
-        <file>grass.png</file>
-        <file>healthpack.png</file>
-        <file>rock.png</file>
-        <file>sea.jpg</file>
+        <file>icons/enemy.png</file>
+        <file>icons/grass.png</file>
+        <file>icons/healthpack.png</file>
+        <file>icons/Protagonist.png</file>
+        <file>icons/rock.png</file>
+        <file>icons/sea.jpg</file>
+        <file>maps/maze1.png</file>
+        <file>maps/maze2.png</file>
+        <file>maps/maze3.png</file>
+        <file>maps/worldmap.png</file>
+        <file>icons/penemy.png</file>
     </qresource>
 </RCC>

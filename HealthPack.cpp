@@ -10,5 +10,5 @@ HealthPack::HealthPack(int xPosition, int yPosition, float tileWeight):
 {
             int sizeOfTile = 20;
             this->setPos(xPosition*sizeOfTile,yPosition*sizeOfTile);
-            setPixmap(QPixmap(":/images/healthpack.png"));
+            setPixmap(QPixmap(":/images/icons/healthpack.png"));
 }

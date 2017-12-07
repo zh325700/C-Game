@@ -33,4 +33,15 @@ MyTile::MyTile(int xPosition, int yPosition, float tileWeight):
 
 }
 
+void MyTile::drawBlack()
+{
+    QBrush brush(Qt::black, Qt::SolidPattern);
+    this->setBrush(brush);
+}
+
+void MyTile::drawPoision()
+{
+    //zuo xiao guo
+}
+
 
