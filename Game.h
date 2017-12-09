@@ -1,13 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
-/*
--Create resource file
--QMediaPlayer,setMedia,QUrl,play()
-*/
+
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
 #include <memory>
+#include <QObject>
 
 #include "MyEnemy.h"
 #include "MyProtagonist.h"
@@ -17,9 +15,11 @@
 #include "HealthPack.h"
 
 class Game: public QGraphicsView{
+    Q_OBJECT
     //give game referance to scene,player,score,health
 public:
     Game(QWidget * parent=0);
+    ~Game();
     QGraphicsScene * scene;
     MyEnemy *myEnemy;
     MyProtagonist *myProtagonist;
@@ -29,8 +29,8 @@ public:
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-
-
+public slots:
+    void drawPoinsonCircle();
 };
 
 #endif // GAME_H

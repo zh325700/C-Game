@@ -18,10 +18,16 @@ public:
     float getNextSpotValue(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
     void decreaseHealth(float healthCost);
     void recoverHealth();
+    void recoverEnergy();
     MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
+signals:
+    void protagonistDead();
+    void encounterPenemy();
 public slots:
     void moveToNextSpot();
     void aquire_target();
+    void checkProtagonistDead();
+    void ifInPoisonarea(float poisonValue);
 private :
     int sizeOfTile;
     float stepCost;

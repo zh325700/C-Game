@@ -15,7 +15,6 @@ public:
     MyTile(int xPosition, int yPosition, float tileWeight);
 public slots:
     void drawBlack();
-    void drawPoision();
 private :
 };
 

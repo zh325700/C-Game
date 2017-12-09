@@ -22,6 +22,7 @@ public:
     QHBoxLayout* layoutStatistic;
 public slots:
     void refreshEandH();
+    void restartTheGame();
 };
 
 #endif // MAINWINDOW_H

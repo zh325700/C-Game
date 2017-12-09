@@ -26,9 +26,5 @@ void MyTile::drawBlack()
     setPixmap(QPixmap(":/images/icons/deadEnemy.png"));
 }
 
-void MyTile::drawPoision()
-{
-    //zuo xiao guo
-}
 
 

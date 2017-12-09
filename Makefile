@@ -59,6 +59,7 @@ SOURCES       = main.cpp \
 		HealthPack.cpp \
 		MainWindow.cpp \
 		Graphics_view_zoom.cpp qrc_res.cpp \
+		moc_Game.cpp \
 		moc_MyProtagonist.cpp \
 		moc_MyTile.cpp \
 		moc_MainWindow.cpp \
@@ -73,6 +74,7 @@ OBJECTS       = main.o \
 		MainWindow.o \
 		Graphics_view_zoom.o \
 		qrc_res.o \
+		moc_Game.o \
 		moc_MyProtagonist.o \
 		moc_MyTile.o \
 		moc_MainWindow.o \
@@ -724,9 +726,157 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MyProtagonist.cpp moc_MyTile.cpp moc_MainWindow.cpp moc_Graphics_view_zoom.cpp
+compiler_moc_header_make_all: moc_Game.cpp moc_MyProtagonist.cpp moc_MyTile.cpp moc_MainWindow.cpp moc_Graphics_view_zoom.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MyProtagonist.cpp moc_MyTile.cpp moc_MainWindow.cpp moc_Graphics_view_zoom.cpp
+	-$(DEL_FILE) moc_Game.cpp moc_MyProtagonist.cpp moc_MyTile.cpp moc_MainWindow.cpp moc_Graphics_view_zoom.cpp
+moc_Game.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
+		MyEnemy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediacontent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaresource.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSharedDataPointer \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qaudio.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		libworld/world.h \
+		libworld/world_global.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
+		MyProtagonist.h \
+		MyTile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPaintEvent \
+		MyPEnemy.h \
+		HealthPack.h \
+		Game.h \
+		moc_predefs.h \
+		/opt/Qt/5.9.1/gcc_64/bin/moc
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Game.h -o moc_Game.cpp
+
 moc_MyProtagonist.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1342,10 +1492,10 @@ main.o: main.cpp /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
@@ -1676,10 +1826,8 @@ Game.o: Game.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgroupbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Game.o Game.cpp
 
-MyProtagonist.o: MyProtagonist.cpp MyProtagonist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+MyProtagonist.o: MyProtagonist.cpp /opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
@@ -1703,11 +1851,20 @@ MyProtagonist.o: MyProtagonist.cpp MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
@@ -1724,44 +1881,60 @@ MyProtagonist.o: MyProtagonist.cpp MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		MyProtagonist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
@@ -1778,8 +1951,6 @@ MyProtagonist.o: MyProtagonist.cpp MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSharedDataPointer \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
@@ -1791,36 +1962,18 @@ MyProtagonist.o: MyProtagonist.cpp MyProtagonist.h \
 		MyTile.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPaintEvent \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
 		Game.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		MyEnemy.h \
 		MyPEnemy.h \
-		HealthPack.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent
+		HealthPack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyProtagonist.o MyProtagonist.cpp
 
 MyTile.o: MyTile.cpp MyTile.h \
@@ -2342,10 +2495,10 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
@@ -2374,7 +2527,10 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPaintEvent \
 		MyPEnemy.h \
-		HealthPack.h
+		HealthPack.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 Graphics_view_zoom.o: Graphics_view_zoom.cpp Graphics_view_zoom.h \
@@ -2503,6 +2659,9 @@ Graphics_view_zoom.o: Graphics_view_zoom.cpp Graphics_view_zoom.h \
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
+
+moc_Game.o: moc_Game.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Game.o moc_Game.cpp
 
 moc_MyProtagonist.o: moc_MyProtagonist.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MyProtagonist.o moc_MyProtagonist.cpp

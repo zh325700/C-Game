@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "Game.h"
 
+#include <QMessageBox>
+
 
 Game *game;
 MainWindow::MainWindow(QWidget * parent):
@@ -36,17 +38,38 @@ MainWindow::MainWindow(QWidget * parent):
 
         connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
 
 
 }
 
 MainWindow::~MainWindow()
 {
-
+//deal with memory
 }
 
 void MainWindow::refreshEandH()
 {
     healthValue->setText(QString::number(game->myProtagonist->getHealth()));
     energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
+}
+
+void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
+{
+    int result = QMessageBox::warning(this, tr("My Game"),
+                                   tr("You Are Dead.\n"
+                                      "Do you want to play agin?"),
+                                   QMessageBox::Yes | QMessageBox::No);
+    switch (result) {
+    case QMessageBox::Yes:
+        delete game;
+        game = new Game();
+        layout->addWidget(game);
+        break;
+    case QMessageBox::No:
+        close();
+        break;
+    default:
+        break;
+    }
 }

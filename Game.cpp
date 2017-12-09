@@ -51,14 +51,12 @@ Game::Game(QWidget *parent){
     // judge what enemy type it is and copy its value to myEnemies and myPEnemies accordingly
     for(auto &unknowEnemy: enemiesFromWorld){
         const std::type_info& typeUnknow = typeid(*unknowEnemy);   //have to be * , I don't know why
-
         //push Enemies to myEnemies vector
         if(typeE.hash_code() == typeUnknow.hash_code()){
             int xEnemy = unknowEnemy->getXPos();
             int yEnemy =unknowEnemy->getYPos();
             float eStrength =unknowEnemy->getValue();
             MyEnemy *aMyEnemy = new MyEnemy(xEnemy,yEnemy,eStrength); //defeated is by default false, no need to pass
-            QObject::connect(aMyEnemy,SIGNAL(dead()),myTilesMap[xEnemy+yEnemy*cols],SLOT(drawBlack()));// connect enemy signal to Tile slot
             myEnemies.push_back((aMyEnemy));
         }
 
@@ -68,7 +66,6 @@ Game::Game(QWidget *parent){
             int yPEnemy =unknowEnemy->getYPos();
             float pStrength =unknowEnemy->getValue();
             MyPEnemy *aMyPEnemy = new MyPEnemy(xPEnemy,yPEnemy,pStrength); //poisonlevel is strength here
-            QObject::connect(aMyPEnemy,SIGNAL(dead()),myTilesMap[xPEnemy+yPEnemy*cols],SLOT(drawPoision()));
             myPEnemies.push_back(aMyPEnemy);
         }
 
@@ -79,7 +76,7 @@ Game::Game(QWidget *parent){
     }
 
     // create the scene
-    scene = new QGraphicsScene(this);
+    scene = new QGraphicsScene((QGraphicsView *)this);
     scene->setSceneRect(0,0,20000,20000); // make the scene 800x600 instead of infinity by infinity (default)
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
@@ -88,40 +85,59 @@ Game::Game(QWidget *parent){
     setFixedSize(800,600);
 
 
-    //add Tiles to the scene
-    for(auto &aTile:myTilesMap){
-        scene->addItem(aTile);
-    }
-    //add pack to the scene
-    for(auto &aPack:myHealthPacks){
-         scene->addItem(aPack);
-    }
-
-    // add the Enemies to the scene
-    for(auto &aEnemy:myEnemies){
-         scene->addItem(aEnemy);
-    }
-
-    //add pEnemies to the scene
-    for(auto &aPEnemy:myPEnemies){
-         scene->addItem(aPEnemy);
-    }
-
     //create protagonist
     myProtagonist = new MyProtagonist();
     QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(moveToNextSpot()));
     QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(aquire_target()));
+    QObject::connect(myProtagonist,&MyProtagonist::energyChanged,myProtagonist,&MyProtagonist::checkProtagonistDead);
+    QObject::connect(myProtagonist,&MyProtagonist::healthChanged,myProtagonist,&MyProtagonist::checkProtagonistDead);
 
 
-
-
+    //set position of the protagonist
     myProtagonist->QGraphicsItem::setPos(myProtagonist->getXPos(),myProtagonist->getYPos());
     myProtagonist->setFlag(QGraphicsItem::ItemIsFocusable);
     myProtagonist->setFocus();
 
 
+    //add Tiles to the scene and connect
+    for(auto &aTile:myTilesMap){
+        scene->addItem(aTile);
+    }
+    //add pack to the scene and connect
+    for(auto &aPack:myHealthPacks){
+         scene->addItem(aPack);
+    }
+    // add the Enemies to the scene
+    for(auto &aEnemy:myEnemies){
+         scene->addItem(aEnemy);
+    }
+
+    //add pEnemies to the scene and connect
+    for(auto &aPEnemy:myPEnemies){
+         scene->addItem(aPEnemy);
+    }
     // add the protagonist to the scene
     scene->addItem(myProtagonist);
+
+
+
+
+    // add the Enemies to the scene and connect // connect enemy signal to Tile slot
+    for(auto &aEnemy:myEnemies){
+         int x=aEnemy->getXPos();
+         int y=aEnemy->getYPos();
+         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+    }
+
+    //add pEnemies to the scene and connect
+    for(auto &aPEnemy:myPEnemies){
+         int x=aPEnemy->getXPos();
+         int y=aPEnemy->getYPos();
+         QObject::connect(aPEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(myProtagonist,&MyProtagonist::encounterPenemy,aPEnemy,&MyPEnemy::poison);
+//         connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
+         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
+    }
 
 
     //add auto zoom in and out
@@ -131,6 +147,20 @@ Game::Game(QWidget *parent){
     show();
     centerOn(myProtagonist);
 }
+
+Game::~Game()
+{
+    // delete all memories
+}
+
+void Game::drawPoinsonCircle()
+{
+    //add one circle to the scene the x,y is based on protagoinist current position
+}
+
+
+
+
 
 
 
