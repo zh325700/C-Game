@@ -97,8 +97,8 @@ void *MyTile::qt_metacast(const char *_clname)
         return static_cast<void*>(const_cast< MyTile*>(this));
     if (!strcmp(_clname, "Tile"))
         return static_cast< Tile*>(const_cast< MyTile*>(this));
-    if (!strcmp(_clname, "QGraphicsRectItem"))
-        return static_cast< QGraphicsRectItem*>(const_cast< MyTile*>(this));
+    if (!strcmp(_clname, "QGraphicsPixmapItem"))
+        return static_cast< QGraphicsPixmapItem*>(const_cast< MyTile*>(this));
     return QObject::qt_metacast(_clname);
 }
 

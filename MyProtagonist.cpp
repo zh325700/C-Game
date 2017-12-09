@@ -11,10 +11,10 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
 {
     //set the origin position of protahonist
     this->QGraphicsItem::setPos(xPos*sizeOfTile,yPos*sizeOfTile);
-    setPixmap(QPixmap(":/images/icons/Protagonist.png"));
+    setPixmap(QPixmap(":/images/icons/protagonistNew.png"));
     //set initial value to tile value, size of tile and stepCost for each step
     sizeOfTile = 20;
-    stepCost =1.0;
+    stepCost =0.0;
 //    this->setValue(getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->getValue());
 }
 
@@ -46,6 +46,10 @@ void MyProtagonist::keyPressEvent(QKeyEvent *event)
             Protagonist::setPos(xPos,yPos+sizeOfTile);
             Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
         }
+    }
+    else if(event->key() == Qt::Key_Space){
+        this->setFocus();
+        game->centerOn(this);
     }
 }
 
@@ -81,36 +85,41 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
     // get a list of all items colliding with attack_area
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
 
-    if (colliding_items.size() == 1){
-        MyTile *aMyTile = dynamic_cast<MyTile *>(colliding_items[0]); // already next Tile
-        float costOfStep =this->getValue()-aMyTile->getValue();   //previous value - Next Tile value
-        this->setValue(aMyTile->getValue());    //set value to thisi Tile
-        this->setEnergy(this->getEnergy()-abs(costOfStep));    // - costOfStep which is the difference between twoo tiles
-        return;
-    }
-    else{
             for (size_t i = 0, n = colliding_items.size(); i < n; i++){
                 MyEnemy * aMyenemy = dynamic_cast<MyEnemy *>(colliding_items[i]);
                 MyPEnemy *aPenemy = dynamic_cast<MyPEnemy *>(colliding_items[i]);
                 HealthPack *aHealthPack = dynamic_cast<HealthPack *>(colliding_items[i]);
-
+                MyTile *aMyTile = dynamic_cast<MyTile *>(colliding_items[i]);
                 if (aMyenemy){
+                     qDebug() << "Enemy strength: " <<aMyenemy->getValue();
+                     // If encounter with enemy,kill, decrease health,set black
                     decreaseHealth(aMyenemy->getValue());
-//                    this->setHealth(this->getHealth()-aMyenemy->getValue());     // If encounter with enemy,kill, decrease health,set black
                     this->getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->setValue(std::numeric_limits<float>::infinity());
                     aMyenemy->setDefeated(true);
+                    game->scene->removeItem(aMyenemy);
                     delete aMyenemy;
                 }
                 else if(aPenemy){
+                    qDebug() << "PEnemy strength: " <<aPenemy->getValue();
+                    game->scene->removeItem(aPenemy);
                     delete aPenemy;
                 }
                 else if(aHealthPack){
                     recoverHealth();
-//                    this->setHealth(100.0);
+                    game->scene->removeItem(aHealthPack);
                     delete aHealthPack;
                 }
+                else if(aMyTile){
+                    float costOfStep =this->getValue()-aMyTile->getValue();   //previous value - Next Tile value
+                    if(abs(costOfStep) == std::numeric_limits<float>::infinity()){
+                        costOfStep=0;
+                    }
+                    this->setValue(aMyTile->getValue());    //set value to this Tile
+                    qDebug()<<"The cost is"<<abs(costOfStep);
+                    this->setEnergy(this->getEnergy()-abs(costOfStep));    // - costOfStep which is the difference between twoo tiles
+                }
             }
-        }
+
 
 
 }

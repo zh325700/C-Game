@@ -11,5 +11,8 @@
         <file>maps/maze3.png</file>
         <file>maps/worldmap.png</file>
         <file>icons/penemy.png</file>
+        <file>icons/protagonistNew.png</file>
+        <file>icons/blueSea.jpg</file>
+        <file>icons/deadEnemy.png</file>
     </qresource>
 </RCC>

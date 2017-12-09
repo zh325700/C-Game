@@ -706,9 +706,12 @@ qrc_res.cpp: res.qrc \
 		maps/maze3.png \
 		maps/maze2.png \
 		maps/maze1.png \
+		icons/protagonistNew.png \
 		icons/Protagonist.png \
 		icons/grass.png \
 		icons/rock.png \
+		icons/blueSea.jpg \
+		icons/deadEnemy.png \
 		icons/penemy.png \
 		icons/enemy.png \
 		icons/sea.jpg \

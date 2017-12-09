@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget * parent):
         layout->addWidget(game);
         layout->addWidget(healthgroup);
 
+        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
+        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+
 
 }
 

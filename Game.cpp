@@ -112,8 +112,6 @@ Game::Game(QWidget *parent){
     QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(moveToNextSpot()));
     QObject::connect(myProtagonist,SIGNAL(posChanged(int,int)),myProtagonist,SLOT(aquire_target()));
 
-    //How to let window know that my health changed.
-//    QObject::connect(myProtagonist,SIGNAL(healthChanged(int)),mainWindow,SLOT(refreshEandH()));
 
 
 
@@ -133,3 +131,7 @@ Game::Game(QWidget *parent){
     show();
     centerOn(myProtagonist);
 }
+
+
+
+

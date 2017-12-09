@@ -9,7 +9,7 @@
 
 #include "world.h"
 
-class MyTile:public QObject,public Tile, public QGraphicsRectItem{
+class MyTile:public QObject,public Tile, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     MyTile(int xPosition, int yPosition, float tileWeight);
