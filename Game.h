@@ -21,7 +21,7 @@ public:
     Game(QWidget * parent=0);
     ~Game();
     QGraphicsScene * scene;
-    MyEnemy *myEnemy;
+//    MyEnemy *myEnemy;
     MyProtagonist *myProtagonist;
     QGraphicsEllipseItem *ellipse;
     int cols;
@@ -35,6 +35,7 @@ public:
 
 public slots:
     void drawPoinsonCircle();
+    void deletePnemy();
 
 private:
     int multipleSizeOfCircle;

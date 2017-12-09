@@ -31,6 +31,7 @@ Game::Game(QWidget *parent){
     cols = world->getCols();
     rows = world->getRows();
     multipleSizeOfCircle =1;
+    ellipse = new QGraphicsEllipseItem();
 
     // Give all the world tiles in Mymaptiles
     for ( auto &aTile: mapTiles){
@@ -135,6 +136,7 @@ Game::Game(QWidget *parent){
          int x=aPEnemy->getXPos();
          int y=aPEnemy->getYPos();
          QObject::connect(aPEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
          QObject::connect(myProtagonist,&MyProtagonist::encounterPenemy,aPEnemy,&MyPEnemy::poison);
          QObject::connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
@@ -157,19 +159,31 @@ Game::~Game()
 void Game::drawPoinsonCircle()
 {
     //add one circle to the scene the x,y is based on protagoinist current position
-    multipleSizeOfCircle = 2;
+    setMultipleSizeOfCircle(2);
     int xCircle = myProtagonist->getXPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile() ;
     int yCircle = myProtagonist->getYPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile();
     float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myProtagonist->getSizeOfTile();
     float heightOfCircle = widthOfCircle;
 
-    ellipse = new QGraphicsEllipseItem();
+    //set brush to the poison circle
     QBrush *brush = new QBrush();
     brush->setStyle(Qt::CrossPattern);
     brush->setColor(Qt::magenta);
     ellipse->setRect(xCircle,yCircle,widthOfCircle,heightOfCircle);
     ellipse->setBrush(*brush);
     scene->addItem(ellipse);
+}
+
+void Game::deletePnemy()
+{
+    QObject* obj = sender();
+    MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
+    if(deadPenemy){
+        scene->removeItem(deadPenemy);
+    //    scene->removeItem(ellipse);
+        delete deadPenemy;
+    }
+
 }
 
 int Game::getMultipleSizeOfCircle() const

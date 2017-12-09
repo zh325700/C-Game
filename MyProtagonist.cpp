@@ -2,6 +2,7 @@
 #include <QGraphicsScene>
 #include <math.h>
 #include <QMessageBox>
+#include <QDebug>
 
 #include "MyProtagonist.h"
 #include "Game.h"
@@ -16,7 +17,7 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     setPixmap(QPixmap(":/images/icons/protagonistNew.png"));
     //set initial value to tile value, size of tile and stepCost for each step
     setSizeOfTile(20);
-    setStepCost(0.1);
+    setStepCost(0.0);
 //    this->setValue(getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->getValue());
 }
 
@@ -112,10 +113,7 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                     decreaseHealth(aPenemy->getValue());
                     recoverEnergy();
                     this->getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->setValue(std::numeric_limits<float>::infinity());
-                    emit encounterPenemy();
-//                    aMyenemy->setDefeated(true);
-//                    game->scene->removeItem(aPenemy);
-//                    delete aPenemy;
+                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                 }
                 else if(aHealthPack){
                     recoverHealth();
@@ -148,9 +146,11 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
 {
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
     for (size_t i = 0, n = colliding_items.size(); i < n; i++){
-        //                else if(aCircle){
-        //                        this->setHealth(this->getHealth()-poisonValue);
-        //                }
+//        qDebug()<<"collid item: "<<typeid(*colliding_items[i]);
+        QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
+        if(aCircle){
+                this->setHealth(this->getHealth()-poisonValue/1000);
+        }
     }
 }
 
