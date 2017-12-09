@@ -23,14 +23,21 @@ public:
     QGraphicsScene * scene;
     MyEnemy *myEnemy;
     MyProtagonist *myProtagonist;
+    QGraphicsEllipseItem *ellipse;
     int cols;
     int rows;
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
+    int getMultipleSizeOfCircle() const;
+    void setMultipleSizeOfCircle(int value);
+
 public slots:
     void drawPoinsonCircle();
+
+private:
+    int multipleSizeOfCircle;
 };
 
 #endif // GAME_H

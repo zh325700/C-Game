@@ -20,6 +20,13 @@ public:
     void recoverHealth();
     void recoverEnergy();
     MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
+
+
+    float getStepCost() const;
+    void setStepCost(float value);
+    int getSizeOfTile() const;
+    void setSizeOfTile(int value);
+
 signals:
     void protagonistDead();
     void encounterPenemy();

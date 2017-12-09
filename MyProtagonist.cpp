@@ -15,8 +15,8 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     this->QGraphicsItem::setPos(xPos*sizeOfTile,yPos*sizeOfTile);
     setPixmap(QPixmap(":/images/icons/protagonistNew.png"));
     //set initial value to tile value, size of tile and stepCost for each step
-    sizeOfTile = 20;
-    stepCost =0.1;
+    setSizeOfTile(20);
+    setStepCost(0.1);
 //    this->setValue(getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->getValue());
 }
 
@@ -152,6 +152,26 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
         //                        this->setHealth(this->getHealth()-poisonValue);
         //                }
     }
+}
+
+void MyProtagonist::setSizeOfTile(int value)
+{
+    sizeOfTile = value;
+}
+
+float MyProtagonist::getStepCost() const
+{
+    return stepCost;
+}
+
+void MyProtagonist::setStepCost(float value)
+{
+    stepCost = value;
+}
+
+int MyProtagonist::getSizeOfTile() const
+{
+    return sizeOfTile;
 }
 
 

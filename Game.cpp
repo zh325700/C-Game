@@ -8,6 +8,8 @@
 #include <vector>
 #include <QDebug>
 #include <typeinfo>
+#include <QGraphicsEllipseItem>
+#include <QColor>
 
 #include "HealthPack.h"
 #include "world.h"
@@ -28,6 +30,7 @@ Game::Game(QWidget *parent){
 
     cols = world->getCols();
     rows = world->getRows();
+    multipleSizeOfCircle =1;
 
     // Give all the world tiles in Mymaptiles
     for ( auto &aTile: mapTiles){
@@ -120,8 +123,6 @@ Game::Game(QWidget *parent){
     scene->addItem(myProtagonist);
 
 
-
-
     // add the Enemies to the scene and connect // connect enemy signal to Tile slot
     for(auto &aEnemy:myEnemies){
          int x=aEnemy->getXPos();
@@ -135,7 +136,7 @@ Game::Game(QWidget *parent){
          int y=aPEnemy->getYPos();
          QObject::connect(aPEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
          QObject::connect(myProtagonist,&MyProtagonist::encounterPenemy,aPEnemy,&MyPEnemy::poison);
-//         connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
+         QObject::connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
     }
 
@@ -156,6 +157,29 @@ Game::~Game()
 void Game::drawPoinsonCircle()
 {
     //add one circle to the scene the x,y is based on protagoinist current position
+    multipleSizeOfCircle = 2;
+    int xCircle = myProtagonist->getXPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile() ;
+    int yCircle = myProtagonist->getYPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile();
+    float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myProtagonist->getSizeOfTile();
+    float heightOfCircle = widthOfCircle;
+
+    ellipse = new QGraphicsEllipseItem();
+    QBrush *brush = new QBrush();
+    brush->setStyle(Qt::CrossPattern);
+    brush->setColor(Qt::magenta);
+    ellipse->setRect(xCircle,yCircle,widthOfCircle,heightOfCircle);
+    ellipse->setBrush(*brush);
+    scene->addItem(ellipse);
+}
+
+int Game::getMultipleSizeOfCircle() const
+{
+    return multipleSizeOfCircle;
+}
+
+void Game::setMultipleSizeOfCircle(int value)
+{
+    multipleSizeOfCircle = value;
 }
 
 
