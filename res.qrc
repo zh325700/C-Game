@@ -15,4 +15,8 @@
         <file>icons/blueSea.jpg</file>
         <file>icons/deadEnemy.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>butterfly.mp3</file>
+        <file>pokemon1.mp3</file>
+    </qresource>
 </RCC>

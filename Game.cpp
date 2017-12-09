@@ -10,6 +10,8 @@
 #include <typeinfo>
 #include <QGraphicsEllipseItem>
 #include <QColor>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 
 #include "HealthPack.h"
 #include "world.h"
@@ -149,6 +151,15 @@ Game::Game(QWidget *parent){
     //show the scene
     show();
     centerOn(myProtagonist);
+
+    //play background music in a loop
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sounds/butterfly.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    QMediaPlayer *music = new QMediaPlayer();
+    music->setPlaylist(playlist);
+    music->play();
 }
 
 Game::~Game()

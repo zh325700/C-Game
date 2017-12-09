@@ -717,7 +717,9 @@ qrc_res.cpp: res.qrc \
 		icons/penemy.png \
 		icons/enemy.png \
 		icons/sea.jpg \
-		icons/healthpack.png
+		icons/healthpack.png \
+		pokemon1.mp3 \
+		butterfly.mp3
 	/opt/Qt/5.9.1/gcc_64/bin/rcc -name res res.qrc -o qrc_res.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -1777,6 +1779,11 @@ Game.o: Game.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsTextItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsEllipseItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QColor \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		HealthPack.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		Game.h \
@@ -1932,6 +1939,7 @@ MyProtagonist.o: MyProtagonist.cpp /opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent 
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
 		MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
