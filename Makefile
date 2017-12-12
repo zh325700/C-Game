@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = team1041.0.0
-DISTDIR = /home/han/Desktop/Cpp/project/team104/.tmp/team1041.0.0
+DISTDIR = /home/jiahao/final/team104/.tmp/team1041.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.9.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/han/Desktop/Cpp/project/team104/libworld/ -lworld -L/opt/Qt/5.9.1/gcc_64/lib -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/jiahao/final/team104/libworld/ -lworld -L/opt/Qt/5.9.1/gcc_64/lib -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -58,7 +58,9 @@ SOURCES       = main.cpp \
 		MyPEnemy.cpp \
 		HealthPack.cpp \
 		MainWindow.cpp \
-		Graphics_view_zoom.cpp qrc_res.cpp \
+		Graphics_view_zoom.cpp \
+		Astar.cpp \
+		Node.cpp qrc_res.cpp \
 		moc_Game.cpp \
 		moc_MyProtagonist.cpp \
 		moc_MyTile.cpp \
@@ -73,6 +75,8 @@ OBJECTS       = main.o \
 		HealthPack.o \
 		MainWindow.o \
 		Graphics_view_zoom.o \
+		Astar.o \
+		Node.o \
 		qrc_res.o \
 		moc_Game.o \
 		moc_MyProtagonist.o \
@@ -265,7 +269,9 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		MyPEnemy.h \
 		HealthPack.h \
 		MainWindow.h \
-		Graphics_view_zoom.h main.cpp \
+		Graphics_view_zoom.h \
+		Astar.h \
+		Node.h main.cpp \
 		MyEnemy.cpp \
 		Game.cpp \
 		MyProtagonist.cpp \
@@ -273,7 +279,9 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		MyPEnemy.cpp \
 		HealthPack.cpp \
 		MainWindow.cpp \
-		Graphics_view_zoom.cpp
+		Graphics_view_zoom.cpp \
+		Astar.cpp \
+		Node.cpp
 QMAKE_TARGET  = team104
 DESTDIR       = 
 TARGET        = team104
@@ -674,8 +682,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents MyEnemy.h Game.h MyProtagonist.h MyTile.h MyPEnemy.h HealthPack.h MainWindow.h Graphics_view_zoom.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp MyEnemy.cpp Game.cpp MyProtagonist.cpp MyTile.cpp MyPEnemy.cpp HealthPack.cpp MainWindow.cpp Graphics_view_zoom.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents MyEnemy.h Game.h MyProtagonist.h MyTile.h MyPEnemy.h HealthPack.h MainWindow.h Graphics_view_zoom.h Astar.h Node.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp MyEnemy.cpp Game.cpp MyProtagonist.cpp MyTile.cpp MyPEnemy.cpp HealthPack.cpp MainWindow.cpp Graphics_view_zoom.cpp Astar.cpp Node.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -877,7 +885,7 @@ moc_Game.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		Game.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Game.h -o moc_Game.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/final/team104 -I/home/jiahao/final/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Game.h -o moc_Game.cpp
 
 moc_MyProtagonist.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -1002,7 +1010,7 @@ moc_MyProtagonist.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem 
 		MyProtagonist.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyProtagonist.h -o moc_MyProtagonist.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/final/team104 -I/home/jiahao/final/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyProtagonist.h -o moc_MyProtagonist.cpp
 
 moc_MyTile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -1125,7 +1133,7 @@ moc_MyTile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		MyTile.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyTile.h -o moc_MyTile.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/final/team104 -I/home/jiahao/final/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyTile.h -o moc_MyTile.cpp
 
 moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -1246,7 +1254,7 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		MainWindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/final/team104 -I/home/jiahao/final/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 moc_Graphics_view_zoom.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
@@ -1360,7 +1368,7 @@ moc_Graphics_view_zoom.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		Graphics_view_zoom.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Graphics_view_zoom.h -o moc_Graphics_view_zoom.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/final/team104 -I/home/jiahao/final/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Graphics_view_zoom.h -o moc_Graphics_view_zoom.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2664,6 +2672,159 @@ Graphics_view_zoom.o: Graphics_view_zoom.cpp Graphics_view_zoom.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Graphics_view_zoom.o Graphics_view_zoom.cpp
+
+Astar.o: Astar.cpp Astar.h \
+		Node.h \
+		libworld/world.h \
+		libworld/world_global.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Astar.o Astar.cpp
+
+Node.o: Node.cpp Node.h \
+		libworld/world.h \
+		libworld/world_global.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Node.o Node.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
