@@ -34,7 +34,8 @@ SOURCES += \
     HealthPack.cpp \
     MainWindow.cpp \
     Graphics_view_zoom.cpp \
-    MyModel.cpp
+    MyModel.cpp \
+    GameTerminal.cpp
 
 HEADERS += \
     MyEnemy.h \
@@ -45,7 +46,8 @@ HEADERS += \
     HealthPack.h \
     MainWindow.h \
     Graphics_view_zoom.h \
-    MyModel.h
+    MyModel.h \
+    GameTerminal.h
 
 FORMS +=
 

@@ -105,7 +105,7 @@ Game::Game(QWidget *parent)
     Graphics_view_zoom* z = new Graphics_view_zoom(this);
     z->set_modifiers(Qt::NoModifier);
     //show the scene
-    show();
+//    show();
     centerOn(myProtagonist);
 
     //play background music in a loop

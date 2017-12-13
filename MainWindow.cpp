@@ -7,6 +7,7 @@
 
 Game *game;
 MyModel *myModel;
+GameTerminal *gameTerminal;
 
 MainWindow::MainWindow(QWidget * parent):
     QWidget (parent)
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget * parent):
 
         myModel = new MyModel();
         game = new Game();
+        gameTerminal = new GameTerminal();
 
 
         //create a Horizontal layout to put health and energy
@@ -40,12 +42,13 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(energyLable);
         layoutStatistic->addWidget(energyValue);
 
-        layout->addWidget(game);
+        //layout->addWidget(game);
+        layout->addWidget(gameTerminal);
         layout->addWidget(healthgroup);
 
-        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
-        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
-        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+//        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
+//        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+//        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
 
 
 }
@@ -59,8 +62,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::refreshEandH()
 {
-    healthValue->setText(QString::number(game->myProtagonist->getHealth()));
-    energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
+   // healthValue->setText(QString::number(game->myProtagonist->getHealth()));
+   // energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
 }
 
 void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
@@ -71,9 +74,9 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
                                    QMessageBox::Yes | QMessageBox::No);
     switch (result) {
     case QMessageBox::Yes:
-        delete game;
-        game = new Game();
-        layout->addWidget(game);
+       // delete game;
+        //game = new Game();
+        //layout->addWidget(game);
         break;
     case QMessageBox::No:
         close();

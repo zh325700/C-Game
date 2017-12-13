@@ -15,6 +15,7 @@
 #include "HealthPack.h"
 #include "world.h"
 #include "Game.h"
+#include "GameTerminal.h"
 
 class MainWindow: public QWidget
 {
@@ -29,6 +30,7 @@ public:
     QLineEdit* energyValue;
     QGroupBox* healthgroup;
     QHBoxLayout* layoutStatistic;
+
 
     //new added
 //    int cols;
