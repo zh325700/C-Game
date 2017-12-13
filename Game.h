@@ -13,6 +13,9 @@
 #include "MyPEnemy.h"
 #include "MyEnemy.h"
 #include "HealthPack.h"
+#include "MainWindow.h"
+#include "world.h"
+#include "MyModel.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -22,16 +25,17 @@ public:
     ~Game();
     QGraphicsScene * scene;
 //    MyEnemy *myEnemy;
-    MyProtagonist *myProtagonist;
     QGraphicsEllipseItem *ellipse;
+    int getMultipleSizeOfCircle() const;
+    void setMultipleSizeOfCircle(int value);
+    MyProtagonist* myProtagonist;
     int cols;
     int rows;
+
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-    int getMultipleSizeOfCircle() const;
-    void setMultipleSizeOfCircle(int value);
 
 public slots:
     void drawPoinsonCircle();

@@ -1,14 +1,21 @@
 #include "MainWindow.h"
-#include "Game.h"
+#include "MyModel.h"
+
 
 #include <QMessageBox>
 
 
 Game *game;
+MyModel *myModel;
+
 MainWindow::MainWindow(QWidget * parent):
     QWidget (parent)
 {
+
+        myModel = new MyModel();
         game = new Game();
+
+
         //create a Horizontal layout to put health and energy
         layout = new QHBoxLayout(this);
 
@@ -45,8 +52,10 @@ MainWindow::MainWindow(QWidget * parent):
 
 MainWindow::~MainWindow()
 {
-//deal with memory
+    //deal with memory
 }
+
+
 
 void MainWindow::refreshEandH()
 {

@@ -9,6 +9,7 @@
 
 
 extern Game *game;
+
 MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     QGraphicsPixmapItem(parent),Protagonist()
 {
@@ -113,7 +114,9 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                     decreaseHealth(aPenemy->getValue());
                     recoverEnergy();
                     this->getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->setValue(std::numeric_limits<float>::infinity());
+                    QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
                     emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
+                    qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();
                 }
                 else if(aHealthPack){
                     recoverHealth();
@@ -126,7 +129,6 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                         costOfStep=0;
                     }
                     this->setValue(aMyTile->getValue());    //set value to this Tile
-                    qDebug()<<"The cost is"<<abs(costOfStep);
                     this->setEnergy(this->getEnergy()-abs(costOfStep));    // - costOfStep which is the difference between twoo tiles
                 }
             }

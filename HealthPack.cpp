@@ -2,7 +2,7 @@
 #include <QDebug>
 
 #include "HealthPack.h"
-#include "Game.h"
+
 
 
 HealthPack::HealthPack(int xPosition, int yPosition, float tileWeight):

@@ -33,7 +33,8 @@ SOURCES += \
     MyPEnemy.cpp \
     HealthPack.cpp \
     MainWindow.cpp \
-    Graphics_view_zoom.cpp
+    Graphics_view_zoom.cpp \
+    MyModel.cpp
 
 HEADERS += \
     MyEnemy.h \
@@ -43,7 +44,8 @@ HEADERS += \
     MyPEnemy.h \
     HealthPack.h \
     MainWindow.h \
-    Graphics_view_zoom.h
+    Graphics_view_zoom.h \
+    MyModel.h
 
 FORMS +=
 
