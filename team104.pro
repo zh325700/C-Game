@@ -34,8 +34,13 @@ SOURCES += \
     HealthPack.cpp \
     MainWindow.cpp \
     Graphics_view_zoom.cpp \
+<<<<<<< HEAD
     MyModel.cpp \
     GameTerminal.cpp
+=======
+    Astar.cpp \
+    Node.cpp
+>>>>>>> d2517969aeaa92e85674bf3c9f155ad990cc13e2
 
 HEADERS += \
     MyEnemy.h \
@@ -46,8 +51,13 @@ HEADERS += \
     HealthPack.h \
     MainWindow.h \
     Graphics_view_zoom.h \
+<<<<<<< HEAD
     MyModel.h \
     GameTerminal.h
+=======
+    Astar.h \
+    Node.h
+>>>>>>> d2517969aeaa92e85674bf3c9f155ad990cc13e2
 
 FORMS +=
 
