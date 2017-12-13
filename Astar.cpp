@@ -17,24 +17,25 @@ void Astar::smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
                        std::shared_ptr<Node> newNode)
 {
     std::vector<std::shared_ptr<Node>>::iterator it =
-            std::lower_bound(aVector.begin(),aVector.end(),
+            std::lower_bound(aVector.end(),aVector.begin(),
                              newNode,AstarCompare);
     aVector.insert(it,newNode);
 }
 
 void Astar::find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
-                     std::vector<std::unique_ptr<Tile> > &tiles,
-                     int world_rows, int world_cols)
+                      const std::vector<std::unique_ptr<Tile>> &tiles,
+                      const int &world_rows, const int &world_cols)
 {
     isDone = false;
     bool goalReached = false;
     int offset = world_cols*2 - 1;          //used in find successorNodes
 
+    std::vector<std::shared_ptr<Node>> allNodes(world_cols*world_rows);
     for(int i = 0; i < world_rows; i++) {
         for(int j = 0; j < world_cols; j++) {
             auto newNode = std::make_shared<Node>(j,i);
             newNode->setTileIndex(newNode->getPos_x() + newNode->getPos_y()* world_cols);
-            allNodes.push_back(newNode);
+            allNodes[j+i*world_cols]=newNode;
         }
     }
 
@@ -47,7 +48,7 @@ void Astar::find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
     auto currentNode = rootNode;
     open.push_back(rootNode);
 
-//    int k =0;
+
     while(!open.empty()) {
         currentNode = open.back();  //pop from the back
         open.pop_back();         //remove currentNode from open list
@@ -55,7 +56,6 @@ void Astar::find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
         int currentP_x = currentNode->getPos_x();
         int currentP_y = currentNode->getPos_y();
 
-//        std::cout<<"--->current node: ("<<currentP_x<<","<<currentP_y<<")["<<currentNode->getGivenCost()<<"]<---"<<std::endl;
 
         if(currentP_x == goalP_x && currentP_y == goalP_y) {
             while(currentNode != nullptr)
@@ -112,36 +112,31 @@ void Astar::find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
                 }
 
 
-//                std::cout<<std::endl;
-//               std::cout<<"***************"<<std::endl;
-
                 allNodes[currentP_index]->setIsInOpen(true);
                 smartInsert(open,successorNode);
-//                k++;
+
                 NextPoint:
                 continue;
             }
         }
-                closed.push_back(currentNode);
                 allNodes[currentNode->getTileIndex()]->setIsInClosed(true);
-//                if (k>30) break;
     }
     if(goalReached) {
         std::cout<<"solution found!"<<std::endl;
-        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
-        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
-        while(!solution.empty())
-        {
-            auto printNode = solution.back();
-            std::cout<<"-> ("<<printNode->getPos_x()<<","<<printNode->getPos_y()<<") ["<<printNode->getHcost()
-                    <<"] ["<<printNode->getGivenCost()<<"] {"<<printNode->getTotalCost()<<"}"<<std::endl;
-            solution.pop_back();
-        }
+//        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
+//        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
+//        while(!solution.empty())
+//        {
+//            auto printNode = solution.back();
+//            std::cout<<"-> ("<<printNode->getPos_x()<<","<<printNode->getPos_y()<<") ["<<printNode->getHcost()
+//                    <<"] ["<<printNode->getGivenCost()<<"] {"<<printNode->getTotalCost()<<"}"<<std::endl;
+//            solution.pop_back();
+//        }
     }
     else {
         std::cout<<"the given goal point is unreachable!"<<std::endl;
-        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
-        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
+//        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
+//        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
     }
     isDone = true;
     return;

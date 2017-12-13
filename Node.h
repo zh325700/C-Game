@@ -12,7 +12,7 @@ public:
     Node(int apos_x, int apos_y);
 
     void computeHeuristic(const int &goalP_x, const int &goalP_y);
-    void computeGivenCost(std::vector<std::unique_ptr<Tile> > &tiles);
+    void computeGivenCost(const std::vector<std::unique_ptr<Tile> > &tiles);
     void computeTotalCost(const int &goalP_x, const int &goalP_y, const std::vector<std::unique_ptr<Tile> > &tiles);
 
     std::shared_ptr<Node> getParent() const;

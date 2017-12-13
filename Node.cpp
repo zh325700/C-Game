@@ -41,7 +41,7 @@ void Node::computeHeuristic(const int &goalP_x, const int &goalP_y)
     this->setHcost(cost);
 }
 
-void Node::computeGivenCost(std::vector<std::unique_ptr<Tile> > &tiles)
+void Node::computeGivenCost(const std::vector<std::unique_ptr<Tile> > &tiles)
 {
     std::shared_ptr<Node> parentNode = this -> getParent();
     float oneStepCost = 0.0;
