@@ -9,16 +9,6 @@ class Node
 {
 public:
 
-    int pos_x;
-    int pos_y;
-    int hcost;
-    int tileIndex;
-    float givenCost;
-    bool isInOpen;
-    bool isInClosed;
-    float totalCost;
-    std::shared_ptr<Node> parent;
-
     Node(int apos_x, int apos_y);
 
     void computeHeuristic(const int &goalP_x, const int &goalP_y);
@@ -43,6 +33,18 @@ public:
     void setIsInClosed(bool value);
     float getTotalCost() const;
     void setTotalCost(float value);
+
+private:
+
+    int pos_x;
+    int pos_y;
+    int hcost;
+    int tileIndex;
+    float givenCost;
+    bool isInOpen;
+    bool isInClosed;
+    float totalCost;
+    std::shared_ptr<Node> parent;
 };
 
 #endif // NODE_H
