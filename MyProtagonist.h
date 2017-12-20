@@ -17,7 +17,7 @@ public:
     void keyPressEvent(QKeyEvent * event);
     float getNextSpotValue(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
     void decreaseHealth(float healthCost);
-    void recoverHealth();
+    void recoverHealth(float health);
     void recoverEnergy();
     MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
 
@@ -38,6 +38,8 @@ public slots:
 private :
     int sizeOfTile;
     float stepCost;
+    int graphicX=0;
+    int graphicY=0;
 
 };
 

@@ -88,6 +88,7 @@ Game::Game(QWidget *parent)
          int x=aEnemy->getXPos();
          int y=aEnemy->getYPos();
          QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
     }
 
     //add pEnemies to the scene and connect
@@ -151,6 +152,16 @@ void Game::deletePnemy()
         delete deadPenemy;
     }
 
+}
+
+void Game::deleteEnemy()
+{
+
+    if(myModel->getWhichView()){
+        MyEnemy *obj =(MyEnemy *) sender();
+        scene->removeItem(obj);
+        delete obj;
+    }
 }
 
 int Game::getMultipleSizeOfCircle() const

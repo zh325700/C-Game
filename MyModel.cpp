@@ -65,3 +65,13 @@ MyModel::~MyModel()
 
 }
 
+bool MyModel::getWhichView() const
+{
+    return whichView;
+}
+
+void MyModel::setWhichView(bool value)
+{
+    whichView = value;
+}
+

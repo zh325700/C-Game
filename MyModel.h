@@ -23,6 +23,11 @@ public:
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
+    bool getWhichView() const;
+    void setWhichView(bool value);
+
+private:
+    bool whichView = false;
 
 };
 

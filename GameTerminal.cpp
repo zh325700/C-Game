@@ -30,7 +30,8 @@ GameTerminal::GameTerminal(QWidget *parent) :
     connect(lineEdit,&QLineEdit::returnPressed,this,&GameTerminal::onEnter);
 
     for(auto& ene:myEnemies){
-            connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
+           // connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
+            QObject::connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
     }
 
     for(auto& pene:myPEnemies){
@@ -744,6 +745,7 @@ void GameTerminal::onEnter()
 
 void GameTerminal::enemyDead()
 {
+    qDebug()<<"xuqingjie paole";
     output->appendPlainText(">> Congratulations! You has defeated one enemy!");
     MyEnemy* obj = (MyEnemy*) sender();
     aw.at(obj->getYPos()*col+obj->getXPos())->setValue(std::numeric_limits<float>::infinity());

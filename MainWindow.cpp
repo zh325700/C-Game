@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget * parent):
         myModel = new MyModel();
         game = new Game();
         gameTerminal = new GameTerminal();
+        switch_button = new QPushButton("Switch View", this);
 
 
         //create a Horizontal layout to put health and energy
@@ -36,7 +37,7 @@ MainWindow::MainWindow(QWidget * parent):
 
         //create GroupBox to contain all the label and value
         healthgroup = new QGroupBox("Health show");
-        layoutStatistic = new QHBoxLayout(healthgroup);
+        layoutStatistic = new QVBoxLayout(healthgroup);
         layoutStatistic->addWidget(healthLabel);
         layoutStatistic->addWidget(healthValue);
         layoutStatistic->addWidget(energyLable);
@@ -44,11 +45,15 @@ MainWindow::MainWindow(QWidget * parent):
 
         //layout->addWidget(game);
         layout->addWidget(gameTerminal);
+        layout->addWidget(game);
+        game->hide();
         layout->addWidget(healthgroup);
+        layout->addWidget(switch_button);
 
-//        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
-//        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
-//        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+        connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
+        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
+        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
 
 
 }
@@ -62,8 +67,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::refreshEandH()
 {
-   // healthValue->setText(QString::number(game->myProtagonist->getHealth()));
-   // energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
+    healthValue->setText(QString::number(game->myProtagonist->getHealth()));
+    energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
 }
 
 void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
@@ -74,14 +79,28 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
                                    QMessageBox::Yes | QMessageBox::No);
     switch (result) {
     case QMessageBox::Yes:
-       // delete game;
-        //game = new Game();
-        //layout->addWidget(game);
+        delete game;
+        game = new Game();
+        layout->addWidget(game);
         break;
     case QMessageBox::No:
         close();
         break;
     default:
         break;
+    }
+}
+
+void MainWindow::handleButton()
+{
+    myModel->setWhichView(!myModel->getWhichView());
+    bool whichView = myModel->getWhichView();
+    if(whichView){
+        gameTerminal->hide();
+        game->show();
+    }
+    else{
+        gameTerminal->show();
+        game->hide();
     }
 }

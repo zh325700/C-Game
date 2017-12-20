@@ -4,6 +4,7 @@
 #include <QBrush>
 #include <QRect>
 
+
 MyTile::MyTile(int xPosition, int yPosition, float tileWeight):
     Tile(xPosition, yPosition, tileWeight)
 {

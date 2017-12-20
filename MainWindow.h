@@ -1,12 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
 #include <QGroupBox>
 #include <QMessageBox>
+#include <QPushButton>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -29,7 +31,7 @@ public:
     QLabel * energyLable;
     QLineEdit* energyValue;
     QGroupBox* healthgroup;
-    QHBoxLayout* layoutStatistic;
+    QVBoxLayout* layoutStatistic;
 
 
     //new added
@@ -45,6 +47,13 @@ public:
 public slots:
     void refreshEandH();
     void restartTheGame();
+
+private slots:
+   void handleButton();
+
+private:
+    QPushButton *switch_button;
+
 };
 
 #endif // MAINWINDOW_H

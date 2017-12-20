@@ -40,6 +40,7 @@ public:
 public slots:
     void drawPoinsonCircle();
     void deletePnemy();
+    void deleteEnemy();
 
 private:
     int multipleSizeOfCircle;
