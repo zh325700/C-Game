@@ -7,3 +7,8 @@ MyPEnemy::MyPEnemy(int xPosition, int yPosition, float strength):
     this->setPos(xPosition*sizeOfTile,yPosition*sizeOfTile);
     setPixmap(QPixmap(":/images/icons/penemy.png"));
 }
+
+//MyPEnemy::~PEnemy()
+//{
+
+//}

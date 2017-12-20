@@ -128,8 +128,8 @@ void Game::drawPoinsonCircle()
 {
     //add one circle to the scene the x,y is based on protagoinist current position
     setMultipleSizeOfCircle(2);
-    int xCircle = myProtagonist->getXPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile() ;
-    int yCircle = myProtagonist->getYPos() - multipleSizeOfCircle*myProtagonist->getSizeOfTile();
+    int xCircle = myProtagonist->getXPos()*myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myProtagonist->getSizeOfTile() ;
+    int yCircle = myProtagonist->getYPos()*myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myProtagonist->getSizeOfTile();
     float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myProtagonist->getSizeOfTile();
     float heightOfCircle = widthOfCircle;
 
