@@ -151,6 +151,8 @@ void Game::deletePnemy()
     //    scene->removeItem(ellipse);
         delete deadPenemy;
     }
+    scene->removeItem(ellipse);
+
 
 }
 

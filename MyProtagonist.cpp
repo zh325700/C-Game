@@ -14,7 +14,7 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     QGraphicsPixmapItem(parent),Protagonist()
 {
     setSizeOfTile(20);
-    setStepCost(0.0);
+    setStepCost(0.05);
     //set the origin position of protahonist
     this->graphicX = xPos*getSizeOfTile();
     this->graphicY = yPos*getSizeOfTile();
@@ -162,7 +162,7 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
 //        qDebug()<<"collid item: "<<typeid(*colliding_items[i]);
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
         if(aCircle){
-                this->setHealth(this->getHealth()-poisonValue/1000);
+                this->setHealth(this->getHealth()-poisonValue/100);
         }
     }
 }

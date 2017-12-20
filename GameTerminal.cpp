@@ -428,7 +428,6 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
             else{
                 user->setEnergy(0.0f);
                 user->Protagonist::setPos((user->getXPos()-speed),user->getYPos());
-                uDead();
             }
         if(addHealth(user->getXPos(),user->getYPos())){
             health = "Congratulations! You get a health pack!\n";
