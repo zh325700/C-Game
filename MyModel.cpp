@@ -100,18 +100,3 @@ void MyModel::setWhichView(bool value)
     whichView = value;
 }
 
-void MyModel::checkHealth()
-    {
-        if(myProtagonist == 0){
-            emit myProtagonist->protagonistDead();
-        }
-    }
-
-    void MyModel::checkEnergy()
-    {
-        if(myProtagonist->getEnergy() == 0){
-            emit myProtagonist->protagonistDead();
-        }
-    }
-
-

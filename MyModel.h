@@ -11,17 +11,14 @@
 #include "Game.h"
 
 
-class MyModel : public QWidget
+class MyModel
 {
-    Q_OBJECT
-
 public:
-    MyModel(QWidget *parent = 0);
+    MyModel();
     ~MyModel();
 
     int cols;
     int rows;
-    float costOfStep = 0.0f;
     MyProtagonist *myProtagonist;
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};
@@ -29,11 +26,6 @@ public:
     std::vector<HealthPack *> myHealthPacks ={};
     bool getWhichView() const;
     void setWhichView(bool value);
-
-public slots:
-    //terminal used to show protagonist dead
-    void checkHealth();
-    void checkEnergy();
 
 private:
     bool whichView = false;

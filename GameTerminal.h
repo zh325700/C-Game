@@ -35,15 +35,14 @@ public:
     void init();  //inite the help string and other string
     void initWorld();  //init world image
     void setupLayout();  //set up layout
-    bool addHealth(int x, int y);
 
     //check enemy warning
     void moveEnemy();
+    bool moveHealth(int x, int y);
+
     //terminal check movable
     bool movePos(QString direction);
     bool movenoWall(QString direction);
-    float totalEnergy(QString direction);
-    bool moveEnergy(QString direction);
 
     //response for command
     void findAllEnemy();
@@ -55,16 +54,12 @@ public:
     //event for keyboard
     void keyPressEvent(QKeyEvent *event);
 
-signals:
-    void penemyDefeating();
-
 public slots:
     void onEnter();
-    void enemyDead();
-    void penemyDead();
-    void poisonUser();
+    void encouterEn();
+    void encounterPEn();
+    void encouterHe();
     void checkNewPos();
-    void cannotmove(QString reason);
 
 private:
     //layout
