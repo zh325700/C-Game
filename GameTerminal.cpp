@@ -603,7 +603,7 @@ void GameTerminal::checkNewPos()
             user->setHealth(user->getHealth()-enemy->getValue());
             user->setEnergy(100.00f);
             aw.at(col*enemy->getYPos()+enemy->getXPos())->setValue(std::numeric_limits<float>::infinity());
-            //emit user->encounterPenemy();
+           // emit myModel->myProtagonist->encounterPenemy();
             }
             else{
                 user->setHealth(0.0f);
@@ -623,14 +623,14 @@ void GameTerminal::checkNewPos()
 void GameTerminal::checkHealth()
 {
     if(user->getHealth() == 0){
-        emit user->protagonistDead();
+        emit myModel->myProtagonist->protagonistDead();
     }
 }
 
 void GameTerminal::checkEnergy()
 {
     if(user->getEnergy() == 0){
-        emit user->protagonistDead();
+        emit myModel->myProtagonist->protagonistDead();
     }
 }
 

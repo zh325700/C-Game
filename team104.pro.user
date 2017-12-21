@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.4.1, 2017-12-20T23:50:40. -->
-=======
-<!-- Written by QtCreator 4.4.0, 2017-12-20T23:50:03. -->
->>>>>>> 95f77bbab5240e911e5ed1661cd85afb142f2192
+<!-- Written by QtCreator 4.4.1, 2017-12-21T04:54:15. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -314,11 +310,7 @@
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">team104.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
-<<<<<<< HEAD
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">/home/qingjie/MProcessing/Han/build-team104-Desktop_Qt_5_9_2_GCC_64bit-Debug</value>
-=======
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">/home/han/Desktop/Cpp/project/build-team104-Desktop_Qt_5_9_1_GCC_64bit-Debug</value>
->>>>>>> 95f77bbab5240e911e5ed1661cd85afb142f2192
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
