@@ -1,7 +1,6 @@
 #ifndef GAMETERMINAL_H
 #define GAMETERMINAL_H
 
-
 #include <QMainWindow>
 #include <QWidget>
 #include <QHBoxLayout>
@@ -17,7 +16,6 @@
 #include <typeinfo>
 #include <QtMath>
 
-
 #include "world.h"
 #include "MyEnemy.h"
 #include "MyTile.h"
@@ -26,9 +24,6 @@
 #include "MyProtagonist.h"
 
 using namespace std;
-//namespace Ui {
-//class MainWindow;
-//}
 
 class GameTerminal : public QWidget
 {
@@ -40,14 +35,12 @@ public:
     void init();  //inite the help string
     void initWorld();  //init world image
     void setupLayout();  //set up layout
-    void uDead();
- //   void newGame();
     bool addHealth(int x, int y);
 
     //check movable
     bool movePos(QString direction);
     bool movenoWall(QString direction);
-    bool moveEnemy(QString direction);
+    void moveEnemy();
     float totalEnergy(QString direction);
     bool moveEnergy(QString direction);
 
@@ -69,12 +62,14 @@ public slots:
     void enemyDead();
     void penemyDead();
     void poisonUser(float newLevel);
+    void checkNewPos();
+    void checkHealth();
+    void checkEnergy();
    // void userDead();
 
 private:
     //layout
     QLineEdit *lineEdit;
-    QLabel *indicator;
     QPlainTextEdit *output;
     std::vector<QString> inputs={};
     int inputPosition = 0;
@@ -82,8 +77,6 @@ private:
     //world
     int row;
     int col;
-    int nrEnemies=5;
-    int nrPacks = 5;
     std::vector<MyTile *> aw={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
@@ -100,10 +93,6 @@ private:
      QString existEnemy;
      QString noEnergy;
      int costOfStep = 0;
-
-     //user
-     int speed = 1;
-
 };
 
 
