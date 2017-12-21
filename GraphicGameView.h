@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GraphicGameView_H
+#define GraphicGameView_H
 
 #include <QGraphicsView>
 #include <QWidget>
@@ -17,12 +17,12 @@
 #include "world.h"
 #include "MyModel.h"
 
-class Game: public QGraphicsView{
+class GraphicGameView: public QGraphicsView{
     Q_OBJECT
     //give game referance to scene,player,score,health
 public:
-    Game(QWidget * parent=0);
-    ~Game();
+    GraphicGameView(QWidget * parent=0);
+    ~GraphicGameView();
     QGraphicsScene * scene;
 //    MyEnemy *myEnemy;
     QGraphicsEllipseItem *ellipse;
@@ -46,4 +46,4 @@ private:
     int multipleSizeOfCircle;
 };
 
-#endif // GAME_H
+#endif // GraphicGameView_H

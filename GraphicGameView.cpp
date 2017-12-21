@@ -13,7 +13,7 @@
 #include <QMediaPlayer>
 #include <QGraphicsScene>
 
-#include "Game.h"
+#include "GraphicGameView.h"
 #include "Graphics_view_zoom.h"
 #include "MainWindow.h"
 
@@ -26,7 +26,7 @@
 
 extern MyModel *myModel;
 
-Game::Game(QWidget *parent)
+GraphicGameView::GraphicGameView(QWidget *parent)
 {
 
 
@@ -80,12 +80,23 @@ Game::Game(QWidget *parent)
     scene->addItem(this->myProtagonist);
 
 
-    //connect enemy signal to Tile slot
+    //make signal and slot connect of Enemies
+    for(auto &aEnemy:this->myEnemies){
+         int x=aEnemy->getXPos();
+         int y=aEnemy->getYPos();
+         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
+    }
 
-
-    //add pEnemies to the scene and connect
-
-
+    //make signal and slot connect of Penemies
+    for(auto &aPEnemy:this->myPEnemies){
+         int x=aPEnemy->getXPos();
+         int y=aPEnemy->getYPos();
+         QObject::connect(aPEnemy,SIGNAL(dead()),this->myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
+         QObject::connect(this->myProtagonist,&MyProtagonist::encounterPenemy,this,&GraphicGameView::drawPoinsonCircle);
+         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
+    }
 
     //add auto zoom in and out
     Graphics_view_zoom* z = new Graphics_view_zoom(this);
@@ -104,12 +115,12 @@ Game::Game(QWidget *parent)
     music->play();
 }
 
-Game::~Game()
+GraphicGameView::~GraphicGameView()
 {
     // delete all memories
 }
 
-void Game::drawPoinsonCircle()
+void GraphicGameView::drawPoinsonCircle()
 {
     //add one circle to the scene the x,y is based on protagoinist current position
     setMultipleSizeOfCircle(2);
@@ -127,13 +138,12 @@ void Game::drawPoinsonCircle()
     scene->addItem(ellipse);
 }
 
-void Game::deletePnemy()
+void GraphicGameView::deletePnemy()
 {
     QObject* obj = sender();
     MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
     if(deadPenemy){
         scene->removeItem(deadPenemy);
-    //    scene->removeItem(ellipse);
         delete deadPenemy;
     }
     scene->removeItem(ellipse);
@@ -141,7 +151,7 @@ void Game::deletePnemy()
 
 }
 
-void Game::deleteEnemy()
+void GraphicGameView::deleteEnemy()
 {
 
     if(myModel->getWhichView()){
@@ -151,12 +161,12 @@ void Game::deleteEnemy()
     }
 }
 
-int Game::getMultipleSizeOfCircle() const
+int GraphicGameView::getMultipleSizeOfCircle() const
 {
     return multipleSizeOfCircle;
 }
 
-void Game::setMultipleSizeOfCircle(int value)
+void GraphicGameView::setMultipleSizeOfCircle(int value)
 {
     multipleSizeOfCircle = value;
 }

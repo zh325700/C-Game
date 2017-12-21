@@ -5,10 +5,10 @@
 #include <QDebug>
 
 #include "MyProtagonist.h"
-#include "Game.h"
+#include "GraphicGameView.h"
 
 
-extern Game *game;
+extern GraphicGameView *graphicGameView;
 
 MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     QGraphicsPixmapItem(parent),Protagonist()
@@ -29,35 +29,31 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
 void MyProtagonist::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left){
-        if (xPos > 0 && !isinf(getNextSpotValue(xPos-1,yPos,game->myTilesMap,game->cols)))
+        if (xPos > 0 && !isinf(getNextSpotValue(xPos-1,yPos,graphicGameView->myTilesMap,graphicGameView->cols)))
         {
             Protagonist::setPos(xPos-1,yPos);
-            Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
         }
     }
     else if (event->key() == Qt::Key_Right){
-        if(!isinf(getNextSpotValue(xPos+1,yPos,game->myTilesMap,game->cols))
-                &&xPos<game->cols){   // 800 and 20 should be changeble with the size of the tile
+        if(!isinf(getNextSpotValue(xPos+1,yPos,graphicGameView->myTilesMap,graphicGameView->cols))
+                &&xPos<graphicGameView->cols){   // 800 and 20 should be changeble with the size of the tile
             Protagonist::setPos(xPos+1,yPos);
-            Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
         }
     }
     else if(event->key()== Qt::Key_Up){
-        if(yPos >0 && !isinf(getNextSpotValue(xPos,yPos-1,game->myTilesMap,game->cols))){
+        if(yPos >0 && !isinf(getNextSpotValue(xPos,yPos-1,graphicGameView->myTilesMap,graphicGameView->cols))){
             Protagonist::setPos(xPos,yPos-1);
-            Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
         }
     }
     else if(event->key() == Qt::Key_Down){
-        if(!isinf(getNextSpotValue(xPos,yPos+1,game->myTilesMap,game->cols))
-                &&yPos<game->rows){
+        if(!isinf(getNextSpotValue(xPos,yPos+1,graphicGameView->myTilesMap,graphicGameView->cols))
+                &&yPos<graphicGameView->rows){
             Protagonist::setPos(xPos,yPos+1);
-            Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
         }
     }
     else if(event->key() == Qt::Key_Space){
         this->setFocus();
-        game->centerOn(this);
+        graphicGameView->centerOn(this);
     }
 }
 
@@ -72,7 +68,7 @@ void MyProtagonist::moveToNextSpot()
     graphicX = xPos*getSizeOfTile();
     graphicY = yPos*getSizeOfTile();
     QGraphicsItem::setPos(graphicX,graphicY);
-    game->centerOn(this);
+    graphicGameView->centerOn(this);
 }
 
 void MyProtagonist::decreaseHealth(float healthCost)
@@ -103,6 +99,8 @@ MyTile *MyProtagonist::getTileByXY(int x, int y, std::vector<MyTile *> &myTiles,
 
 void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
     // get a list of all items colliding with attack_area
+    Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
+
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
 
             for (size_t i = 0, n = colliding_items.size(); i < n; i++){
@@ -113,25 +111,26 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                 if (aMyenemy){
                      qDebug() << "Enemy strength: " <<aMyenemy->getValue();
                      // If encounter with enemy,kill, decrease health,set black
+                    emit encounterEnemy();
                     decreaseHealth(aMyenemy->getValue());
                     recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),game->myTilesMap,game->cols)->setValue(std::numeric_limits<float>::infinity());
+                    this->getTileByXY(this->getXPos(),this->getYPos(),graphicGameView->myTilesMap,graphicGameView->cols)->setValue(std::numeric_limits<float>::infinity());
                     aMyenemy->setDefeated(true);   //set defeated then emit dead()
-//                    game->scene->removeItem(aMyenemy);
-//                    delete aMyenemy;
+
                 }
                 else if(aPenemy){
                     qDebug() << "PEnemy strength: " <<aPenemy->getValue();
+                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                     decreaseHealth(aPenemy->getValue());
                     recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),game->myTilesMap,game->cols)->setValue(std::numeric_limits<float>::infinity());
+                    this->getTileByXY(this->getXPos(),this->getYPos(),graphicGameView->myTilesMap,graphicGameView->cols)->setValue(std::numeric_limits<float>::infinity());
                     QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
-                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                     qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();
                 }
                 else if(aHealthPack){
+                    emit encounterHealthPack();
                     recoverHealth(aHealthPack->getValue());
-                    game->scene->removeItem(aHealthPack);
+                    graphicGameView->scene->removeItem(aHealthPack);
                     delete aHealthPack;
                 }
                 else if(aMyTile){

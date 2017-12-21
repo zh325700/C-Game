@@ -1,7 +1,6 @@
 #ifndef GAMETERMINAL_H
 #define GAMETERMINAL_H
 
-
 #include <QMainWindow>
 #include <QWidget>
 #include <QHBoxLayout>
@@ -17,7 +16,6 @@
 #include <typeinfo>
 #include <QtMath>
 
-
 #include "world.h"
 #include "MyEnemy.h"
 #include "MyTile.h"
@@ -26,9 +24,6 @@
 #include "MyProtagonist.h"
 
 using namespace std;
-//namespace Ui {
-//class MainWindow;
-//}
 
 class GameTerminal : public QWidget
 {
@@ -37,19 +32,17 @@ class GameTerminal : public QWidget
 public:
     explicit GameTerminal(QWidget *parent = 0);
     ~GameTerminal();
-    void init();  //inite the help string
+    void init();  //inite the help string and other string
     void initWorld();  //init world image
     void setupLayout();  //set up layout
-    void uDead();
- //   void newGame();
-    bool addHealth(int x, int y);
 
-    //check movable
+    //check enemy warning
+    void moveEnemy();
+    bool moveHealth(int x, int y);
+
+    //terminal check movable
     bool movePos(QString direction);
     bool movenoWall(QString direction);
-    bool moveEnemy(QString direction);
-    float totalEnergy(QString direction);
-    bool moveEnergy(QString direction);
 
     //response for command
     void findAllEnemy();
@@ -61,34 +54,31 @@ public:
     //event for keyboard
     void keyPressEvent(QKeyEvent *event);
 
-signals:
-    void penemyDefeating();
-
 public slots:
     void onEnter();
+    void encouterEn();
+    void encounterPEn();
+    void encouterHe();
+    void checkNewPos();
     void enemyDead();
     void penemyDead();
-    void poisonUser(float newLevel);
-   // void userDead();
+    void poisonUser();
 
 private:
     //layout
     QLineEdit *lineEdit;
-    QLabel *indicator;
     QPlainTextEdit *output;
     std::vector<QString> inputs={};
     int inputPosition = 0;
 
     //world
-    int row;
-    int col;
-    int nrEnemies=5;
-    int nrPacks = 5;
-    std::vector<MyTile *> aw={};
+    int rows;
+    int cols;
+    std::vector<MyTile *> myTilesMap={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-    MyProtagonist * user;
+    MyProtagonist * myProtagonist;
     //MyProtagonist *myProtagonist;
 
     //hints string
@@ -97,13 +87,8 @@ private:
      QString helpText;
      QString boundary;
      QString existwall;
-     QString existEnemy;
      QString noEnergy;
      int costOfStep = 0;
-
-     //user
-     int speed = 1;
-
 };
 
 

@@ -27,7 +27,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     MyEnemy.cpp \
-    Game.cpp \
     MyProtagonist.cpp \
     MyTile.cpp \
     MyPEnemy.cpp \
@@ -37,11 +36,11 @@ SOURCES += \
     MyModel.cpp \
     GameTerminal.cpp\
     Astar.cpp \
-    Node.cpp
+    Node.cpp \
+    GraphicGameView.cpp
 
 HEADERS += \
     MyEnemy.h \
-    Game.h \
     MyProtagonist.h \
     MyTile.h \
     MyPEnemy.h \
@@ -51,7 +50,8 @@ HEADERS += \
     MyModel.h \
     GameTerminal.h\
     Astar.h \
-    Node.h
+    Node.h \
+    GraphicGameView.h
 
 FORMS +=
 
