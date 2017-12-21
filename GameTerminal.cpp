@@ -27,9 +27,9 @@ GameTerminal::GameTerminal(QWidget *parent) :
                              "    you can enter 'help' to get manual at any time");
 
     connect(lineEdit,&QLineEdit::returnPressed,this,&GameTerminal::onEnter);
-    connect(user,&MyProtagonist::posChanged,this,&GameTerminal::checkNewPos);
-    connect(user,&MyProtagonist::healthChanged,this,&GameTerminal::checkHealth);
-    connect(user,&MyProtagonist::energyChanged,this,&GameTerminal::checkEnergy);
+    connect(myProtagonist,&MyProtagonist::posChanged,this,&GameTerminal::checkNewPos);
+//    connect(myProtagonist,&MyProtagonist::healthChanged,this,&GameTerminal::checkHealth);
+//    connect(myProtagonist,&MyProtagonist::energyChanged,this,&GameTerminal::checkEnergy);
 
     for(auto& ene:myEnemies){
            // connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
@@ -56,21 +56,19 @@ void GameTerminal::init()
                "'show all health packs' find all health packs \n"
                "use 'a,w,s,d' in the keyboard to control the movement \n"
                "you can enter 'help' to get manual at any time";
-
-        boundary = "You are moving out of boundary\n";
-        existwall = "There is wall blocking your way, you cannot move in this direction\n";
-        existEnemy = "There are enemies in the way, you cannot move\n";
+    boundary = "You are moving out of boundary\n";
+    existwall = "There is wall blocking your way, you cannot move in this direction\n";
 }
 
 void GameTerminal::initWorld()
 {
-    aw = myModel->myTilesMap;
+    myTilesMap = myModel->myTilesMap;
     myEnemies = myModel->myEnemies;
     myPEnemies = myModel->myPEnemies;
     myHealthPacks = myModel->myHealthPacks;
-    user = myModel->myProtagonist;
-    row = myModel->rows;
-    col = myModel->cols;
+    myProtagonist = myModel->myProtagonist;
+    rows = myModel->rows;
+    cols = myModel->cols;
 
 }
 
@@ -101,24 +99,39 @@ void GameTerminal::setupLayout(){
     mainLayout->addWidget(group);
 }
 
-bool GameTerminal::addHealth(int x, int y)
+void GameTerminal::moveEnemy()
 {
-    bool isHealth = false;
-
-    for (std::vector< HealthPack* >::iterator healthPack = myHealthPacks.begin() ; healthPack != myHealthPacks.end(); ++healthPack){
-        if(((*healthPack)->getXPos() == x)&&((*healthPack)->getYPos() == y)){
-            if(user->getHealth()+(*healthPack)->getValue() >= 100){
-                user->setHealth(100.00f);
-            }
-            else{
-                user->setHealth(user->getHealth()+(*healthPack)->getValue());
-            }
-            isHealth = true;
-            delete (*healthPack);
+    for(auto &enemy : myEnemies){
+        QString strength = QString::number(enemy->getValue());
+        if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+            output->appendPlainText("   Warning: there is a normal enemy on your left, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos()+1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+            output->appendPlainText("   Warning: there is a normal enemy on your right, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()-1)){
+            output->appendPlainText("   Warning: there is a normal enemy above you, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()+1)){
+            output->appendPlainText("   Warning: there is a normal enemy below you, whose strength is "+strength);
         }
     }
 
-    return isHealth;
+    for(auto &enemy : myPEnemies){
+        QString strength = QString::number(enemy->getValue());
+        if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+            output->appendPlainText("   Warning: there is a poison enemy on your left, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos()+1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+            output->appendPlainText("   Warning: there is a poison enemy on your right, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()-1)){
+            output->appendPlainText("   Warning: there is a poison enemy above you, whose strength is "+strength);
+        }
+        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()+1)){
+            output->appendPlainText("   Warning: there is a poison enemy below you, whose strength is "+strength);
+        }
+    }
 }
 
 bool GameTerminal::movePos(QString direction)
@@ -126,22 +139,22 @@ bool GameTerminal::movePos(QString direction)
     bool pos = false;
 
     if(direction == "left"){
-        if((user->getXPos() - 1)>=0){
+        if((myProtagonist->getXPos() - 1)>=0){
             pos = true;
         }
     }
     else if(direction=="right"){
-        if((col-1) >= (user->getXPos() + 1)){
+        if((cols-1) >= (myProtagonist->getXPos() + 1)){
             pos = true;
         }
     }
     else if(direction=="up"){
-        if((user->getYPos() - 1) >= 0){
+        if((myProtagonist->getYPos() - 1) >= 0){
             pos = true;
         }
     }
     else if(direction=="down"){
-        if((row-1) >= (user->getYPos() + 1)){
+        if((rows-1) >= (myProtagonist->getYPos() + 1)){
             pos = true;
         }
     }
@@ -155,7 +168,7 @@ bool GameTerminal::movenoWall(QString direction)
 
     if(direction=="left"){
         if(movePos(direction)){
-            if(isinf(aw.at(user->getYPos()*col+user->getXPos()-1)->getValue())){
+            if(isinf(myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()-1)->getValue())){
                 noWall = false;
             }
         }
@@ -163,7 +176,7 @@ bool GameTerminal::movenoWall(QString direction)
 
     else if(direction=="right"){
         if(movePos(direction)){
-            if(isinf(aw.at(user->getYPos()*col+user->getXPos()+1)->getValue())){
+            if(isinf(myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()+1)->getValue())){
                     noWall = false;
             }
         }
@@ -171,7 +184,7 @@ bool GameTerminal::movenoWall(QString direction)
 
     else if(direction=="up"){
         if(movePos(direction)){
-            if(isinf(aw.at((user->getYPos()-1)*col+user->getXPos())->getValue())){
+            if(isinf(myTilesMap.at((myProtagonist->getYPos()-1)*cols+myProtagonist->getXPos())->getValue())){
                 noWall = false;
             }
         }
@@ -179,96 +192,13 @@ bool GameTerminal::movenoWall(QString direction)
 
     else if(direction=="down"){
         if(movePos(direction)){
-            if(isinf(aw.at((user->getYPos()+1)*col+user->getXPos())->getValue())){
+            if(isinf(myTilesMap.at((myProtagonist->getYPos()+1)*cols+myProtagonist->getXPos())->getValue())){
                 noWall = false;
             }
         }
     }
 
     return noWall;
-}
-
-void GameTerminal::moveEnemy()
-{
-    for(auto &enemy : myEnemies){
-        QString strength = QString::number(enemy->getValue());
-        if((enemy->getXPos() == user->getXPos()-1)&&(enemy->getYPos() == user->getYPos())){
-            output->appendPlainText("   Warning: there is a normal enemy on your left, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos()+1)&&(enemy->getYPos() == user->getYPos())){
-            output->appendPlainText("   Warning: there is a normal enemy on your right, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()-1)){
-            output->appendPlainText("   Warning: there is a normal enemy above you, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()+1)){
-            output->appendPlainText("   Warning: there is a normal enemy below you, whose strength is "+strength);
-        }
-    }
-
-    for(auto &enemy : myPEnemies){
-        QString strength = QString::number(enemy->getValue());
-        if((enemy->getXPos() == user->getXPos()-1)&&(enemy->getYPos() == user->getYPos())){
-            output->appendPlainText("   Warning: there is a poison enemy on your left, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos()+1)&&(enemy->getYPos() == user->getYPos())){
-            output->appendPlainText("   Warning: there is a poison enemy on your right, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()-1)){
-            output->appendPlainText("   Warning: there is a poison enemy above you, whose strength is "+strength);
-        }
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()+1)){
-            output->appendPlainText("   Warning: there is a poison enemy below you, whose strength is "+strength);
-        }
-    }
-}
-
-float GameTerminal::totalEnergy(QString direction)
-{
-    float sum = 0;
-
-    if(direction=="left"){
-        if(movePos(direction)){
-            sum = abs(aw.at(user->getYPos()*col+user->getXPos()-1)->getValue()-aw.at(user->getYPos()*col+user->getXPos())->getValue());
-        }
-    }
-    else if(direction=="right"){
-        if(movePos(direction)){
-            sum = abs(aw.at(user->getYPos()*col+user->getXPos()+1)->getValue()-aw.at(user->getYPos()*col+user->getXPos())->getValue());
-        }
-    }
-
-    else if(direction=="up"){
-        if(movePos(direction)){
-            sum = abs(aw.at((user->getYPos()-1)*col+user->getXPos())->getValue()-aw.at((user->getYPos())*col+user->getXPos())->getValue());
-        }
-    }
-
-    else if(direction=="down"){
-        if(movePos(direction)){
-            sum = abs(aw.at((user->getYPos()+1)*col+user->getXPos())->getValue()-aw.at((user->getYPos())*col+user->getXPos())->getValue());
-        }
-    }
-
-    if(sum == std::numeric_limits<float>::infinity()){
-        sum = 0;
-    }
-
-    sum = sum + costOfStep;
-
-    return sum;
-}
-
-bool GameTerminal::moveEnergy(QString direction)
-{
-    bool gEnergy = true;
-
-    if(totalEnergy(direction) > user->getEnergy()){
-        gEnergy = false;
-
-    }
-
-    return gEnergy;
 }
 
 void GameTerminal::findAllEnemy()
@@ -301,7 +231,7 @@ void GameTerminal::findNearEnemy()
         QString yPosition = QString::number(enemy->getYPos());
         QString strength = QString::number(enemy->getValue());
 
-        if((abs(enemy->getXPos()-user->getXPos())<=10)&&(abs(enemy->getYPos()-user->getYPos())<=10)){
+        if((abs(enemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(enemy->getYPos()-myProtagonist->getYPos())<=10)){
             output->appendPlainText("A normal enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
         }
@@ -312,7 +242,7 @@ void GameTerminal::findNearEnemy()
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
 
-        if((abs(penemy->getXPos()-user->getXPos())<=10)&&(abs(penemy->getYPos()-user->getYPos())<=10)){
+        if((abs(penemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(penemy->getYPos()-myProtagonist->getYPos())<=10)){
             output->appendPlainText("A poison enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
         }
@@ -339,7 +269,7 @@ void GameTerminal::findNearHealth()
         QString yPosition = QString::number(healthP->getYPos());
         QString strength = QString::number(healthP->getValue());
 
-        if((abs(healthP->getXPos()-user->getXPos())<=10)&&(abs(healthP->getYPos()-user->getYPos())<=10)){
+        if((abs(healthP->getXPos()-myProtagonist->getXPos())<=10)&&(abs(healthP->getYPos()-myProtagonist->getYPos())<=10)){
             output->appendPlainText("A health pack is at the location ("+xPosition+","+yPosition+"), the value is "+strength);
         }
     }
@@ -348,9 +278,9 @@ void GameTerminal::findNearHealth()
 QString GameTerminal::showProta()
 {
     QString protaInfo = "protagonist is at ("
-                    +QString::number(user->getXPos())+","+QString::number(user->getYPos())
-                    +"), health is "+QString::number(user->getHealth())
-                    +", energy is "+QString::number(user->getEnergy());
+                    +QString::number(myProtagonist->getXPos())+","+QString::number(myProtagonist->getYPos())
+                    +"), health is "+QString::number(myProtagonist->getHealth())
+                    +", energy is "+QString::number(myProtagonist->getEnergy());
 
     return protaInfo;
 }
@@ -362,15 +292,7 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
 
         if(movable){
-            if(moveEnergy(direction)){
-                user->setEnergy(user->getEnergy()-totalEnergy(direction));
-                user->Protagonist::setXPos((user->getXPos()-1));
-                }
-            else{
-                user->setEnergy(0.0f);
-                user->Protagonist::setXPos((user->getXPos()-1));
-
-            }
+            myProtagonist->Protagonist::setXPos((myProtagonist->getXPos()-1));
         }
 
         else{
@@ -389,16 +311,11 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
     else if(event->key() == Qt::Key_D){
         QString direction = "right";
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
+
         if(movable){
-            if(moveEnergy(direction)){
-                user->setEnergy(user->getEnergy()-totalEnergy(direction));
-                user->Protagonist::setXPos((user->getXPos()+1));
-            }
-            else{
-                user->setEnergy(0.0f);
-                user->Protagonist::setXPos((user->getXPos()+1));
-            }
+            myProtagonist->Protagonist::setXPos((myProtagonist->getXPos()+1));
         }
+
         else{
             QString unmove="";
             if(!movePos(direction)){
@@ -409,22 +326,17 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
             }
 
             output->appendPlainText(">>"+unmove);
-        }
     }
+ }
 
     else if(event->key() == Qt::Key_W){
         QString direction = "up";
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
+
         if(movable){
-            if(moveEnergy(direction)){
-                user->setEnergy(user->getEnergy()-totalEnergy(direction));
-                user->Protagonist::setYPos(user->getYPos()-1);
-                }
-            else{
-                user->setEnergy(0.0f);
-                user->Protagonist::setYPos(user->getYPos()-1);
-            }
+            myProtagonist->Protagonist::setYPos(myProtagonist->getYPos()-1);
         }
+
         else{
             QString unmove="";
             if(!movePos(direction)){
@@ -441,16 +353,11 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
     else if(event->key() == Qt::Key_S){
         QString direction = "down";
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
+
         if(movable){
-            if(moveEnergy(direction)){
-                user->setEnergy(user->getEnergy()-totalEnergy(direction));
-                user->Protagonist::setYPos(user->getYPos()+1);
-            }
-            else{
-                user->setEnergy(0.0f);
-                user->Protagonist::setYPos(user->getYPos()+1);
-            }
+            myProtagonist->Protagonist::setYPos(myProtagonist->getYPos()+1);
         }
+
         else{
             QString unmove="";
             if(!movePos(direction)){
@@ -463,7 +370,6 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
             output->appendPlainText(">>"+unmove);
         }
     }
-
     else if(event->key() == Qt::Key_Up){
         if(inputPosition > 0){
         lineEdit->setText(inputs.at(inputPosition-1));
@@ -535,103 +441,44 @@ void GameTerminal::onEnter()
     }
 }
 
+void GameTerminal::encouterEn()
+{
+    output->appendPlainText("   Ah!");
+}
+
+void GameTerminal::encounterPEn()
+{
+    output->appendPlainText("   You meet one poison enemy, it will poison you, run as quick as possible!");
+}
+
+void GameTerminal::encouterHe()
+{
+    output->appendPlainText("Congratulations! You get a health pack and your health is "+QString::number(myProtagonist->getHealth())+" now");
+}
+
 void GameTerminal::enemyDead()
 {
-    qDebug()<<"xuqingjie enemydead";
+    qDebug()<<"xuqingjie enemydead";  //just print
     output->appendPlainText(">> Congratulations! You has defeated one enemy and your energy is full now!");
-    MyEnemy *obj = (MyEnemy *)sender();
-    delete obj;
-//    for (std::vector< MyEnemy* >::iterator eneDead = myEnemies.begin() ; eneDead != myEnemies.end(); ++eneDead){
-//        if(((*eneDead)->getXPos() == obj->getXPos())&&((*eneDead)->getYPos()==obj->getYPos())){
-//            delete (*eneDead);
-//        }
-//    }
 }
 
 void GameTerminal::penemyDead()
 {
     output->appendPlainText(">> Congratulations! You has defeated one poison enemy!");
-    MyPEnemy* obj = (MyPEnemy*) sender();
-    aw.at(obj->getYPos()*col+obj->getXPos())->setValue(std::numeric_limits<float>::infinity());
-
-    for (std::vector< MyEnemy* >::iterator eneDead = myEnemies.begin() ; eneDead != myEnemies.end(); ++eneDead){
-        if(((*eneDead)->getXPos() == obj->getXPos())&&((*eneDead)->getYPos()==obj->getYPos())){
-            delete (*eneDead);
-        }
-    }
 }
 
-void GameTerminal::poisonUser(float newLevel)
+void GameTerminal::poisonUser()
 {
-    MyPEnemy* obj = dynamic_cast<MyPEnemy *> (sender());
-    if(qPow((user->getXPos()-obj->getXPos()),2)+qPow((user->getYPos()-obj->getYPos()),2)<=4){
-        if(obj->poison()){
-        if(user->getHealth() > newLevel){
-            user->setHealth(user->getHealth()- newLevel/1000);
-        }
-        else{
-            user->setHealth(0.00f);
-        }
-        }
-        else{
-            obj->setDefeated(true);
-        }
-    }
+    output->appendPlainText("you are being poiosned, your health is "+QString::number(myProtagonist->getHealth())+" now");
 }
 
 void GameTerminal::checkNewPos()
 {
     output->appendPlainText(">>"+showProta());
-    for(auto &enemy : myEnemies){
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos())){
-            if((user->getHealth()-enemy->getValue()) > 0){
-            user->setHealth(user->getHealth()-enemy->getValue());
-            user->setEnergy(100.00f);
-            aw.at(col*enemy->getYPos()+enemy->getXPos())->setValue(std::numeric_limits<float>::infinity());
-            enemy->setDefeated(true);
-            }
-            else{
-                user->setHealth(0.0f);
-                user->setEnergy(100.00f);
-            }
-        }
-    }
-
-    for(auto &enemy : myPEnemies){
-        if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos())){
-            if((user->getHealth()-enemy->getValue()) > 0){
-            user->setHealth(user->getHealth()-enemy->getValue());
-            user->setEnergy(100.00f);
-            aw.at(col*enemy->getYPos()+enemy->getXPos())->setValue(std::numeric_limits<float>::infinity());
-           // emit myModel->myProtagonist->encounterPenemy();
-            }
-            else{
-                user->setHealth(0.0f);
-                user->setEnergy(100.00f);
-            }
-        }
-    }
-
-    if(addHealth(user->getXPos(),user->getYPos())){
-        output->appendPlainText("   Congratulations! You get a health pack and your health is "+QString::number(user->getHealth())+" now");
-    }
 
     moveEnemy();
 
 }
 
-void GameTerminal::checkHealth()
-{
-    if(user->getHealth() == 0){
-        emit myModel->myProtagonist->protagonistDead();
-    }
-}
-
-void GameTerminal::checkEnergy()
-{
-    if(user->getEnergy() == 0){
-        emit myModel->myProtagonist->protagonistDead();
-    }
-}
 
 

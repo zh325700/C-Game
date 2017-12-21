@@ -32,15 +32,16 @@ class GameTerminal : public QWidget
 public:
     explicit GameTerminal(QWidget *parent = 0);
     ~GameTerminal();
-    void init();  //inite the help string
+    void init();  //inite the help string and other string
     void initWorld();  //init world image
     void setupLayout();  //set up layout
     bool addHealth(int x, int y);
 
-    //check movable
+    //check enemy warning
+    void moveEnemy();
+    //terminal check movable
     bool movePos(QString direction);
     bool movenoWall(QString direction);
-    void moveEnemy();
     float totalEnergy(QString direction);
     bool moveEnergy(QString direction);
 
@@ -61,11 +62,9 @@ public slots:
     void onEnter();
     void enemyDead();
     void penemyDead();
-    void poisonUser(float newLevel);
+    void poisonUser();
     void checkNewPos();
-    void checkHealth();
-    void checkEnergy();
-   // void userDead();
+    void cannotmove(QString reason);
 
 private:
     //layout
@@ -75,13 +74,13 @@ private:
     int inputPosition = 0;
 
     //world
-    int row;
-    int col;
-    std::vector<MyTile *> aw={};
+    int rows;
+    int cols;
+    std::vector<MyTile *> myTilesMap={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-    MyProtagonist * user;
+    MyProtagonist * myProtagonist;
     //MyProtagonist *myProtagonist;
 
     //hints string
@@ -90,7 +89,6 @@ private:
      QString helpText;
      QString boundary;
      QString existwall;
-     QString existEnemy;
      QString noEnergy;
      int costOfStep = 0;
 };
