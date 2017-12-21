@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QProgressBar>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -27,11 +28,11 @@ public:
     ~MainWindow();
     QHBoxLayout *layout;
     QLabel *healthLabel;
-    QLineEdit * healthValue;
     QLabel * energyLable;
-    QLineEdit* energyValue;
     QGroupBox* healthgroup;
     QVBoxLayout* layoutStatistic;
+    QProgressBar *healthbar ;
+    QProgressBar *energtbar;
 
 
     //new added

@@ -50,10 +50,7 @@ Game::Game(QWidget *parent)
 
     //create protagonist
     this->myProtagonist = myModel->myProtagonist;
-    QObject::connect(this->myProtagonist,SIGNAL(posChanged(int,int)),this->myProtagonist,SLOT(moveToNextSpot()));
-    QObject::connect(this->myProtagonist,SIGNAL(posChanged(int,int)),this->myProtagonist,SLOT(aquire_target()));
-    QObject::connect(this->myProtagonist,&MyProtagonist::energyChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
-    QObject::connect(this->myProtagonist,&MyProtagonist::healthChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
+    // Used to be connect of myProtagonist ~~~~
 
 
     //set position of the protagonist
@@ -83,23 +80,11 @@ Game::Game(QWidget *parent)
     scene->addItem(this->myProtagonist);
 
 
-    // add the Enemies to the scene and connect // connect enemy signal to Tile slot
-    for(auto &aEnemy:this->myEnemies){
-         int x=aEnemy->getXPos();
-         int y=aEnemy->getYPos();
-         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
-         QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
-    }
+    //connect enemy signal to Tile slot
+
 
     //add pEnemies to the scene and connect
-    for(auto &aPEnemy:this->myPEnemies){
-         int x=aPEnemy->getXPos();
-         int y=aPEnemy->getYPos();
-         QObject::connect(aPEnemy,SIGNAL(dead()),this->myTilesMap[x+y*cols],SLOT(drawBlack()));
-         QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
-         QObject::connect(this->myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
-         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
-    }
+
 
 
     //add auto zoom in and out
@@ -151,6 +136,8 @@ void Game::deletePnemy()
     //    scene->removeItem(ellipse);
         delete deadPenemy;
     }
+    scene->removeItem(ellipse);
+
 
 }
 

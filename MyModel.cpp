@@ -58,6 +58,31 @@ MyModel::MyModel()
             qDebug() << "No Enemy";
         }
     }
+
+    //make signal and slot connect of protagonist
+    QObject::connect(this->myProtagonist,SIGNAL(posChanged(int,int)),this->myProtagonist,SLOT(moveToNextSpot()));
+    QObject::connect(this->myProtagonist,SIGNAL(posChanged(int,int)),this->myProtagonist,SLOT(aquire_target()));
+    QObject::connect(this->myProtagonist,&MyProtagonist::energyChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
+    QObject::connect(this->myProtagonist,&MyProtagonist::healthChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
+
+    //make signal and slot connect of enemies
+    for(auto &aEnemy:this->myEnemies){
+         int x=aEnemy->getXPos();
+         int y=aEnemy->getYPos();
+         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+       //  QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
+    }
+
+    //make signal and slot connect of Penemies
+    for(auto &aPEnemy:this->myPEnemies){
+         int x=aPEnemy->getXPos();
+         int y=aPEnemy->getYPos();
+         QObject::connect(aPEnemy,SIGNAL(dead()),this->myTilesMap[x+y*cols],SLOT(drawBlack()));
+        // QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
+        // QObject::connect(this->myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
+         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
+    }
+
 }
 
 MyModel::~MyModel()

@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 
+
 Game *game;
 MyModel *myModel;
 GameTerminal *gameTerminal;
@@ -22,26 +23,33 @@ MainWindow::MainWindow(QWidget * parent):
         //create a Horizontal layout to put health and energy
         layout = new QHBoxLayout(this);
 
+        //create progress bar
+        healthbar = new QProgressBar();
+        healthbar->setRange(0,100);
+        healthbar->setValue(game->myProtagonist->getHealth());
+        healthbar->setFormat("The current health is : "+QString::number(game->myProtagonist->getHealth()));
+
+        energtbar = new QProgressBar();
+        energtbar->setRange(0,100);
+        energtbar->setValue(game->myProtagonist->getEnergy());
+        energtbar->setFormat("The current enegy is: "+ QString::number(game->myProtagonist->getEnergy()));
+
+
         //create health container
         healthLabel = new QLabel("Health:");
-        healthValue = new QLineEdit();
-        healthValue->setReadOnly(true);
-        healthValue->setText(QString::number(game->myProtagonist->getHealth()));
 
 
         //create Energy container
         energyLable = new QLabel("Energy:");
-        energyValue = new QLineEdit();
-        energyValue->setReadOnly(true);
-        energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
 
         //create GroupBox to contain all the label and value
         healthgroup = new QGroupBox("Health show");
         layoutStatistic = new QVBoxLayout(healthgroup);
         layoutStatistic->addWidget(healthLabel);
-        layoutStatistic->addWidget(healthValue);
+        layoutStatistic->addWidget(healthbar);
         layoutStatistic->addWidget(energyLable);
-        layoutStatistic->addWidget(energyValue);
+        layoutStatistic->addWidget(energtbar);
+
 
         //layout->addWidget(game);
         layout->addWidget(gameTerminal);
@@ -67,8 +75,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::refreshEandH()
 {
-    healthValue->setText(QString::number(game->myProtagonist->getHealth()));
-    energyValue->setText(QString::number(game->myProtagonist->getEnergy()));
+    healthbar->setValue(game->myProtagonist->getHealth());
+    healthbar->setFormat("The current health is : "+QString::number(game->myProtagonist->getHealth()));
+    energtbar->setValue(game->myProtagonist->getEnergy());
+    energtbar->setFormat("The current enegy is: "+ QString::number(game->myProtagonist->getEnergy()));
 }
 
 void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window

@@ -368,8 +368,11 @@ void GameTerminal::keyPressEvent(QKeyEvent *event)
                 }
             else{
                 user->setEnergy(0.0f);
+<<<<<<< HEAD
                 user->Protagonist::setXPos((user->getXPos()-1));
-
+=======
+                user->Protagonist::setPos((user->getXPos()-speed),user->getYPos());
+>>>>>>> 95f77bbab5240e911e5ed1661cd85afb142f2192
             }
         }
 
