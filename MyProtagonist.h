@@ -30,6 +30,9 @@ public:
 signals:
     void protagonistDead();
     void encounterPenemy();
+    void encounterEnemy();
+    void encounterHealthPack();
+
 public slots:
     void moveToNextSpot();
     void aquire_target();

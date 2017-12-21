@@ -5,7 +5,7 @@ MyModel::MyModel()
     std::shared_ptr<World> world = std::make_shared<World>();
     std::vector<std::unique_ptr<Tile>> mapTiles = world->createWorld(":/images/maps/worldmap.png");
     std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(500);
-    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(50);
+    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(100);
     myProtagonist = new MyProtagonist();
     const std::type_info& typeE = typeid(Enemy);
     const std::type_info& typeP = typeid(PEnemy);
@@ -66,23 +66,6 @@ MyModel::MyModel()
     QObject::connect(this->myProtagonist,&MyProtagonist::healthChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
 
     //make signal and slot connect of enemies
-    for(auto &aEnemy:this->myEnemies){
-         int x=aEnemy->getXPos();
-         int y=aEnemy->getYPos();
-         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
-       //  QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
-    }
-
-    //make signal and slot connect of Penemies
-    for(auto &aPEnemy:this->myPEnemies){
-         int x=aPEnemy->getXPos();
-         int y=aPEnemy->getYPos();
-         QObject::connect(aPEnemy,SIGNAL(dead()),this->myTilesMap[x+y*cols],SLOT(drawBlack()));
-        // QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
-        // QObject::connect(this->myProtagonist,&MyProtagonist::encounterPenemy,this,&Game::drawPoinsonCircle);
-         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
-    }
-
 }
 
 MyModel::~MyModel()

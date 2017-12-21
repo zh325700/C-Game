@@ -6,7 +6,7 @@
 
 
 
-Game *game;
+GraphicGameView *graphicGameView;
 MyModel *myModel;
 GameTerminal *gameTerminal;
 
@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget * parent):
 {
 
         myModel = new MyModel();
-        game = new Game();
+        graphicGameView = new GraphicGameView();
         gameTerminal = new GameTerminal();
         switch_button = new QPushButton("Switch View", this);
 
@@ -26,15 +26,17 @@ MainWindow::MainWindow(QWidget * parent):
         //create progress bar
         healthbar = new QProgressBar();
         healthbar->setRange(0,100);
-        healthbar->setValue(game->myProtagonist->getHealth());
-        healthbar->setFormat("The current health is : "+QString::number(game->myProtagonist->getHealth()));
+        healthbar->setValue(graphicGameView->myProtagonist->getHealth());
+        healthbar->setFormat("The current health is : "+QString::number(graphicGameView->myProtagonist->getHealth()));
+        //healthbar->setAlignment(Qt::AlignCenter);
+        healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
 
         energtbar = new QProgressBar();
         energtbar->setRange(0,100);
-        energtbar->setValue(game->myProtagonist->getEnergy());
-        energtbar->setFormat("The current enegy is: "+ QString::number(game->myProtagonist->getEnergy()));
+        energtbar->setValue(graphicGameView->myProtagonist->getEnergy());
+        energtbar->setFormat("The current enegy is: "+ QString::number(graphicGameView->myProtagonist->getEnergy()));
 
-
+        energtbar->setStyleSheet("::chunk{background-color: yellow;border: 2px solid black;border-radius: 5px;text-align: center;}");
         //create health container
         healthLabel = new QLabel("Health:");
 
@@ -51,17 +53,17 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(energtbar);
 
 
-        //layout->addWidget(game);
+        //layout->addWidget(graphicGameView);
         layout->addWidget(gameTerminal);
-        layout->addWidget(game);
-        game->hide();
+        layout->addWidget(graphicGameView);
+        graphicGameView->hide();
         layout->addWidget(healthgroup);
         layout->addWidget(switch_button);
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
-        connect(game->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
-        connect(game->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
-        connect(game->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+        connect(graphicGameView->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
+        connect(graphicGameView->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+        connect(graphicGameView->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
 
 
 }
@@ -75,10 +77,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::refreshEandH()
 {
-    healthbar->setValue(game->myProtagonist->getHealth());
-    healthbar->setFormat("The current health is : "+QString::number(game->myProtagonist->getHealth()));
-    energtbar->setValue(game->myProtagonist->getEnergy());
-    energtbar->setFormat("The current enegy is: "+ QString::number(game->myProtagonist->getEnergy()));
+    healthbar->setValue(graphicGameView->myProtagonist->getHealth());
+    healthbar->setFormat("The current health is : "+QString::number(graphicGameView->myProtagonist->getHealth()));
+    energtbar->setValue(graphicGameView->myProtagonist->getEnergy());
+    energtbar->setFormat("The current enegy is: "+ QString::number(graphicGameView->myProtagonist->getEnergy()));
 }
 
 void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
@@ -89,9 +91,9 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
                                    QMessageBox::Yes | QMessageBox::No);
     switch (result) {
     case QMessageBox::Yes:
-        delete game;
-        game = new Game();
-        layout->addWidget(game);
+        delete graphicGameView;
+        graphicGameView = new GraphicGameView();
+        layout->addWidget(graphicGameView);
         break;
     case QMessageBox::No:
         close();
@@ -107,10 +109,10 @@ void MainWindow::handleButton()
     bool whichView = myModel->getWhichView();
     if(whichView){
         gameTerminal->hide();
-        game->show();
+        graphicGameView->show();
     }
     else{
         gameTerminal->show();
-        game->hide();
+        graphicGameView->hide();
     }
 }

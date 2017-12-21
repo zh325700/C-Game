@@ -17,7 +17,7 @@
 #include "MyPEnemy.h"
 #include "HealthPack.h"
 #include "world.h"
-#include "Game.h"
+#include "GraphicGameView.h"
 #include "GameTerminal.h"
 
 class MainWindow: public QWidget

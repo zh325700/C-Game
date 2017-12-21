@@ -8,7 +8,7 @@
 #include "MyPEnemy.h"
 #include "HealthPack.h"
 #include "world.h"
-#include "Game.h"
+#include "GraphicGameView.h"
 
 
 class MyModel

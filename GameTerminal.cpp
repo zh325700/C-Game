@@ -29,8 +29,8 @@ GameTerminal::GameTerminal(QWidget *parent) :
     connect(lineEdit,&QLineEdit::returnPressed,this,&GameTerminal::onEnter);
     connect(myProtagonist,&MyProtagonist::posChanged,this,&GameTerminal::checkNewPos);
     connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&GameTerminal::encounterPEn);
-    connect(myProtagonist,&MyProtagonist::enounterEnemy,this,&GameTerminal::encouterEn);
-    connect(myProtagonist,&MyProtagonist::encounterHealthPack,&GameTerminal::encouterHe);
+    connect(myProtagonist,&MyProtagonist::encounterEnemy,this,&GameTerminal::encouterEn);
+    connect(myProtagonist,&MyProtagonist::encounterHealthPack,this,&GameTerminal::encouterHe);
 
     for(auto& ene:myEnemies){
             QObject::connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
