@@ -64,6 +64,7 @@ public slots:
     void penemyDead();
     void poisonUser();
 
+
 private:
     //layout
     QLineEdit *lineEdit;

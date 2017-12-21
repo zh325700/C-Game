@@ -1,5 +1,6 @@
 #ifndef MYMODEL_H
 #define MYMODEL_H
+#include<QWidget>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
