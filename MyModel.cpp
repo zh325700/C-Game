@@ -5,7 +5,7 @@ MyModel::MyModel()
     std::shared_ptr<World> world = std::make_shared<World>();
     std::vector<std::unique_ptr<Tile>> mapTiles = world->createWorld(":/images/maps/worldmap.png");
     std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(500);
-    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(100);
+    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(50);
     myProtagonist = new MyProtagonist();
     const std::type_info& typeE = typeid(Enemy);
     const std::type_info& typeP = typeid(PEnemy);

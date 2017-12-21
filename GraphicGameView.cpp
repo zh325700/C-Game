@@ -12,6 +12,7 @@
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
 #include <QGraphicsScene>
+#include <vector>
 
 #include "GraphicGameView.h"
 #include "Graphics_view_zoom.h"
@@ -140,11 +141,17 @@ void GraphicGameView::drawPoinsonCircle()
 
 void GraphicGameView::deletePnemy()
 {
-    QObject* obj = sender();
     MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
     if(deadPenemy){
         scene->removeItem(deadPenemy);
         delete deadPenemy;
+        for(int i=0;i<myPEnemies.size();i++){
+            if(myPEnemies[i] == deadPenemy){
+                myPEnemies.erase(myPEnemies.begin()+i);
+            }
+        }
+
+        qDebug()<<"PEnemy is deleted";
     }
     scene->removeItem(ellipse);
 
@@ -153,12 +160,19 @@ void GraphicGameView::deletePnemy()
 
 void GraphicGameView::deleteEnemy()
 {
+        MyEnemy *deadEnemy =dynamic_cast<MyEnemy *> (sender());
+        if(deadEnemy){
+            scene->removeItem(deadEnemy);
+            delete deadEnemy;
+            for(int i=0;i<myEnemies.size();i++){
+                if(myEnemies[i] == deadEnemy){
+                    myEnemies.erase(myEnemies.begin()+i);
+                }
+            }
 
-    if(myModel->getWhichView()){
-        MyEnemy *obj =(MyEnemy *) sender();
-        scene->removeItem(obj);
-        delete obj;
-    }
+            qDebug()<<"Enemy is deleted";
+        }
+
 }
 
 int GraphicGameView::getMultipleSizeOfCircle() const
