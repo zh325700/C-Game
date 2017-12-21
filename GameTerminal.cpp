@@ -29,7 +29,7 @@ GameTerminal::GameTerminal(QWidget *parent) :
     connect(lineEdit,&QLineEdit::returnPressed,this,&GameTerminal::onEnter);
     connect(user,&MyProtagonist::posChanged,this,&GameTerminal::checkNewPos);
     connect(user,&MyProtagonist::healthChanged,this,&GameTerminal::checkHealth);
-    connect(user,&MyProtagonist::energyChanged,this,&GameTerminal::checkHealth);
+    connect(user,&MyProtagonist::energyChanged,this,&GameTerminal::checkEnergy);
 
     for(auto& ene:myEnemies){
            // connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
@@ -193,32 +193,32 @@ void GameTerminal::moveEnemy()
     for(auto &enemy : myEnemies){
         QString strength = QString::number(enemy->getValue());
         if((enemy->getXPos() == user->getXPos()-1)&&(enemy->getYPos() == user->getYPos())){
-            output->insertPlainText("\n Warning: there is a normal enemy on your left, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a normal enemy on your left, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos()+1)&&(enemy->getYPos() == user->getYPos())){
-            output->insertPlainText("\n Warning: there is a normal enemy on your right, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a normal enemy on your right, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()-1)){
-            output->insertPlainText("\n Warning: there is a normal enemy above you, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a normal enemy above you, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()+1)){
-            output->insertPlainText("\n Warning: there is a normal enemy below you, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a normal enemy below you, whose strength is "+strength);
         }
     }
 
     for(auto &enemy : myPEnemies){
         QString strength = QString::number(enemy->getValue());
         if((enemy->getXPos() == user->getXPos()-1)&&(enemy->getYPos() == user->getYPos())){
-            output->insertPlainText("\n there is a poison enemy on your left, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a poison enemy on your left, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos()+1)&&(enemy->getYPos() == user->getYPos())){
-            output->insertPlainText("\n there is a poison enemy on your right, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a poison enemy on your right, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()-1)){
-            output->insertPlainText("\n there is a poison enemy above you, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a poison enemy above you, whose strength is "+strength);
         }
         if((enemy->getXPos() == user->getXPos())&&(enemy->getYPos() == user->getYPos()+1)){
-            output->insertPlainText("\n there is a poison enemy below you, whose strength is "+strength);
+            output->appendPlainText("   Warning: there is a poison enemy below you, whose strength is "+strength);
         }
     }
 }
@@ -613,7 +613,7 @@ void GameTerminal::checkNewPos()
     }
 
     if(addHealth(user->getXPos(),user->getYPos())){
-        output->insertPlainText("\n Congratulations! You get a health pack and your health is "+QString::number(user->getHealth())+" now");
+        output->appendPlainText("   Congratulations! You get a health pack and your health is "+QString::number(user->getHealth())+" now");
     }
 
     moveEnemy();
