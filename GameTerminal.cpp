@@ -28,20 +28,18 @@ GameTerminal::GameTerminal(QWidget *parent) :
 
     connect(lineEdit,&QLineEdit::returnPressed,this,&GameTerminal::onEnter);
     connect(myProtagonist,&MyProtagonist::posChanged,this,&GameTerminal::checkNewPos);
-//    connect(myProtagonist,&MyProtagonist::healthChanged,this,&GameTerminal::checkHealth);
-//    connect(myProtagonist,&MyProtagonist::energyChanged,this,&GameTerminal::checkEnergy);
+    connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&GameTerminal::encounterPEn);
+    connect(myProtagonist,&MyProtagonist::enounterEnemy,this,&GameTerminal::encouterEn);
+    connect(myProtagonist,&MyProtagonist::encounterHealthPack,&GameTerminal::encouterHe);
 
     for(auto& ene:myEnemies){
-           // connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
             QObject::connect(ene,&MyEnemy::dead,this,&GameTerminal::enemyDead);
     }
 
     for(auto& pene:myPEnemies){
-//        connect(this,&GameTerminal::penemyDefeating,pene,&MyPEnemy::poison);
-//        connect(pene,&MyPEnemy::poisonLevelUpdated,this,&GameTerminal::poisonUser);
-//        connect(pene,&MyPEnemy::dead,this,&GameTerminal::penemyDead);
-    }
-
+                connect(pene,&MyPEnemy::poisonLevelUpdated,this,&GameTerminal::poisonUser);
+                connect(pene,&MyPEnemy::dead,this,&GameTerminal::penemyDead);
+            }
 }
 
 GameTerminal::~GameTerminal(){}

@@ -60,6 +60,9 @@ public slots:
     void encounterPEn();
     void encouterHe();
     void checkNewPos();
+    void enemyDead();
+    void penemyDead();
+    void poisonUser();
 
 private:
     //layout
