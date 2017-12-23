@@ -13,6 +13,7 @@
 #include <QMediaPlayer>
 #include <QGraphicsScene>
 #include <vector>
+#include <QDebug>
 
 #include "GraphicGameView.h"
 #include "Graphics_view_zoom.h"
@@ -164,12 +165,15 @@ void GraphicGameView::deleteEnemy()
         if(deadEnemy){
             scene->removeItem(deadEnemy);
             delete deadEnemy;
+            //deadEnemy = nullptr;
             for(int i=0;i<myEnemies.size();i++){
                 if(myEnemies[i] == deadEnemy){
+                    qDebug()<<"deleteEnemy"<<i;
                     myEnemies.erase(myEnemies.begin()+i);
+                    myModel->setMyEnemies(myEnemies);
                 }
             }
-
+            qDebug()<<QString::number(myEnemies.size());
             qDebug()<<"Enemy is deleted";
         }
 

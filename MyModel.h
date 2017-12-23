@@ -27,6 +27,9 @@ public:
     bool getWhichView() const;
     void setWhichView(bool value);
 
+    std::vector<MyEnemy *> getMyEnemies() const;
+    void setMyEnemies(const std::vector<MyEnemy *> &value);
+
 private:
     bool whichView = false;
 

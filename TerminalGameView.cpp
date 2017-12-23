@@ -31,7 +31,7 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
     connect(myProtagonist,&MyProtagonist::encounterEnemy,this,&TerminalGameView::encouterEn);
     connect(myProtagonist,&MyProtagonist::encounterHealthPack,this,&TerminalGameView::encouterHe);
 
-    for(auto& ene:myEnemies){
+    for(auto& ene:myModel->myEnemies){
             QObject::connect(ene,&MyEnemy::dead,this,&TerminalGameView::enemyDead);
     }
 
@@ -99,7 +99,7 @@ void TerminalGameView::setupLayout(){
 
 void TerminalGameView::moveEnemy()
 {
-    for(auto &enemy : myEnemies){
+    for(auto &enemy : myModel->myEnemies){
         QString strength = QString::number(enemy->getValue());
         if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
             output->appendPlainText("  Warning: there is a normal enemy on your left, whose strength is "+strength);
@@ -115,7 +115,7 @@ void TerminalGameView::moveEnemy()
         }
     }
 
-    for(auto &enemy : myPEnemies){
+    for(auto &enemy : myModel->myPEnemies){
         QString strength = QString::number(enemy->getValue());
         if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
             output->appendPlainText("  Warning: there is a poison enemy on your left, whose strength is "+strength);
@@ -166,7 +166,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     if(direction=="left"){
         if(movePos(direction)){
-            if(isinf(myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()-1)->getValue())){
+            if(isinf(myModel->myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()-1)->getValue())){
                 noWall = false;
             }
         }
@@ -174,7 +174,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="right"){
         if(movePos(direction)){
-            if(isinf(myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()+1)->getValue())){
+            if(isinf(myModel->myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()+1)->getValue())){
                     noWall = false;
             }
         }
@@ -182,7 +182,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="up"){
         if(movePos(direction)){
-            if(isinf(myTilesMap.at((myProtagonist->getYPos()-1)*cols+myProtagonist->getXPos())->getValue())){
+            if(isinf(myModel->myTilesMap.at((myProtagonist->getYPos()-1)*cols+myProtagonist->getXPos())->getValue())){
                 noWall = false;
             }
         }
@@ -190,7 +190,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="down"){
         if(movePos(direction)){
-            if(isinf(myTilesMap.at((myProtagonist->getYPos()+1)*cols+myProtagonist->getXPos())->getValue())){
+            if(isinf(myModel->myTilesMap.at((myProtagonist->getYPos()+1)*cols+myProtagonist->getXPos())->getValue())){
                 noWall = false;
             }
         }
@@ -201,7 +201,9 @@ bool TerminalGameView::movenoWall(QString direction)
 
 void TerminalGameView::findAllEnemy()
 {
-    for(auto &enemy : myEnemies){
+    int total =myModel->getMyEnemies().size()+myModel->myPEnemies.size();
+    output->appendPlainText("there is totally "+QString::number(total)+"in this world!");
+    for(auto &enemy : myModel->myEnemies){
 
         QString xPosition = QString::number(enemy->getXPos());
         QString yPosition = QString::number(enemy->getYPos());
@@ -211,7 +213,7 @@ void TerminalGameView::findAllEnemy()
                                    +"), his strength is "+strength);
     }
 
-    for(auto &penemy :myPEnemies){
+    for(auto &penemy :myModel->myPEnemies){
         QString xPosition = QString::number(penemy->getXPos());
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
@@ -223,7 +225,7 @@ void TerminalGameView::findAllEnemy()
 
 void TerminalGameView::findNearEnemy()
 {
-    for(auto &enemy : myEnemies){
+    for(auto &enemy : myModel->myEnemies){
 
         QString xPosition = QString::number(enemy->getXPos());
         QString yPosition = QString::number(enemy->getYPos());
@@ -235,7 +237,7 @@ void TerminalGameView::findNearEnemy()
         }
     }
 
-    for(auto &penemy :myPEnemies){
+    for(auto &penemy :myModel->myPEnemies){
         QString xPosition = QString::number(penemy->getXPos());
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
@@ -247,9 +249,40 @@ void TerminalGameView::findNearEnemy()
     }
 }
 
+int TerminalGameView::countNearEnemy()
+{
+    int eTotal = 0;
+    for(auto &enemy : myModel->myEnemies){
+
+        QString xPosition = QString::number(enemy->getXPos());
+        QString yPosition = QString::number(enemy->getYPos());
+        QString strength = QString::number(enemy->getValue());
+
+        if((abs(enemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(enemy->getYPos()-myProtagonist->getYPos())<=10)){
+            output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
+                                   +"), his strength is "+strength);
+            eTotal++;
+        }
+    }
+
+    for(auto &penemy :myModel->myPEnemies){
+        QString xPosition = QString::number(penemy->getXPos());
+        QString yPosition = QString::number(penemy->getYPos());
+        QString strength = QString::number(penemy->getValue());
+
+        if((abs(penemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(penemy->getYPos()-myProtagonist->getYPos())<=10)){
+            output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
+                                   +"), his strength is "+strength);
+            eTotal++;
+        }
+    }
+    return eTotal;
+
+}
+
 void TerminalGameView::findAllHealth()
 {
-    for(auto &healthP : myHealthPacks){
+    for(auto &healthP : myModel->myHealthPacks){
 
         QString xPosition = QString::number(healthP->getXPos());
         QString yPosition = QString::number(healthP->getYPos());
@@ -261,7 +294,7 @@ void TerminalGameView::findAllHealth()
 
 void TerminalGameView::findNearHealth()
 {
-    for(auto &healthP : myHealthPacks){
+    for(auto &healthP : myModel->myHealthPacks){
 
         QString xPosition = QString::number(healthP->getXPos());
         QString yPosition = QString::number(healthP->getYPos());
@@ -271,6 +304,23 @@ void TerminalGameView::findNearHealth()
             output->appendPlainText("  A health pack is at the location ("+xPosition+","+yPosition+"), the value is "+strength);
         }
     }
+}
+
+int TerminalGameView::countNearHealth()
+{
+    int hTotal = 0;
+    for(auto &healthP : myModel->myHealthPacks){
+
+        QString xPosition = QString::number(healthP->getXPos());
+        QString yPosition = QString::number(healthP->getYPos());
+        QString strength = QString::number(healthP->getValue());
+
+        if((abs(healthP->getXPos()-myProtagonist->getXPos())<=10)&&(abs(healthP->getYPos()-myProtagonist->getYPos())<=10)){
+            output->appendPlainText("  A health pack is at the location ("+xPosition+","+yPosition+"), the value is "+strength);
+            hTotal++;
+        }
+    }
+    return hTotal;
 }
 
 QString TerminalGameView::showProta()
@@ -369,24 +419,28 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
         }
     }
     else if(event->key() == Qt::Key_Up){
-        if(inputPosition > 0){
-        lineEdit->setText(inputs.at(inputPosition-1));
-        inputPosition = inputPosition-1;
-        }
-        else{
-            lineEdit->setText(inputs.at(inputs.size()-1));
-            inputPosition = inputs.size()-1;
+        if(inputs.size()>0){
+            if(inputPosition > 0){
+                lineEdit->setText(inputs.at(inputPosition-1));
+                inputPosition = inputPosition-1;
+            }
+            else{
+                lineEdit->setText(inputs.at(inputs.size()-1));
+                inputPosition = inputs.size()-1;
+            }
         }
     }
 
     else if(event->key() == Qt::Key_Down){
-        if(inputPosition < inputs.size()-1){
-        lineEdit->setText(inputs.at(inputPosition+1));
-        inputPosition = inputPosition+1;
-        }
-        else{
-            lineEdit->setText(inputs.at(0));
-            inputPosition = 0;
+        if(inputs.size()>0){
+            if(inputPosition < inputs.size()-1){
+                lineEdit->setText(inputs.at(inputPosition+1));
+                inputPosition = inputPosition+1;
+            }
+            else{
+                lineEdit->setText(inputs.at(0));
+                inputPosition = 0;
+            }
         }
     }
 }
@@ -410,31 +464,60 @@ void TerminalGameView::onEnter()
     }
 
     else if(input=="show enemies"){
-        output->appendPlainText(">>the locations of near enemies are following:");
-        findNearEnemy();
+        if(countNearEnemy() == 0){
+            output->appendPlainText(">>There is no enemy near to you!");
+        }
+        else{
+            output->appendPlainText(">>There are"+QSring::number(countNearEnemy())+" enemies near you:");
+            findNearEnemy();
+
+        }
         lineEdit->clear();
     }
 
     else if(input=="show all enemies"){
-        output->appendPlainText(">>the locations of all enemies are following:");
+        output->appendPlainText(">There are"+QString::numver(myEnemies.size())+" enemies in the world");
         findAllEnemy();
         lineEdit->clear();
     }
 
     else if(input == "show health packs"){
-        output->appendPlainText(">>the locations of near health packs are following: ");
-        findNearHealth();
+        if(countNearHealth() == 0){
+            output->appendPlainText(">>There is no health pack near to you!");
+        }
+        else{
+            output->appendPlainText(">>There are"+QSring::number(countNearHealth())+" health packs near you:");
+            findNearHealth();
+
+        }
         lineEdit->clear();
     }
 
     else if(input == "show all health packs"){
-        output->appendPlainText(">>the locations of near health packs are following:");
+        output->appendPlainText(">>There are "+QString::number(countNearHealth())+" health packs in the world");
         findAllHealth();
         lineEdit->clear();
     }
 
+    else if(input.contains("health")){
+        output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
+                                "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
+                                "world!");
+    }
+
+    else if(input.contains("enemy")){
+        output->appendPlainText(">>Invalid command, if you want to know the locations of enemies, please enter 'show enemies' to show"
+                                "the enemies near to you, or enter 'show all enemies' to show all the enemies in the world!");
+    }
+
+    else if(input.contains("pack")){
+        output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
+                                "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
+                                "world!");
+    }
+
     else{
-        output->appendPlainText(">>invalid command, please enter 'help' to get more information");
+        output->appendPlainText(">>Invalid command, please enter 'help' to get more information");
         lineEdit->clear();
     }
 }

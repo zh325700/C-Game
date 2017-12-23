@@ -73,6 +73,16 @@ MyModel::~MyModel()
 
 }
 
+std::vector<MyEnemy *> MyModel::getMyEnemies() const
+{
+    return myEnemies;
+}
+
+void MyModel::setMyEnemies(const std::vector<MyEnemy *> &value)
+{
+    myEnemies = value;
+}
+
 bool MyModel::getWhichView() const
 {
     return whichView;

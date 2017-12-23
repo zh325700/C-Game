@@ -8,17 +8,17 @@
 
 
 MyModel *myModel;
-TerminalGameView *terminalGameView;
 GraphicGameView *graphicGameView;
+TerminalGameView *terminalGameView;
 
 MainWindow::MainWindow(QWidget * parent):
     QWidget (parent)
 {
 
         myModel = new MyModel();
-        terminalGameView = new TerminalGameView();
+       // terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
-        //terminalGameView = new TerminalGameView();
+        terminalGameView = new TerminalGameView();
 
         //create a Horizontal layout to show info
         layout = new QHBoxLayout(this);
