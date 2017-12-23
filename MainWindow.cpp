@@ -43,6 +43,22 @@ MainWindow::MainWindow(QWidget * parent):
         layoutY->addWidget(yLabel);
         layoutY->addWidget(yValue);
 
+        auto dxdyGroup = new QGroupBox();
+        auto layoutdx = new QHBoxLayout(dxdyGroup);
+        auto dxLabel = new QLabel("xDestination: ");
+        destinationX = new QLineEdit();
+        destinationX->setReadOnly(true);
+        destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
+        layoutdx->addWidget(dxLabel);
+        layoutdx->addWidget(destinationX);
+        auto dyLabel = new QLabel("yDestination: ");
+        destinationY = new QLineEdit();
+        destinationY->setReadOnly(true);
+        destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
+        layoutdx->addWidget(dyLabel);
+        layoutdx->addWidget(destinationY);
+
+
         //create health group for health info
         healthGroup = new QGroupBox();
         layoutHealth = new QHBoxLayout(healthGroup);
@@ -82,22 +98,24 @@ MainWindow::MainWindow(QWidget * parent):
         layoutButtion->addWidget(switch_button);
         layoutButtion->addStretch(1);
 
-        layout->addWidget(graphicGameView,0,0,5,1);
-        layout->addWidget(terminalGameView,0,0,5,1);
-        terminalGameView->hide();
+        layout->addWidget(graphicGameView,0,0,6,1);
+        layout->addWidget(terminalGameView,0,0,6,1);
+        terminalGameView->hide();                     //by default show graphicView
         layoutStatistic->addWidget(xpositionGroup);
         layoutStatistic->addWidget(ypositionGroup);
+        layoutStatistic->addWidget(dxdyGroup);
         layoutStatistic->addWidget(healthGroup);
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButtion);
-        layout->addLayout(layoutStatistic,0,1,5,1);
+        layout->addLayout(layoutStatistic,0,1,6,1);
 
 
-        connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
+        connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+        connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
 
 
 }
@@ -145,7 +163,13 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
     }
 }
 
-void MainWindow::handleButton()
+void MainWindow::showDestination()
+{
+    destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
+    destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
+}
+
+void MainWindow::handleSwitchButton()
 {
     myModel->setWhichView(!myModel->getWhichView());
     bool whichView = myModel->getWhichView();
@@ -157,4 +181,19 @@ void MainWindow::handleButton()
         terminalGameView->hide();
         graphicGameView->show();
     }
+}
+
+void MainWindow::handleStartButton()
+{
+    //Model get the destination x and y , false is grapgicView , true is terinalView
+    bool whichView = myModel->getWhichView();
+    if(whichView){
+        //xuqingji de fangfa lai nadao x,y
+    }
+    else{
+        myModel->setDestinationX(graphicGameView->getEndPoint().x());
+        myModel->setDestinationY(graphicGameView->getEndPoint().y());
+    }
+
+    //Here the pathfinding game start.
 }

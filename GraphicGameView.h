@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <memory>
 #include <QObject>
+#include <QPointF>
 
 #include "MyEnemy.h"
 #include "MyProtagonist.h"
@@ -28,14 +29,21 @@ public:
     QGraphicsEllipseItem *ellipse;
     int getMultipleSizeOfCircle() const;
     void setMultipleSizeOfCircle(int value);
+    void mousePressEvent(QMouseEvent *event);
+
+    QPointF getEndPoint() const;
 
 public slots:
     void drawPoinsonCircle();
     void deletePnemy();
     void deleteEnemy();
 
+signals:
+    void destinationFound();
+
 private:
     int multipleSizeOfCircle;
+    QPointF endPoint ;
 };
 
 #endif // GraphicGameView_H

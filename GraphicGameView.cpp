@@ -168,6 +168,12 @@ void GraphicGameView::deleteEnemy()
 
 }
 
+QPointF GraphicGameView::getEndPoint() const
+{
+    return endPoint;
+}
+
+
 int GraphicGameView::getMultipleSizeOfCircle() const
 {
     return multipleSizeOfCircle;
@@ -176,6 +182,25 @@ int GraphicGameView::getMultipleSizeOfCircle() const
 void GraphicGameView::setMultipleSizeOfCircle(int value)
 {
     multipleSizeOfCircle = value;
+}
+
+void GraphicGameView::mousePressEvent(QMouseEvent *event)
+{
+    endPoint = event->pos();
+    int x = endPoint.x();
+    int y = endPoint.y();
+    if(x%20!=0||y%20!=0){
+        x = x/20 ;
+        y = y/20 ;
+    }
+    else{
+        x = x/20 -1;
+        y = y/20 -1;
+    }
+    endPoint.setX(x);
+    endPoint.setY(y);
+
+    emit destinationFound();
 }
 
 

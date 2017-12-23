@@ -40,9 +40,17 @@ public:
     std::vector<HealthPack *> & getMyHealthPacks() ;
     void setMyHealthPacks( std::vector<HealthPack *> &value);
 
+    int getDestinationX() const;
+    void setDestinationX(int value);
+
+    int getDestinationY() const;
+    void setDestinationY(int value);
+
 private:
     int cols;
     int rows;
+    int destinationX;
+    int destinationY;
     MyProtagonist *myProtagonist;
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};
