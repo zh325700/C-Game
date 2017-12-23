@@ -31,8 +31,9 @@ MainWindow::MainWindow(QWidget * parent):
         //create progress bar
         healthbar = new QProgressBar();
         healthbar->setRange(0,100);
-        healthbar->setValue(graphicGameView->myProtagonist->getHealth());
-        healthbar->setFormat("The current health is : "+QString::number(graphicGameView->myProtagonist->getHealth()));
+
+        healthbar->setValue(myModel->getMyProtagonist()->getHealth());
+        healthbar->setFormat("The current health is : "+QString::number(myModel->getMyProtagonist()->getHealth()));
         //healthbar->setAlignment(Qt::AlignCenter);
         healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
         layoutHealth->addWidget(healthLabel);
@@ -42,11 +43,13 @@ MainWindow::MainWindow(QWidget * parent):
         energyGroup = new QGroupBox();
         layoutEnergy = new QHBoxLayout(energyGroup);
         energyLabel = new QLabel("Energy:");
+
         energtbar = new QProgressBar();
         //create progress bar
         energtbar->setRange(0,100);
-        energtbar->setValue(graphicGameView->myProtagonist->getEnergy());
-        energtbar->setFormat("The current enegy is: "+ QString::number(graphicGameView->myProtagonist->getEnergy()));
+
+        energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
+        energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
         energtbar->setStyleSheet("::chunk{background-color: yellow;border: 2px solid black;border-radius: 5px;text-align: center;}");
         layoutEnergy->addWidget(energyLabel);
         layoutEnergy->addWidget(energtbar);
@@ -71,9 +74,9 @@ MainWindow::MainWindow(QWidget * parent):
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
-        connect(graphicGameView->myProtagonist,&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
-        connect(graphicGameView->myProtagonist,&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
-        connect(graphicGameView->myProtagonist,&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+        connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
+        connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
+        connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
 
 
 }
@@ -87,10 +90,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::refreshEandH()
 {
-    healthbar->setValue(graphicGameView->myProtagonist->getHealth());
-    healthbar->setFormat("The current health is : "+QString::number(graphicGameView->myProtagonist->getHealth()));
-    energtbar->setValue(graphicGameView->myProtagonist->getEnergy());
-    energtbar->setFormat("The current enegy is: "+ QString::number(graphicGameView->myProtagonist->getEnergy()));
+    healthbar->setValue(myModel->getMyProtagonist()->getHealth());
+    healthbar->setFormat("The current health is : "+QString::number(myModel->getMyProtagonist()->getHealth()));
+    energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
+    energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
 }
 
 void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window

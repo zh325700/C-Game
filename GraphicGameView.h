@@ -28,14 +28,6 @@ public:
     QGraphicsEllipseItem *ellipse;
     int getMultipleSizeOfCircle() const;
     void setMultipleSizeOfCircle(int value);
-    MyProtagonist* myProtagonist;
-    int cols;
-    int rows;
-
-    std::vector<MyTile *> myTilesMap ={};
-    std::vector<MyEnemy *> myEnemies ={};
-    std::vector<MyPEnemy *> myPEnemies ={};
-    std::vector<HealthPack *> myHealthPacks ={};
 
 public slots:
     void drawPoinsonCircle();
