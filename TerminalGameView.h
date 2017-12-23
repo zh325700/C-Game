@@ -47,8 +47,10 @@ public:
     //response for command
     void findAllEnemy();
     void findNearEnemy();
+    int countNearEnemy();
     void findAllHealth();
     void findNearHealth();
+    int countNearHealth();
     QString showProta();
 
     //event for keyboard

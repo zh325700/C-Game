@@ -170,7 +170,7 @@ void GraphicGameView::deleteEnemy()
                 if(myEnemies[i] == deadEnemy){
                     qDebug()<<"deleteEnemy"<<i;
                     myEnemies.erase(myEnemies.begin()+i);
-                    myModel->setMyEnemies(myEnemies);
+                    //myModel->setMyEnemies(myEnemies);
                 }
             }
             qDebug()<<QString::number(myEnemies.size());
