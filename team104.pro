@@ -34,10 +34,10 @@ SOURCES += \
     MainWindow.cpp \
     Graphics_view_zoom.cpp \
     MyModel.cpp \
-    GameTerminal.cpp\
     Astar.cpp \
     Node.cpp \
-    GraphicGameView.cpp
+    GraphicGameView.cpp \
+    TerminalGameView.cpp
 
 HEADERS += \
     MyEnemy.h \
@@ -48,7 +48,7 @@ HEADERS += \
     MainWindow.h \
     Graphics_view_zoom.h \
     MyModel.h \
-    GameTerminal.h\
+    TerminalGameView.h\
     Astar.h \
     Node.h \
     GraphicGameView.h

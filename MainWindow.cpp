@@ -6,57 +6,72 @@
 
 
 
-GraphicGameView *graphicGameView;
+
 MyModel *myModel;
-GameTerminal *gameTerminal;
+TerminalGameView *terminalGameView;
+GraphicGameView *graphicGameView;
 
 MainWindow::MainWindow(QWidget * parent):
     QWidget (parent)
 {
 
         myModel = new MyModel();
+        terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
-        gameTerminal = new GameTerminal();
-        switch_button = new QPushButton("Switch View", this);
+        //terminalGameView = new TerminalGameView();
 
-
-        //create a Horizontal layout to put health and energy
+        //create a Horizontal layout to show info
         layout = new QHBoxLayout(this);
+        layoutStatistic = new QVBoxLayout();
 
+        //create health group for health info
+        healthGroup = new QGroupBox();
+        layoutHealth = new QHBoxLayout(healthGroup);
+        healthLabel = new QLabel("Health:");
         //create progress bar
         healthbar = new QProgressBar();
         healthbar->setRange(0,100);
+
         healthbar->setValue(myModel->getMyProtagonist()->getHealth());
         healthbar->setFormat("The current health is : "+QString::number(myModel->getMyProtagonist()->getHealth()));
+        //healthbar->setAlignment(Qt::AlignCenter);
+        healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
+        layoutHealth->addWidget(healthLabel);
+        layoutHealth->addWidget(healthbar);
+
+        //create a energy group for energy info
+        energyGroup = new QGroupBox();
+        layoutEnergy = new QHBoxLayout(energyGroup);
+        energyLabel = new QLabel("Energy:");
 
         energtbar = new QProgressBar();
+        //create progress bar
         energtbar->setRange(0,100);
+
         energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
         energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
+        energtbar->setStyleSheet("::chunk{background-color: yellow;border: 2px solid black;border-radius: 5px;text-align: center;}");
+        layoutEnergy->addWidget(energyLabel);
+        layoutEnergy->addWidget(energtbar);
 
-
-        //create health container
-        healthLabel = new QLabel("Health:");
-
-
-        //create Energy container
-        energyLable = new QLabel("Energy:");
-
-        //create GroupBox to contain all the label and value
-        healthgroup = new QGroupBox("Health show");
-        layoutStatistic = new QVBoxLayout(healthgroup);
-        layoutStatistic->addWidget(healthLabel);
-        layoutStatistic->addWidget(healthbar);
-        layoutStatistic->addWidget(energyLable);
-        layoutStatistic->addWidget(energtbar);
-
+        //button
+        switch_button = new QPushButton("Switch View", this);
+        switch_button->setFixedHeight(30);
+        switch_button->setFixedWidth(100);
+        auto layoutButtion = new QHBoxLayout();
+        layoutButtion->addStretch(1);
+        layoutButtion->addWidget(switch_button);
+        layoutButtion->addStretch(1);
 
         //layout->addWidget(graphicGameView);
-        layout->addWidget(gameTerminal);
+        layout->addWidget(terminalGameView);
         layout->addWidget(graphicGameView);
         graphicGameView->hide();
-        layout->addWidget(healthgroup);
-        layout->addWidget(switch_button);
+        layoutStatistic->addWidget(healthGroup);
+        layoutStatistic->addWidget(energyGroup);
+        layoutStatistic->addLayout(layoutButtion);
+        layout->addLayout(layoutStatistic);
+
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
@@ -106,11 +121,11 @@ void MainWindow::handleButton()
     myModel->setWhichView(!myModel->getWhichView());
     bool whichView = myModel->getWhichView();
     if(whichView){
-        gameTerminal->hide();
+        terminalGameView->hide();
         graphicGameView->show();
     }
     else{
-        gameTerminal->show();
+        terminalGameView->show();
         graphicGameView->hide();
     }
 }

@@ -18,7 +18,7 @@
 #include "HealthPack.h"
 #include "world.h"
 #include "GraphicGameView.h"
-#include "GameTerminal.h"
+#include "TerminalGameView.h"
 
 class MainWindow: public QWidget
 {
@@ -28,8 +28,11 @@ public:
     ~MainWindow();
     QHBoxLayout *layout;
     QLabel *healthLabel;
-    QLabel * energyLable;
-    QGroupBox* healthgroup;
+    QLabel * energyLabel;
+    QGroupBox* healthGroup;
+    QHBoxLayout* layoutHealth;
+    QGroupBox* energyGroup;
+    QHBoxLayout* layoutEnergy;
     QVBoxLayout* layoutStatistic;
     QProgressBar *healthbar ;
     QProgressBar *energtbar;
