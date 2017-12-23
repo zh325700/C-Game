@@ -50,9 +50,11 @@ public slots:
 
 private slots:
    void handleSwitchButton();
+   void handleStartButton();
 
 private:
     QPushButton *switch_button;
+    QPushButton *start_game_button;
 
 };
 

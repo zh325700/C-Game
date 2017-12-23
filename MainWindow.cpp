@@ -91,11 +91,14 @@ MainWindow::MainWindow(QWidget * parent):
 
         //button
         switch_button = new QPushButton("Switch View", this);
+        start_game_button = new QPushButton("Start Game", this);
+        start_game_button->setFixedSize(100,30);
         switch_button->setFixedHeight(30);
         switch_button->setFixedWidth(100);
         auto layoutButtion = new QHBoxLayout();
         layoutButtion->addStretch(1);
         layoutButtion->addWidget(switch_button);
+        layoutButtion->addWidget(start_game_button);
         layoutButtion->addStretch(1);
 
         layout->addWidget(graphicGameView,0,0,6,1);
@@ -111,6 +114,7 @@ MainWindow::MainWindow(QWidget * parent):
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
+        connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
@@ -193,6 +197,8 @@ void MainWindow::handleStartButton()
     else{
         myModel->setDestinationX(graphicGameView->getEndPoint().x());
         myModel->setDestinationY(graphicGameView->getEndPoint().y());
+        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
+        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
     }
 
     //Here the pathfinding game start.

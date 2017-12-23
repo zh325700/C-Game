@@ -153,3 +153,23 @@ void MyModel::setMyHealthPacks( std::vector<HealthPack *> &value)
     myHealthPacks = value;
 }
 
+int MyModel::getDestinationX() const
+{
+    return destinationX;
+}
+
+void MyModel::setDestinationX(int value)
+{
+    destinationX = value;
+}
+
+int MyModel::getDestinationY() const
+{
+    return destinationY;
+}
+
+void MyModel::setDestinationY(int value)
+{
+    destinationY = value;
+}
+
