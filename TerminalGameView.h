@@ -1,5 +1,5 @@
-#ifndef GAMETERMINAL_H
-#define GAMETERMINAL_H
+#ifndef TERMINALGAMEVIEW_H
+#define TERMINALGAMEVIEW_H
 
 #include <QMainWindow>
 #include <QWidget>
@@ -25,13 +25,13 @@
 
 using namespace std;
 
-class GameTerminal : public QWidget
+class TerminalGameView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit GameTerminal(QWidget *parent = 0);
-    ~GameTerminal();
+    explicit TerminalGameView(QWidget *parent = 0);
+    ~TerminalGameView();
     void init();  //inite the help string and other string
     void initWorld();  //init world image
     void setupLayout();  //set up layout
@@ -68,6 +68,7 @@ private:
     //layout
     QLineEdit *lineEdit;
     QPlainTextEdit *output;
+    QFont font=QFont("CodeNewRoman");
     std::vector<QString> inputs={};
     int inputPosition = 0;
 
@@ -92,4 +93,4 @@ private:
 };
 
 
-#endif // GAMETERMINAL_H
+#endif // TERMINALGAMEVIEW_H
