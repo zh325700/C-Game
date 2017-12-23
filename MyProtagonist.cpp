@@ -6,9 +6,11 @@
 
 #include "MyProtagonist.h"
 #include "GraphicGameView.h"
+#include "MyModel.h"
 
 
 extern GraphicGameView *graphicGameView;
+extern MyModel *myModel;
 
 MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     QGraphicsPixmapItem(parent),Protagonist()
@@ -29,25 +31,25 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
 void MyProtagonist::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left){
-        if (xPos > 0 && !isinf(getNextSpotValue(xPos-1,yPos,graphicGameView->myTilesMap,graphicGameView->cols)))
+        if (xPos > 0 && !isinf(getNextSpotValue(xPos-1,yPos,myModel->getMyTilesMap(),myModel->getCols())))
         {
             Protagonist::setPos(xPos-1,yPos);
         }
     }
     else if (event->key() == Qt::Key_Right){
-        if(!isinf(getNextSpotValue(xPos+1,yPos,graphicGameView->myTilesMap,graphicGameView->cols))
-                &&xPos<graphicGameView->cols){   // 800 and 20 should be changeble with the size of the tile
+        if(!isinf(getNextSpotValue(xPos+1,yPos,myModel->getMyTilesMap(),myModel->getCols()))
+                &&xPos<myModel->getCols()){   // 800 and 20 should be changeble with the size of the tile
             Protagonist::setPos(xPos+1,yPos);
         }
     }
     else if(event->key()== Qt::Key_Up){
-        if(yPos >0 && !isinf(getNextSpotValue(xPos,yPos-1,graphicGameView->myTilesMap,graphicGameView->cols))){
+        if(yPos >0 && !isinf(getNextSpotValue(xPos,yPos-1,myModel->getMyTilesMap(),myModel->getCols()))){
             Protagonist::setPos(xPos,yPos-1);
         }
     }
     else if(event->key() == Qt::Key_Down){
-        if(!isinf(getNextSpotValue(xPos,yPos+1,graphicGameView->myTilesMap,graphicGameView->cols))
-                &&yPos<graphicGameView->rows){
+        if(!isinf(getNextSpotValue(xPos,yPos+1,myModel->getMyTilesMap(),myModel->getCols()))
+                &&yPos<myModel->getRows()){
             Protagonist::setPos(xPos,yPos+1);
         }
     }
@@ -117,7 +119,7 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                     emit encounterEnemy();
                     decreaseHealth(aMyenemy->getValue());
                     recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),graphicGameView->myTilesMap,graphicGameView->cols)->setValue(std::numeric_limits<float>::infinity());
+                    this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
                     aMyenemy->setDefeated(true);   //set defeated then emit dead()
 
                 }
@@ -125,7 +127,7 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                     qDebug() << "PEnemy strength: " <<aPenemy->getValue();
                     decreaseHealth(aPenemy->getValue());
                     recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),graphicGameView->myTilesMap,graphicGameView->cols)->setValue(std::numeric_limits<float>::infinity());
+                    this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
                     QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
                     emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                     qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();

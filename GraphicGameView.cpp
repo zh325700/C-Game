@@ -30,14 +30,7 @@ extern MyModel *myModel;
 GraphicGameView::GraphicGameView(QWidget *parent)
 {
 
-
-    this->rows = myModel->rows;
-    this->cols = myModel->cols;
-    this->multipleSizeOfCircle =1;
-    this->myTilesMap = myModel->myTilesMap;
-    this->myEnemies = myModel->myEnemies;
-    this->myPEnemies = myModel->myPEnemies;
-    this->myHealthPacks = myModel->myHealthPacks;
+    this->setMultipleSizeOfCircle(1);
     ellipse = new QGraphicsEllipseItem();
 
     // create the scene
@@ -50,53 +43,53 @@ GraphicGameView::GraphicGameView(QWidget *parent)
     setFixedSize(800,600);
 
     //create protagonist
-    this->myProtagonist = myModel->myProtagonist;
+//    this->myProtagonist = myModel->myProtagonist;
     // Used to be connect of myProtagonist ~~~~
 
 
     //set position of the protagonist
-    this->myProtagonist->QGraphicsItem::setPos(myProtagonist->getXPos(),myProtagonist->getYPos());
-    this->myProtagonist->setFlag(QGraphicsItem::ItemIsFocusable);
-    this->myProtagonist->setFocus();
+    myModel->myProtagonist->QGraphicsItem::setPos(myModel->myProtagonist->getXPos(),myModel->myProtagonist->getYPos());
+    myModel->myProtagonist->setFlag(QGraphicsItem::ItemIsFocusable);
+    myModel->myProtagonist->setFocus();
 
 
     //add Tiles to the scene and connect
-    for(auto &aTile:this->myTilesMap){
+    for(auto &aTile:myModel->myTilesMap){
         scene->addItem(aTile);
     }
     //add pack to the scene and connect
-    for(auto &aPack:this->myHealthPacks){
+    for(auto &aPack:myModel->myHealthPacks){
          scene->addItem(aPack);
     }
     // add the Enemies to the scene
-    for(auto &aEnemy:this->myEnemies){
+    for(auto &aEnemy:myModel->myEnemies){
          scene->addItem(aEnemy);
     }
 
     //add pEnemies to the scene and connect
-    for(auto &aPEnemy:this->myPEnemies){
+    for(auto &aPEnemy:myModel->myPEnemies){
          scene->addItem(aPEnemy);
     }
     // add the protagonist to the scene
-    scene->addItem(this->myProtagonist);
+    scene->addItem(myModel->myProtagonist);
 
 
     //make signal and slot connect of Enemies
-    for(auto &aEnemy:this->myEnemies){
+    for(auto &aEnemy:myModel->myEnemies){
          int x=aEnemy->getXPos();
          int y=aEnemy->getYPos();
-         QObject::connect(aEnemy,SIGNAL(dead()),myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aEnemy,SIGNAL(dead()),myModel->myTilesMap[x+y*cols],SLOT(drawBlack()));
          QObject::connect(aEnemy,SIGNAL(dead()),this,SLOT(deleteEnemy()));
     }
 
     //make signal and slot connect of Penemies
-    for(auto &aPEnemy:this->myPEnemies){
+    for(auto &aPEnemy:myModel->myPEnemies){
          int x=aPEnemy->getXPos();
          int y=aPEnemy->getYPos();
-         QObject::connect(aPEnemy,SIGNAL(dead()),this->myTilesMap[x+y*cols],SLOT(drawBlack()));
+         QObject::connect(aPEnemy,SIGNAL(dead()),this->myModel->myTilesMap[x+y*cols],SLOT(drawBlack()));
          QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
-         QObject::connect(this->myProtagonist,&MyProtagonist::encounterPenemy,this,&GraphicGameView::drawPoinsonCircle);
-         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myProtagonist,&MyProtagonist::ifInPoisonarea);
+         QObject::connect(myModel->myProtagonist,&MyProtagonist::encounterPenemy,this,&GraphicGameView::drawPoinsonCircle);
+         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myModel->myProtagonist,&MyProtagonist::ifInPoisonarea);
     }
 
     //add auto zoom in and out
@@ -104,7 +97,7 @@ GraphicGameView::GraphicGameView(QWidget *parent)
     z->set_modifiers(Qt::NoModifier);
     //show the scene
 //    show();
-    centerOn(myProtagonist);
+    centerOn(myModel->myProtagonist);
 
     //play background music in a loop
     QMediaPlaylist *playlist = new QMediaPlaylist();
@@ -125,9 +118,9 @@ void GraphicGameView::drawPoinsonCircle()
 {
     //add one circle to the scene the x,y is based on protagoinist current position
     setMultipleSizeOfCircle(2);
-    int xCircle = myProtagonist->getXPos()*myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myProtagonist->getSizeOfTile() ;
-    int yCircle = myProtagonist->getYPos()*myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myProtagonist->getSizeOfTile();
-    float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myProtagonist->getSizeOfTile();
+    int xCircle = myModel->myProtagonist->getXPos()*myModel->myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myModel->myProtagonist->getSizeOfTile() ;
+    int yCircle = myModel->myProtagonist->getYPos()*myModel->myProtagonist->getSizeOfTile() - multipleSizeOfCircle*myModel->myProtagonist->getSizeOfTile();
+    float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myModel->myProtagonist->getSizeOfTile();
     float heightOfCircle = widthOfCircle;
 
     //set brush to the poison circle
@@ -145,9 +138,9 @@ void GraphicGameView::deletePnemy()
     if(deadPenemy){
         scene->removeItem(deadPenemy);
         delete deadPenemy;
-        for(int i=0;i<myPEnemies.size();i++){
-            if(myPEnemies[i] == deadPenemy){
-                myPEnemies.erase(myPEnemies.begin()+i);
+        for(int i=0;i<myModel->myPEnemies.size();i++){
+            if(myModel->myPEnemies[i] == deadPenemy){
+                myModel->myPEnemies.erase(myModel->myPEnemies.begin()+i);
             }
         }
 
@@ -164,9 +157,9 @@ void GraphicGameView::deleteEnemy()
         if(deadEnemy){
             scene->removeItem(deadEnemy);
             delete deadEnemy;
-            for(int i=0;i<myEnemies.size();i++){
-                if(myEnemies[i] == deadEnemy){
-                    myEnemies.erase(myEnemies.begin()+i);
+            for(int i=0;i<myModel->myEnemies.size();i++){
+                if(myModel->myEnemies[i] == deadEnemy){
+                    myModel->myEnemies.erase(myModel->myEnemies.begin()+i);
                 }
             }
 

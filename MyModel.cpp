@@ -83,3 +83,73 @@ void MyModel::setWhichView(bool value)
     whichView = value;
 }
 
+int & MyModel::getCols()
+{
+    return cols;
+}
+
+void MyModel::setCols(int value)
+{
+    cols = value;
+}
+
+int & MyModel::getRows()
+{
+    return rows;
+}
+
+void MyModel::setRows(int value)
+{
+    rows = value;
+}
+
+MyProtagonist *MyModel::getMyProtagonist()
+{
+    return myProtagonist;
+}
+
+void MyModel::setMyProtagonist(MyProtagonist *value)
+{
+    myProtagonist = value;
+}
+
+std::vector<MyTile *> & MyModel::getMyTilesMap()
+{
+    return myTilesMap;
+}
+
+void MyModel::setMyTilesMap( std::vector<MyTile *> &value)
+{
+    myTilesMap = value;
+}
+
+std::vector<MyEnemy *> & MyModel::getMyEnemies()
+{
+    return myEnemies;
+}
+
+void MyModel::setMyEnemies( std::vector<MyEnemy *> &value)
+{
+    myEnemies = value;
+}
+
+std::vector<MyPEnemy *> & MyModel::getMyPEnemies()
+{
+    return myPEnemies;
+}
+
+void MyModel::setMyPEnemies( std::vector<MyPEnemy *> &value)
+{
+    myPEnemies = value;
+}
+
+std::vector<HealthPack *> & MyModel::getMyHealthPacks()
+{
+    return myHealthPacks;
+}
+
+void MyModel::setMyHealthPacks( std::vector<HealthPack *> &value)
+{
+    myHealthPacks = value;
+}
+
