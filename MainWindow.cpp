@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget * parent):
         //create xposition group for prota info
         auto xpositionGroup = new QGroupBox();
         auto layoutX = new QHBoxLayout(xpositionGroup);
-        auto xLabel = new QLabel("xPosition is: ");
+        auto xLabel = new QLabel("xPosition : ");
         xValue = new QLineEdit();
         xValue->setText(QString::number(myModel->getMyProtagonist()->getXPos()));
         xValue->setReadOnly(true);
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget * parent):
         //create yposition group for prota info
         auto ypositionGroup = new QGroupBox();
         auto layoutY = new QHBoxLayout(ypositionGroup);
-        auto yLabel = new QLabel("yPosition is: ");
+        auto yLabel = new QLabel("yPosition : ");
         yValue = new QLineEdit();
         yValue->setReadOnly(true);
         yValue->setText(QString::number(myModel->getMyProtagonist()->getYPos()));
