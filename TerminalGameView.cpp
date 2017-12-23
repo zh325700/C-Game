@@ -65,8 +65,8 @@ void TerminalGameView::setupLayout(){
     output->setFont(font);
     output->setCenterOnScroll(true);
     output->setReadOnly(true);
-    output->resize(800,600);
-    output->setGeometry(0,0,800,600);
+    output->resize(1600,1200);
+    output->setGeometry(0,0,1600,1200);
     groupOutLayout->addWidget(plabel);
     groupOutLayout->addWidget(output);
     output->setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;"

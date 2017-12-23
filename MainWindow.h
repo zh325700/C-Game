@@ -3,6 +3,7 @@
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
@@ -26,7 +27,7 @@ class MainWindow: public QWidget
 public:
     MainWindow(QWidget *parent =0);
     ~MainWindow();
-    QHBoxLayout *layout;
+    QGridLayout *layout;
     QLabel *healthLabel;
     QLabel * energyLabel;
     QGroupBox* healthGroup;

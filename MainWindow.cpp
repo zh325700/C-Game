@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget * parent):
         graphicGameView = new GraphicGameView();
 
         //create a Horizontal layout to show info
-        layout = new QHBoxLayout(this);
+        layout = new QGridLayout(this);
         layoutStatistic = new QVBoxLayout();
 
         //create xposition group for prota info
@@ -82,15 +82,15 @@ MainWindow::MainWindow(QWidget * parent):
         layoutButtion->addWidget(switch_button);
         layoutButtion->addStretch(1);
 
-        layout->addWidget(graphicGameView);
-        layout->addWidget(terminalGameView);
+        layout->addWidget(graphicGameView,0,0,5,1);
+        layout->addWidget(terminalGameView,0,0,5,1);
         terminalGameView->hide();
         layoutStatistic->addWidget(xpositionGroup);
         layoutStatistic->addWidget(ypositionGroup);
         layoutStatistic->addWidget(healthGroup);
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButtion);
-        layout->addLayout(layoutStatistic);
+        layout->addLayout(layoutStatistic,0,1,5,1);
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleButton()));
@@ -150,11 +150,11 @@ void MainWindow::handleButton()
     myModel->setWhichView(!myModel->getWhichView());
     bool whichView = myModel->getWhichView();
     if(whichView){
-        terminalGameView->hide();
-        graphicGameView->show();
-    }
-    else{
         terminalGameView->show();
         graphicGameView->hide();
+    }
+    else{
+        terminalGameView->hide();
+        graphicGameView->show();
     }
 }
