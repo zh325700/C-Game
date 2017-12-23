@@ -99,6 +99,9 @@ MyTile *MyProtagonist::getTileByXY(int x, int y, std::vector<MyTile *> &myTiles,
 
 void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
     // get a list of all items colliding with attack_area
+
+
+
     Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
 
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
@@ -120,17 +123,22 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                 }
                 else if(aPenemy){
                     qDebug() << "PEnemy strength: " <<aPenemy->getValue();
-                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                     decreaseHealth(aPenemy->getValue());
                     recoverEnergy();
                     this->getTileByXY(this->getXPos(),this->getYPos(),graphicGameView->myTilesMap,graphicGameView->cols)->setValue(std::numeric_limits<float>::infinity());
                     QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
+                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
                     qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();
                 }
                 else if(aHealthPack){
                     emit encounterHealthPack();
                     recoverHealth(aHealthPack->getValue());
                     graphicGameView->scene->removeItem(aHealthPack);
+//                    for(int i=0;i<graphicGameView->myHealthPacks.size();i++){
+//                        if(graphicGameView->myHealthPacks[i] == aHealthPack){
+//                            graphicGameView->myHealthPacks.erase(i);
+//                        }
+//                    }
                     delete aHealthPack;
                 }
                 else if(aMyTile){
@@ -158,7 +166,6 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
 {
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
     for (size_t i = 0, n = colliding_items.size(); i < n; i++){
-//        qDebug()<<"collid item: "<<typeid(*colliding_items[i]);
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
         if(aCircle){
                 this->setHealth(this->getHealth()-poisonValue/100);
