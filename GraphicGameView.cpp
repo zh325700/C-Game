@@ -158,21 +158,11 @@ void GraphicGameView::deleteEnemy()
         if(deadEnemy){
             scene->removeItem(deadEnemy);
             delete deadEnemy;
-<<<<<<< HEAD
-            //deadEnemy = nullptr;
-            for(int i=0;i<myEnemies.size();i++){
-                if(myEnemies[i] == deadEnemy){
-                    qDebug()<<"deleteEnemy"<<i;
-                    myEnemies.erase(myEnemies.begin()+i);
-                    //myModel->setMyEnemies(myEnemies);
-=======
             for(int i=0;i<myModel->getMyEnemies().size();i++){
                 if(myModel->getMyEnemies()[i] == deadEnemy){
                     myModel->getMyEnemies().erase(myModel->getMyEnemies().begin()+i);
->>>>>>> 10a33936e485defa3edd97031f6021e5920cd212
                 }
             }
-            qDebug()<<QString::number(myEnemies.size());
             qDebug()<<"Enemy is deleted";
         }
 

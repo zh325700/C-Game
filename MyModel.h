@@ -48,16 +48,6 @@ private:
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-<<<<<<< HEAD
-    bool getWhichView() const;
-    void setWhichView(bool value);
-
-    std::vector<MyEnemy *> getMyEnemies() const;
-    void setMyEnemies(const std::vector<MyEnemy *> &value);
-
-private:
-=======
->>>>>>> 10a33936e485defa3edd97031f6021e5920cd212
     bool whichView = false;
 
 };

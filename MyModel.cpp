@@ -73,12 +73,12 @@ MyModel::~MyModel()
 
 }
 
-std::vector<MyEnemy *> MyModel::getMyEnemies() const
+std::vector<MyEnemy *> & MyModel::getMyEnemies()
 {
     return myEnemies;
 }
 
-void MyModel::setMyEnemies(const std::vector<MyEnemy *> &value)
+void MyModel::setMyEnemies(std::vector<MyEnemy *> &value)
 {
     myEnemies = value;
 }
@@ -131,16 +131,6 @@ std::vector<MyTile *> & MyModel::getMyTilesMap()
 void MyModel::setMyTilesMap( std::vector<MyTile *> &value)
 {
     myTilesMap = value;
-}
-
-std::vector<MyEnemy *> & MyModel::getMyEnemies()
-{
-    return myEnemies;
-}
-
-void MyModel::setMyEnemies( std::vector<MyEnemy *> &value)
-{
-    myEnemies = value;
 }
 
 std::vector<MyPEnemy *> & MyModel::getMyPEnemies()

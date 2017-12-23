@@ -33,7 +33,6 @@ public:
     explicit TerminalGameView(QWidget *parent = 0);
     ~TerminalGameView();
     void init();  //inite the help string and other string
-    void initWorld();  //init world image
     void setupLayout();  //set up layout
 
     //check enemy warning
@@ -73,16 +72,6 @@ private:
     QFont font=QFont("CodeNewRoman");
     std::vector<QString> inputs={};
     int inputPosition = 0;
-
-    //world
-    int rows;
-    int cols;
-    std::vector<MyTile *> myTilesMap={};
-    std::vector<MyEnemy *> myEnemies ={};
-    std::vector<MyPEnemy *> myPEnemies ={};
-    std::vector<HealthPack *> myHealthPacks ={};
-    MyProtagonist * myProtagonist;
-    //MyProtagonist *myProtagonist;
 
     //hints string
      const std::type_info& typeEn = typeid(Enemy);

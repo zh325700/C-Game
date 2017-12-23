@@ -34,22 +34,14 @@ public:
     QGroupBox* energyGroup;
     QHBoxLayout* layoutEnergy;
     QVBoxLayout* layoutStatistic;
+    QLineEdit* xValue;
+    QLineEdit* yValue;
     QProgressBar *healthbar ;
     QProgressBar *energtbar;
 
-
-    //new added
-//    int cols;
-//    int rows;
-//    MyProtagonist *myProtagonist;
-//    std::vector<MyTile *> myTilesMap ={};
-//    std::vector<MyEnemy *> myEnemies ={};
-//    std::vector<MyPEnemy *> myPEnemies ={};
-//    std::vector<HealthPack *> myHealthPacks ={};
-
-
 public slots:
     void refreshEandH();
+    void refreshXandY();
     void restartTheGame();
 
 private slots:

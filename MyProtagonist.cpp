@@ -171,6 +171,7 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
         if(aCircle){
                 this->setHealth(this->getHealth()-poisonValue/100);
+                emit inCircle();
         }
     }
 }

@@ -32,6 +32,7 @@ signals:
     void encounterPenemy();
     void encounterEnemy();
     void encounterHealthPack();
+    void inCircle();
 
 public slots:
     void moveToNextSpot();

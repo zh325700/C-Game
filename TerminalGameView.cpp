@@ -13,7 +13,6 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
 {
     setupLayout();
     init();
-    initWorld();
 
     output->appendPlainText(">>The game is starting! \n"
                             "  From now on, you can use command lines to do the following things: \n"
@@ -22,21 +21,21 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
                             "  show all enemies with: 'show all enemies' \n"
                             "  show near health packs with: 'show health packs' \n"
                             "  show all health packswith: 'show all health packs' \n"
-                            "  use 'arrows'a,w,s,d' in the keyboard to control the movement \n"
+                            "  use 'a,w,s,d' in the keyboard to control the movement \n"
                             "  you can enter 'help' to get manual at any time");
 
     connect(lineEdit,&QLineEdit::returnPressed,this,&TerminalGameView::onEnter);
-    connect(myProtagonist,&MyProtagonist::posChanged,this,&TerminalGameView::checkNewPos);
-    connect(myProtagonist,&MyProtagonist::encounterPenemy,this,&TerminalGameView::encounterPEn);
-    connect(myProtagonist,&MyProtagonist::encounterEnemy,this,&TerminalGameView::encouterEn);
-    connect(myProtagonist,&MyProtagonist::encounterHealthPack,this,&TerminalGameView::encouterHe);
+    connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&TerminalGameView::checkNewPos);
+    connect(myModel->getMyProtagonist(),&MyProtagonist::encounterPenemy,this,&TerminalGameView::encounterPEn);
+    connect(myModel->getMyProtagonist(),&MyProtagonist::inCircle,this,&TerminalGameView::poisonUser);
+    connect(myModel->getMyProtagonist(),&MyProtagonist::encounterEnemy,this,&TerminalGameView::encouterEn);
+    connect(myModel->getMyProtagonist(),&MyProtagonist::encounterHealthPack,this,&TerminalGameView::encouterHe);
 
-    for(auto& ene:myModel->myEnemies){
+    for(auto& ene:myModel->getMyEnemies()){
             QObject::connect(ene,&MyEnemy::dead,this,&TerminalGameView::enemyDead);
     }
 
-    for(auto& pene:myPEnemies){
-                connect(pene,&MyPEnemy::poisonLevelUpdated,this,&TerminalGameView::poisonUser);
+    for(auto& pene:myModel->getMyPEnemies()){
                 connect(pene,&MyPEnemy::dead,this,&TerminalGameView::penemyDead);
             }
 }
@@ -55,18 +54,6 @@ void TerminalGameView::init()
                "  you can enter 'help' to get manual at any time";
     boundary = "You are moving out of boundary\n";
     existwall = "There is wall blocking your way, you cannot move in this direction\n";
-}
-
-void TerminalGameView::initWorld()
-{
-    myTilesMap = myModel->myTilesMap;
-    myEnemies = myModel->myEnemies;
-    myPEnemies = myModel->myPEnemies;
-    myHealthPacks = myModel->myHealthPacks;
-    myProtagonist = myModel->myProtagonist;
-    rows = myModel->rows;
-    cols = myModel->cols;
-
 }
 
 void TerminalGameView::setupLayout(){
@@ -99,34 +86,34 @@ void TerminalGameView::setupLayout(){
 
 void TerminalGameView::moveEnemy()
 {
-    for(auto &enemy : myModel->myEnemies){
+    for(auto &enemy : myModel->getMyEnemies()){
         QString strength = QString::number(enemy->getValue());
-        if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos()-1)&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos())){
             output->appendPlainText("  Warning: there is a normal enemy on your left, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos()+1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos()+1)&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos())){
             output->appendPlainText("  Warning: there is a normal enemy on your right, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()-1)){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos())&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos()-1)){
             output->appendPlainText("  Warning: there is a normal enemy above you, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()+1)){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos())&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos()+1)){
             output->appendPlainText("  Warning: there is a normal enemy below you, whose strength is "+strength);
         }
     }
 
-    for(auto &enemy : myModel->myPEnemies){
+    for(auto &enemy : myModel->getMyPEnemies()){
         QString strength = QString::number(enemy->getValue());
-        if((enemy->getXPos() == myProtagonist->getXPos()-1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos()-1)&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos())){
             output->appendPlainText("  Warning: there is a poison enemy on your left, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos()+1)&&(enemy->getYPos() == myProtagonist->getYPos())){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos()+1)&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos())){
             output->appendPlainText("  Warning: there is a poison enemy on your right, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()-1)){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos())&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos()-1)){
             output->appendPlainText("  Warning: there is a poison enemy above you, whose strength is "+strength);
         }
-        if((enemy->getXPos() == myProtagonist->getXPos())&&(enemy->getYPos() == myProtagonist->getYPos()+1)){
+        if((enemy->getXPos() == myModel->getMyProtagonist()->getXPos())&&(enemy->getYPos() == myModel->getMyProtagonist()->getYPos()+1)){
             output->appendPlainText("  Warning: there is a poison enemy below you, whose strength is "+strength);
         }
     }
@@ -137,22 +124,22 @@ bool TerminalGameView::movePos(QString direction)
     bool pos = false;
 
     if(direction == "left"){
-        if((myProtagonist->getXPos() - 1)>=0){
+        if((myModel->getMyProtagonist()->getXPos() - 1)>=0){
             pos = true;
         }
     }
     else if(direction=="right"){
-        if((cols-1) >= (myProtagonist->getXPos() + 1)){
+        if((myModel->getCols()-1) >= (myModel->getMyProtagonist()->getXPos() + 1)){
             pos = true;
         }
     }
     else if(direction=="up"){
-        if((myProtagonist->getYPos() - 1) >= 0){
+        if((myModel->getMyProtagonist()->getYPos() - 1) >= 0){
             pos = true;
         }
     }
     else if(direction=="down"){
-        if((rows-1) >= (myProtagonist->getYPos() + 1)){
+        if((myModel->getRows()-1) >= (myModel->getMyProtagonist()->getYPos() + 1)){
             pos = true;
         }
     }
@@ -166,7 +153,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     if(direction=="left"){
         if(movePos(direction)){
-            if(isinf(myModel->myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()-1)->getValue())){
+            if(isinf(myModel->getMyTilesMap().at(myModel->getMyProtagonist()->getYPos()*myModel->getCols()+myModel->getMyProtagonist()->getXPos()-1)->getValue())){
                 noWall = false;
             }
         }
@@ -174,7 +161,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="right"){
         if(movePos(direction)){
-            if(isinf(myModel->myTilesMap.at(myProtagonist->getYPos()*cols+myProtagonist->getXPos()+1)->getValue())){
+            if(isinf(myModel->getMyTilesMap().at(myModel->getMyProtagonist()->getYPos()*myModel->getCols()+myModel->getMyProtagonist()->getXPos()+1)->getValue())){
                     noWall = false;
             }
         }
@@ -182,7 +169,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="up"){
         if(movePos(direction)){
-            if(isinf(myModel->myTilesMap.at((myProtagonist->getYPos()-1)*cols+myProtagonist->getXPos())->getValue())){
+            if(isinf(myModel->getMyTilesMap().at((myModel->getMyProtagonist()->getYPos()-1)*myModel->getCols()+myModel->getMyProtagonist()->getXPos())->getValue())){
                 noWall = false;
             }
         }
@@ -190,7 +177,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
     else if(direction=="down"){
         if(movePos(direction)){
-            if(isinf(myModel->myTilesMap.at((myProtagonist->getYPos()+1)*cols+myProtagonist->getXPos())->getValue())){
+            if(isinf(myModel->getMyTilesMap().at((myModel->getMyProtagonist()->getYPos()+1)*myModel->getCols()+myModel->getMyProtagonist()->getXPos())->getValue())){
                 noWall = false;
             }
         }
@@ -201,9 +188,7 @@ bool TerminalGameView::movenoWall(QString direction)
 
 void TerminalGameView::findAllEnemy()
 {
-    int total =myModel->getMyEnemies().size()+myModel->myPEnemies.size();
-    output->appendPlainText("there is totally "+QString::number(total)+"in this world!");
-    for(auto &enemy : myModel->myEnemies){
+    for(auto &enemy : myModel->getMyEnemies()){
 
         QString xPosition = QString::number(enemy->getXPos());
         QString yPosition = QString::number(enemy->getYPos());
@@ -213,7 +198,7 @@ void TerminalGameView::findAllEnemy()
                                    +"), his strength is "+strength);
     }
 
-    for(auto &penemy :myModel->myPEnemies){
+    for(auto &penemy :myModel->getMyPEnemies()){
         QString xPosition = QString::number(penemy->getXPos());
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
@@ -225,24 +210,24 @@ void TerminalGameView::findAllEnemy()
 
 void TerminalGameView::findNearEnemy()
 {
-    for(auto &enemy : myModel->myEnemies){
+    for(auto &enemy : myModel->getMyEnemies()){
 
         QString xPosition = QString::number(enemy->getXPos());
         QString yPosition = QString::number(enemy->getYPos());
         QString strength = QString::number(enemy->getValue());
 
-        if((abs(enemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(enemy->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(enemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(enemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
         }
     }
 
-    for(auto &penemy :myModel->myPEnemies){
+    for(auto &penemy :myModel->getMyPEnemies()){
         QString xPosition = QString::number(penemy->getXPos());
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
 
-        if((abs(penemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(penemy->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(penemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(penemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
         }
@@ -252,25 +237,25 @@ void TerminalGameView::findNearEnemy()
 int TerminalGameView::countNearEnemy()
 {
     int eTotal = 0;
-    for(auto &enemy : myModel->myEnemies){
+    for(auto &enemy : myModel->getMyEnemies()){
 
         QString xPosition = QString::number(enemy->getXPos());
         QString yPosition = QString::number(enemy->getYPos());
         QString strength = QString::number(enemy->getValue());
 
-        if((abs(enemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(enemy->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(enemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(enemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
             eTotal++;
         }
     }
 
-    for(auto &penemy :myModel->myPEnemies){
+    for(auto &penemy :myModel->getMyPEnemies()){
         QString xPosition = QString::number(penemy->getXPos());
         QString yPosition = QString::number(penemy->getYPos());
         QString strength = QString::number(penemy->getValue());
 
-        if((abs(penemy->getXPos()-myProtagonist->getXPos())<=10)&&(abs(penemy->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(penemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(penemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
                                    +"), his strength is "+strength);
             eTotal++;
@@ -282,7 +267,7 @@ int TerminalGameView::countNearEnemy()
 
 void TerminalGameView::findAllHealth()
 {
-    for(auto &healthP : myModel->myHealthPacks){
+    for(auto &healthP : myModel->getMyHealthPacks()){
 
         QString xPosition = QString::number(healthP->getXPos());
         QString yPosition = QString::number(healthP->getYPos());
@@ -294,13 +279,13 @@ void TerminalGameView::findAllHealth()
 
 void TerminalGameView::findNearHealth()
 {
-    for(auto &healthP : myModel->myHealthPacks){
+    for(auto &healthP : myModel->getMyHealthPacks()){
 
         QString xPosition = QString::number(healthP->getXPos());
         QString yPosition = QString::number(healthP->getYPos());
         QString strength = QString::number(healthP->getValue());
 
-        if((abs(healthP->getXPos()-myProtagonist->getXPos())<=10)&&(abs(healthP->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(healthP->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(healthP->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A health pack is at the location ("+xPosition+","+yPosition+"), the value is "+strength);
         }
     }
@@ -309,13 +294,13 @@ void TerminalGameView::findNearHealth()
 int TerminalGameView::countNearHealth()
 {
     int hTotal = 0;
-    for(auto &healthP : myModel->myHealthPacks){
+    for(auto &healthP : myModel->getMyHealthPacks()){
 
         QString xPosition = QString::number(healthP->getXPos());
         QString yPosition = QString::number(healthP->getYPos());
         QString strength = QString::number(healthP->getValue());
 
-        if((abs(healthP->getXPos()-myProtagonist->getXPos())<=10)&&(abs(healthP->getYPos()-myProtagonist->getYPos())<=10)){
+        if((abs(healthP->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(healthP->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A health pack is at the location ("+xPosition+","+yPosition+"), the value is "+strength);
             hTotal++;
         }
@@ -326,9 +311,9 @@ int TerminalGameView::countNearHealth()
 QString TerminalGameView::showProta()
 {
     QString protaInfo = "protagonist is at ("
-                    +QString::number(myProtagonist->getXPos())+","+QString::number(myProtagonist->getYPos())
-                    +"), health is "+QString::number(myProtagonist->getHealth())
-                    +", energy is "+QString::number(myProtagonist->getEnergy());
+                    +QString::number(myModel->getMyProtagonist()->getXPos())+","+QString::number(myModel->getMyProtagonist()->getYPos())
+                    +"), health is "+QString::number(myModel->getMyProtagonist()->getHealth())
+                    +", energy is "+QString::number(myModel->getMyProtagonist()->getEnergy());
 
     return protaInfo;
 }
@@ -340,7 +325,7 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
 
         if(movable){
-            myProtagonist->Protagonist::setXPos((myProtagonist->getXPos()-1));
+            myModel->getMyProtagonist()->Protagonist::setXPos((myModel->getMyProtagonist()->getXPos()-1));
         }
 
         else{
@@ -361,7 +346,7 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
 
         if(movable){
-            myProtagonist->Protagonist::setXPos((myProtagonist->getXPos()+1));
+            myModel->getMyProtagonist()->Protagonist::setXPos((myModel->getMyProtagonist()->getXPos()+1));
         }
 
         else{
@@ -382,7 +367,7 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
 
         if(movable){
-            myProtagonist->Protagonist::setYPos(myProtagonist->getYPos()-1);
+            myModel->getMyProtagonist()->Protagonist::setYPos(myModel->getMyProtagonist()->getYPos()-1);
         }
 
         else{
@@ -403,7 +388,7 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
         bool movable = ((movePos(direction))&&(movenoWall(direction)));
 
         if(movable){
-            myProtagonist->Protagonist::setYPos(myProtagonist->getYPos()+1);
+            myModel->getMyProtagonist()->Protagonist::setYPos(myModel->getMyProtagonist()->getYPos()+1);
         }
 
         else{
@@ -468,7 +453,7 @@ void TerminalGameView::onEnter()
             output->appendPlainText(">>There is no enemy near to you!");
         }
         else{
-            output->appendPlainText(">>There are"+QSring::number(countNearEnemy())+" enemies near you:");
+            output->appendPlainText(">>There are "+QString::number(countNearEnemy())+" enemies near you:");
             findNearEnemy();
 
         }
@@ -476,7 +461,7 @@ void TerminalGameView::onEnter()
     }
 
     else if(input=="show all enemies"){
-        output->appendPlainText(">There are"+QString::numver(myEnemies.size())+" enemies in the world");
+        output->appendPlainText(">There are "+QString::number(myModel->getMyEnemies().size()+myModel->getMyPEnemies().size())+" enemies in the world");
         findAllEnemy();
         lineEdit->clear();
     }
@@ -486,7 +471,7 @@ void TerminalGameView::onEnter()
             output->appendPlainText(">>There is no health pack near to you!");
         }
         else{
-            output->appendPlainText(">>There are"+QSring::number(countNearHealth())+" health packs near you:");
+            output->appendPlainText(">>There are "+QString::number(countNearHealth())+" health packs near you:");
             findNearHealth();
 
         }
@@ -494,7 +479,7 @@ void TerminalGameView::onEnter()
     }
 
     else if(input == "show all health packs"){
-        output->appendPlainText(">>There are "+QString::number(countNearHealth())+" health packs in the world");
+        output->appendPlainText(">>There are "+QString::number(myModel->getMyHealthPacks().size())+" health packs in the world");
         findAllHealth();
         lineEdit->clear();
     }
@@ -534,7 +519,7 @@ void TerminalGameView::encounterPEn()
 
 void TerminalGameView::encouterHe()
 {
-    output->appendPlainText("  Congratulations! You get a health pack and your health is "+QString::number(myProtagonist->getHealth())+" now");
+    output->appendPlainText("  Congratulations! You get a health pack and your health is "+QString::number(myModel->getMyProtagonist()->getHealth())+" now");
 }
 
 void TerminalGameView::enemyDead()
@@ -550,7 +535,7 @@ void TerminalGameView::penemyDead()
 
 void TerminalGameView::poisonUser()
 {
-    output->appendPlainText("  You are being poiosned, your health is "+QString::number(myProtagonist->getHealth())+" now");
+    output->appendPlainText("  You are being poiosned, your health is "+QString::number(myModel->getMyProtagonist()->getHealth())+" now");
 }
 
 void TerminalGameView::checkNewPos()
