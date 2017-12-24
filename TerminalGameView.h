@@ -55,6 +55,15 @@ public:
     //event for keyboard
     void keyPressEvent(QKeyEvent *event);
 
+    int getDX() const;
+    void setDX(int value);
+
+    int getDY() const;
+    void setDY(int value);
+
+signals:
+    void destinationFind();
+
 public slots:
     void onEnter();
     void encouterEn();
@@ -81,6 +90,8 @@ private:
      QString existwall;
      QString noEnergy;
      int costOfStep = 0;
+     int dX=0;
+     int dY=0;
 };
 
 
