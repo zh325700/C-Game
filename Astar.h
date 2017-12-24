@@ -10,12 +10,6 @@
 class Astar
 {
 public:
-
-    bool isDone;
-
-    std::vector<std::shared_ptr<Node>> open;   // sorted list of nodes open for consideration
-    std::list<std::shared_ptr<Node>> solution; // the nodes along the path from start to goal
-
     Astar();
 
     void find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
@@ -23,6 +17,19 @@ public:
                    const int &world_rows, const int &world_cols);
     void smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
                            std::shared_ptr<Node> newNode);
+
+    bool getIsDone() const;
+
+    std::list<std::shared_ptr<Node> > getSolution() const;
+
+    bool getIsFound() const;
+
+private:
+    bool isDone;    //might be useful if we are going to use multi-thread later
+    bool isFound;
+
+    std::vector<std::shared_ptr<Node>> open;
+    std::list<std::shared_ptr<Node>> solution;
 };
 
 #endif // ASTAR_H
