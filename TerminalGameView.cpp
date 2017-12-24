@@ -20,7 +20,8 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
                             "  show near enemies with: 'show enemies' \n"
                             "  show all enemies with: 'show all enemies' \n"
                             "  show near health packs with: 'show health packs' \n"
-                            "  show all health packswith: 'show all health packs' \n"
+                            "  show all health packs with: 'show all health packs' \n"
+                            "  go to the destination automatically with: 'goto(3,5)' \n"
                             "  use 'a,w,s,d' in the keyboard to control the movement \n"
                             "  you can enter 'help' to get manual at any time");
 
@@ -50,6 +51,7 @@ void TerminalGameView::init()
                "  'show all enemies' find all enemies in this map \n"
                "  'show health packs' find near health packs \n"
                "  'show all health packs' find all health packs \n"
+               "  'goto(3,5)' go to destination automatically \n"
                "  use 'a,w,s,d' in the keyboard to control the movement \n"
                "  you can enter 'help' to get manual at any time";
     boundary = "You are moving out of boundary\n";
@@ -484,6 +486,31 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
+    else if(input.contains("goto(")&&input.contains("(")&&input.contains(",")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
+        int index1 = 0;
+        int index2 = 0;
+        int index3 = 0;
+        index1 = input.indexOf("(");
+        index2 = input.indexOf(",");
+        index3 = input.indexOf(")");
+        if((index1!=0)&&(index2!=0)&&(index3!=0)&&(index1<index2)&&(index2<index3)){
+            bool okX;
+            bool okY;
+            int dX = input.mid((index1+1),(index2-index1-1)).toInt(&okX);
+            int dY = input.mid((index2+1),(index3-index2-1)).toInt(&okY);
+            if(okX && okY){
+                emit destinationFind();
+            }
+            else{
+                output->appendPlainText(">>The coordinates of destination must be integers!");
+            }
+        }
+        else{
+            output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
+                                    "enter 'goto(3,5)'");
+        }
+    }
+
     else if(input.contains("health")){
         output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
                                 "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
@@ -499,6 +526,11 @@ void TerminalGameView::onEnter()
         output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
                                 "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
                                 "world!");
+    }
+
+    else if(input.contains("goto")){
+        output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
+                                "enter 'goto(3,5)'");
     }
 
     else{
@@ -536,6 +568,26 @@ void TerminalGameView::penemyDead()
 void TerminalGameView::poisonUser()
 {
     output->appendPlainText("  You are being poiosned, your health is "+QString::number(myModel->getMyProtagonist()->getHealth())+" now");
+}
+
+int TerminalGameView::getDY() const
+{
+    return dY;
+}
+
+void TerminalGameView::setDY(int value)
+{
+    dY = value;
+}
+
+int TerminalGameView::getDX() const
+{
+    return dX;
+}
+
+void TerminalGameView::setDX(int value)
+{
+    dX = value;
 }
 
 void TerminalGameView::checkNewPos()

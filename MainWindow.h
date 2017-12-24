@@ -54,6 +54,7 @@ private slots:
 signals:
    void pathFound();
 
+
 private:
     QPushButton *switch_button;
     QPushButton *start_game_button;
