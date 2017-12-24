@@ -168,6 +168,20 @@ void GraphicGameView::deleteEnemy()
 
 }
 
+void GraphicGameView::drawThePath()
+{
+
+    for (std::list<std::shared_ptr<Node>>::reverse_iterator rit=myModel->getMyAstar()->getSolution().rbegin(); rit != myModel->getMyAstar()->getSolution().rend(); ++rit)
+    {
+        MyModel *tempM = myModel;
+        std::shared_ptr<Node> xqj= *rit;
+        int x = (*rit)->getPos_x();
+        int y = (*rit)->getPos_y();
+        myModel->getMyProtagonist()->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())->drawBlack();
+    }
+
+}
+
 QPointF GraphicGameView::getEndPoint() const
 {
     return endPoint;

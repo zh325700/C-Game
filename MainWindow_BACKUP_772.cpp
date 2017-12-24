@@ -120,9 +120,12 @@ MainWindow::MainWindow(QWidget * parent):
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
         connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
+<<<<<<< HEAD
         connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::showDestination);
+=======
         connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
 
+>>>>>>> 52bf59ddbe00e95f6223f40f7a593363a677ba92
 
 }
 
@@ -201,24 +204,23 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is grapgicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-                        //xuqingji de fangfa lai nadao x,y
-        myModel->setDestinationX(22);
-        myModel->setDestinationY(22);
-    }
-    else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
         qDebug()<<"Model destination X:"<<myModel->getDestinationX();
         qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
-
+    }
+    else{
+                //xuqingji de fangfa lai nadao x,y
     }
 
+<<<<<<< HEAD
+=======
     if(myModel->moveFast()){
-        MyModel *tempM = myModel;
         emit pathFound();
     }else{
         qDebug()<<"Can not find the path";
     }
 
     //Here the pathfinding game start.
+>>>>>>> 52bf59ddbe00e95f6223f40f7a593363a677ba92
 }
