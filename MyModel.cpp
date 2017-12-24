@@ -3,7 +3,7 @@
 MyModel::MyModel()
 {
     std::shared_ptr<World> world = std::make_shared<World>();
-    std::vector<std::unique_ptr<Tile>> mapTiles = world->createWorld(":/images/maps/worldmap.png");
+    mapTiles = world->createWorld(":/images/maps/worldmap.png");
     std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(500);
     std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(50);
     myProtagonist = new MyProtagonist();
@@ -66,11 +66,20 @@ MyModel::MyModel()
     QObject::connect(this->myProtagonist,&MyProtagonist::healthChanged,this->myProtagonist,&MyProtagonist::checkProtagonistDead);
 
     //make signal and slot connect of enemies
+
+    //initialize astar
+    myAstar = std::make_shared<Astar>();
 }
 
 MyModel::~MyModel()
 {
 
+}
+
+bool MyModel::moveFast()
+{
+    myAstar->find_path(myProtagonist->getXPos(),myProtagonist->getYPos(),destinationX,destinationY,mapTiles,rows,cols);
+    return myAstar->getIsFound();
 }
 
 std::vector<MyEnemy *> & MyModel::getMyEnemies()
@@ -171,5 +180,10 @@ int MyModel::getDestinationY() const
 void MyModel::setDestinationY(int value)
 {
     destinationY = value;
+}
+
+std::shared_ptr<Astar> MyModel::getMyAstar() const
+{
+    return myAstar;
 }
 

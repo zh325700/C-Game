@@ -9,6 +9,7 @@
 #include "HealthPack.h"
 #include "world.h"
 #include "GraphicGameView.h"
+#include "Astar.h"
 
 
 class MyModel
@@ -16,6 +17,9 @@ class MyModel
 public:
     MyModel();
     ~MyModel();
+
+    bool moveFast();
+
     bool getWhichView() const;
     void setWhichView(bool value);
 
@@ -46,6 +50,8 @@ public:
     int getDestinationY() const;
     void setDestinationY(int value);
 
+    std::shared_ptr<Astar> getMyAstar() const;
+
 private:
     int cols;
     int rows;
@@ -57,6 +63,8 @@ private:
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
     bool whichView = false;
+    std::shared_ptr<Astar> myAstar;
+    std::vector<std::unique_ptr<Tile>> mapTiles;
 
 };
 
