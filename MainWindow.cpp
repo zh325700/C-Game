@@ -114,8 +114,6 @@ MainWindow::MainWindow(QWidget * parent):
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
-        connect(destinationX,&QLineEdit::returnPressed,this,&MainWindow::xSet);
-        connect(destinationY,&QLineEdit::returnPressed,this,&MainWindow::ySet);
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
@@ -174,18 +172,6 @@ void MainWindow::showDestination()
 {
     destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
     destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
-}
-
-void MainWindow::xSet()
-{
-    myModel->setDestinationX(round((destinationX->text()).toDouble()));
-    qDebug()<<"xset Model destination X:"<<myModel->getDestinationX();
-}
-
-void MainWindow::ySet()
-{
-    myModel->setDestinationY(round((destinationY->text()).toDouble()));
-    qDebug()<<"yset Model destination Y:"<<myModel->getDestinationY();
 }
 
 void MainWindow::handleSwitchButton()
