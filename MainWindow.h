@@ -49,8 +49,10 @@ public slots:
     void showDestination();
 
 private slots:
-   void handleSwitchButton();
-   void handleStartButton();
+    void xSet();
+    void ySet();
+    void handleSwitchButton();
+    void handleStartButton();
 
 private:
     QPushButton *switch_button;
