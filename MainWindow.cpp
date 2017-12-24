@@ -120,6 +120,7 @@ MainWindow::MainWindow(QWidget * parent):
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
         connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
+        connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
 
 
 }
@@ -199,6 +200,12 @@ void MainWindow::handleStartButton()
         myModel->setDestinationY(graphicGameView->getEndPoint().y());
         qDebug()<<"Model destination X:"<<myModel->getDestinationX();
         qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
+    }
+
+    if(myModel->moveFast()){
+        emit pathFound();
+    }else{
+        qDebug()<<"Can not find the path";
     }
 
     //Here the pathfinding game start.
