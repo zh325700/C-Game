@@ -49,8 +49,6 @@ public slots:
     void showDestination();
 
 private slots:
-    void xSet();
-    void ySet();
     void handleSwitchButton();
     void handleStartButton();
 
