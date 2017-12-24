@@ -78,6 +78,11 @@ MyModel::~MyModel()
 
 bool MyModel::moveFast()
 {
+    int first = myProtagonist->getXPos();
+    int second = myProtagonist->getYPos();
+    int third = destinationX;
+    int fourth = destinationY;
+
     myAstar->find_path(myProtagonist->getXPos(),myProtagonist->getYPos(),destinationX,destinationY,mapTiles,rows,cols);
     return myAstar->getIsFound();
 }

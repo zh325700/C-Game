@@ -114,14 +114,14 @@ MainWindow::MainWindow(QWidget * parent):
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
+        connect(destinationX,&QLineEdit::returnPressed,this,&MainWindow::xSet);
+        connect(destinationY,&QLineEdit::returnPressed,this,&MainWindow::ySet);
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
         connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
-        connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::showDestination);
-        connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
 
 
 }
@@ -171,15 +171,20 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
 
 void MainWindow::showDestination()
 {
+    destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
+    destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
+}
 
-    if(myModel->getWhichView()){
-        destinationX->setText(QString::number(terminalGameView->getDX()));
-        destinationY->setText(QString::number(terminalGameView->getDY()));
-    }
-    else{
-        destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
-        destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
-    }
+void MainWindow::xSet()
+{
+    myModel->setDestinationX(round((destinationX->text()).toDouble()));
+    qDebug()<<"xset Model destination X:"<<myModel->getDestinationX();
+}
+
+void MainWindow::ySet()
+{
+    myModel->setDestinationY(round((destinationY->text()).toDouble()));
+    qDebug()<<"yset Model destination Y:"<<myModel->getDestinationY();
 }
 
 void MainWindow::handleSwitchButton()
@@ -201,23 +206,13 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is grapgicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-                        //xuqingji de fangfa lai nadao x,y
-        myModel->setDestinationX(22);
-        myModel->setDestinationY(22);
+        //xuqingji de fangfa lai nadao x,y
     }
     else{
-        myModel->setDestinationX(round((destinationX->text()).toDouble()));
-        myModel->setDestinationY(round((destinationY->text()).toDouble()));
+        myModel->setDestinationX(graphicGameView->getEndPoint().x());
+        myModel->setDestinationY(graphicGameView->getEndPoint().y());
         qDebug()<<"Model destination X:"<<myModel->getDestinationX();
         qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
-
-    }
-
-    if(myModel->moveFast()){
-        MyModel *tempM = myModel;
-        emit pathFound();
-    }else{
-        qDebug()<<"Can not find the path";
     }
 
     //Here the pathfinding game start.

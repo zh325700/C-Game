@@ -2,7 +2,6 @@
 #define ASTAR_H
 
 #include "Node.h"
-#include <list>
 #include <memory>
 #include <vector>
 #include <world.h>
@@ -20,7 +19,7 @@ public:
 
     bool getIsDone() const;
 
-    std::list<std::shared_ptr<Node> > getSolution() const;
+    std::vector<std::shared_ptr<Node> > getSolution() const;
 
     bool getIsFound() const;
 
@@ -29,7 +28,7 @@ private:
     bool isFound;
 
     std::vector<std::shared_ptr<Node>> open;
-    std::list<std::shared_ptr<Node>> solution;
+    std::vector<std::shared_ptr<Node>> solution;
 };
 
 #endif // ASTAR_H

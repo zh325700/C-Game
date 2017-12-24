@@ -170,12 +170,13 @@ void GraphicGameView::deleteEnemy()
 
 void GraphicGameView::drawThePath()
 {
-
-    for (std::list<std::shared_ptr<Node>>::iterator it=myModel->getMyAstar()->getSolution().end(); it != myModel->getMyAstar()->getSolution().begin(); --it)
-    {
-        int x = (*it)->getPos_x();
-        int y = (*it)->getPos_y();
-        myModel->getMyProtagonist()->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())->drawBlack();
+ MyModel *tempM = myModel;
+    for(int i = myModel->getMyAstar()->getSolution().size()-1;i>=0;i--){
+        int x = myModel->getMyAstar()->getSolution()[i]->getPos_x();
+        int y = myModel->getMyAstar()->getSolution()[i]->getPos_y();
+        myModel->getMyProtagonist()
+                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
+                ->drawBlack();
     }
 
 }

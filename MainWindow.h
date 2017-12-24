@@ -49,11 +49,11 @@ public slots:
     void showDestination();
 
 private slots:
+
    void handleSwitchButton();
    void handleStartButton();
 signals:
    void pathFound();
-
 
 private:
     QPushButton *switch_button;

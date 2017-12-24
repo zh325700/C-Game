@@ -28,7 +28,7 @@ bool Astar::getIsDone() const
 }
 
 
-std::list<std::shared_ptr<Node> > Astar::getSolution() const
+std::vector<std::shared_ptr<Node> > Astar::getSolution() const
 {
     return solution;
 }

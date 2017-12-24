@@ -500,6 +500,16 @@ void TerminalGameView::onEnter()
             int dY = input.mid((index2+1),(index3-index2-1)).toInt(&okY);
             if(okX && okY){
                 emit destinationFind();
+                myModel->setDestinationX(dX);
+                myModel->setDestinationY(dY);
+                if(myModel->moveFast()){
+                    myModel->getMyAstar()->getSolution();
+                    output->appendPlainText("find path!");
+                }
+                else{
+                    qDebug()<<"illegal";
+                    output->appendPlainText(">>Illegal destination,it may be a wall or out of range of map!");
+                }
             }
             else{
                 output->appendPlainText(">>The coordinates of destination must be integers!");
@@ -509,6 +519,7 @@ void TerminalGameView::onEnter()
             output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
                                     "enter 'goto(3,5)'");
         }
+        lineEdit->clear();
     }
 
     else if(input.contains("health")){
@@ -520,17 +531,20 @@ void TerminalGameView::onEnter()
     else if(input.contains("enemy")){
         output->appendPlainText(">>Invalid command, if you want to know the locations of enemies, please enter 'show enemies' to show"
                                 "the enemies near to you, or enter 'show all enemies' to show all the enemies in the world!");
+        lineEdit->clear();
     }
 
     else if(input.contains("pack")){
         output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
                                 "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
                                 "world!");
+        lineEdit->clear();
     }
 
     else if(input.contains("goto")){
         output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
                                 "enter 'goto(3,5)'");
+        lineEdit->clear();
     }
 
     else{
