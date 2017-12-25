@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
+
 #include "MyProtagonist.h"
 #include "GraphicGameView.h"
 #include "MyModel.h"
@@ -24,6 +25,8 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     this->QGraphicsItem::setPos(graphicX,graphicY);
     setPixmap(QPixmap(":/images/icons/protagonistNew.png"));
     //set initial value to tile value, size of tile and stepCost for each step
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(moveAlongWithPath()));
 
 //    this->setValue(getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->getValue());
 }
@@ -173,6 +176,24 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
                 this->setHealth(this->getHealth()-poisonValue/100);
                 emit inCircle();
         }
+    }
+}
+
+void MyProtagonist::moveAlongWithPath()
+{
+    int totalSize = myModel->getMyAstar()->getSolution().size();
+    if(countSteps<myModel->getMyAstar()->getSolution().size())
+    {
+        int x = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_x();
+        int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y();
+        myModel->getMyProtagonist()
+                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
+                ->setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
+        this->Protagonist::setPos(x,y);
+
+        countSteps ++;
+    }else{
+        timer->stop();
     }
 }
 

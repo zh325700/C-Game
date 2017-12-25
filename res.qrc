@@ -14,6 +14,7 @@
         <file>icons/protagonistNew.png</file>
         <file>icons/blueSea.jpg</file>
         <file>icons/deadEnemy.png</file>
+        <file>icons/coin.gif</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>butterfly.mp3</file>

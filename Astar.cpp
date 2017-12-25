@@ -17,7 +17,7 @@ void Astar::smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
                         std::shared_ptr<Node> newNode)
 {
     std::vector<std::shared_ptr<Node>>::iterator it =
-            std::lower_bound(aVector.end(),aVector.begin(),
+            std::lower_bound(aVector.begin(),aVector.end(),
                              newNode,AstarCompare);
     aVector.insert(it,newNode);
 }

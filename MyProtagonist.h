@@ -6,6 +6,7 @@
 #include <QGraphicsItem>
 #include <QMediaPlayer>
 #include <vector>
+#include <QTimer>
 
 #include "world.h"
 #include "MyTile.h"
@@ -27,6 +28,9 @@ public:
     int getSizeOfTile() const;
     void setSizeOfTile(int value);
 
+    QTimer * timer;
+    int countSteps = 0;
+
 signals:
     void protagonistDead();
     void encounterPenemy();
@@ -39,11 +43,14 @@ public slots:
     void aquire_target();
     void checkProtagonistDead();
     void ifInPoisonarea(float poisonValue);
+    void moveAlongWithPath();
 private :
     int sizeOfTile;
     float stepCost;
     int graphicX=0;
     int graphicY=0;
+
+
 
 };
 

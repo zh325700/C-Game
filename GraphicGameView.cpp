@@ -170,14 +170,15 @@ void GraphicGameView::deleteEnemy()
 
 void GraphicGameView::drawThePath()
 {
- MyModel *tempM = myModel;
+    MyModel *tempM = myModel;
     for(int i = myModel->getMyAstar()->getSolution().size()-1;i>=0;i--){
         int x = myModel->getMyAstar()->getSolution()[i]->getPos_x();
         int y = myModel->getMyAstar()->getSolution()[i]->getPos_y();
         myModel->getMyProtagonist()
                 ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
-                ->drawBlack();
+                ->setPixmap(QPixmap(":/images/icons/coin.gif"));
     }
+    myModel->getMyProtagonist()->timer->start(50);
 
 }
 
