@@ -29,7 +29,7 @@ public:
     void setSizeOfTile(int value);
 
     QTimer * timer;
-    int countSteps = 0;
+    unsigned countSteps = 0;
 
 signals:
     void protagonistDead();
@@ -37,6 +37,7 @@ signals:
     void encounterEnemy();
     void encounterHealthPack();
     void inCircle();
+    void findNext();
 
 public slots:
     void moveToNextSpot();

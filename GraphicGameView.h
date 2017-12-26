@@ -22,7 +22,7 @@ class GraphicGameView: public QGraphicsView{
     Q_OBJECT
     //give game referance to scene,player,score,health
 public:
-    GraphicGameView(QWidget * parent=0);
+    GraphicGameView();
     ~GraphicGameView();
     QGraphicsScene * scene;
 //    MyEnemy *myEnemy;

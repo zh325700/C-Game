@@ -53,11 +53,13 @@ public slots:
     void restartTheGame();
     void showDestination();
 
+
 private slots:
 
    void handleSwitchButton();
    void handleStartButton();
    void handleMapButton();
+   void autoNavigate();
 signals:
    void pathFound(int speed);
 
@@ -65,6 +67,7 @@ private:
     QPushButton *switch_button;
     QPushButton *start_game_button;
     QPushButton *addNewMap;
+    QPushButton *test_button;
 
 };
 

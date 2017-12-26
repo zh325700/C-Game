@@ -80,7 +80,7 @@ private:
     QPlainTextEdit *output;
     QFont font=QFont("CodeNewRoman");
     std::vector<QString> inputs={};
-    int inputPosition = 0;
+    unsigned inputPosition = 0;
 
     //hints string
      const std::type_info& typeEn = typeid(Enemy);

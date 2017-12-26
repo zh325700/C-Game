@@ -14,7 +14,7 @@ extern GraphicGameView *graphicGameView;
 extern MyModel *myModel;
 
 MyProtagonist::MyProtagonist(QGraphicsItem *parent):
-    QGraphicsPixmapItem(parent),Protagonist()
+    Protagonist(),QGraphicsPixmapItem(parent)
 {
     setSizeOfTile(20);
     setStepCost(0.05);
@@ -194,6 +194,8 @@ void MyProtagonist::moveAlongWithPath()
         countSteps ++;
     }else{
         timer->stop();
+        countSteps = 0;
+        emit findNext();
     }
 }
 
