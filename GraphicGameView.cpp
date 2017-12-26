@@ -28,7 +28,7 @@
 
 extern MyModel *myModel;
 
-GraphicGameView::GraphicGameView(QWidget *parent)
+GraphicGameView::GraphicGameView()
 {
 
     this->setMultipleSizeOfCircle(1);
@@ -139,7 +139,7 @@ void GraphicGameView::deletePnemy()
     if(deadPenemy){
         scene->removeItem(deadPenemy);
         delete deadPenemy;
-        for(int i=0;i<myModel->getMyPEnemies().size();i++){
+        for(unsigned i=0;i<myModel->getMyPEnemies().size();i++){
             if(myModel->getMyPEnemies()[i] == deadPenemy){
                 myModel->getMyPEnemies().erase(myModel->getMyPEnemies().begin()+i);
             }
@@ -158,7 +158,7 @@ void GraphicGameView::deleteEnemy()
         if(deadEnemy){
             scene->removeItem(deadEnemy);
             delete deadEnemy;
-            for(int i=0;i<myModel->getMyEnemies().size();i++){
+            for(unsigned i=0;i<myModel->getMyEnemies().size();i++){
                 if(myModel->getMyEnemies()[i] == deadEnemy){
                     myModel->getMyEnemies().erase(myModel->getMyEnemies().begin()+i);
                 }
@@ -171,7 +171,7 @@ void GraphicGameView::deleteEnemy()
 void GraphicGameView::drawThePath(int speed)
 {
 
-    MyModel *tempM = myModel;
+    //MyModel *tempM = myModel;    //for testing purpose
     for(int i = myModel->getMyAstar()->getSolution().size()-1;i>=0;i--){
         int x = myModel->getMyAstar()->getSolution()[i]->getPos_x();
         int y = myModel->getMyAstar()->getSolution()[i]->getPos_y();

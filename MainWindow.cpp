@@ -227,7 +227,7 @@ void MainWindow::handleStartButton()
     }
 
     if(myModel->moveFast()){
-        MyModel *tempM = myModel;
+        //MyModel *tempM = myModel;    //for testing purpose
         emit pathFound(round((protaSpeed->text()).toInt()));
     }else{
         qDebug()<<"Can not find the path";
