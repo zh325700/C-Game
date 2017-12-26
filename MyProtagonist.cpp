@@ -195,6 +195,7 @@ void MyProtagonist::moveAlongWithPath()
     }else{
         timer->stop();
         countSteps = 0;
+        emit findNext();
     }
 }
 

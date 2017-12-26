@@ -20,7 +20,7 @@ public:
     ~MyModel();
 
     bool moveFast();      //move to a certain position
-    void autoNavigate();
+    void FindNextStep();
     MyEnemy ** findNearestEnemy();
     MyPEnemy ** findNearestPEnemy();
     HealthPack ** findNearestHealthPack();

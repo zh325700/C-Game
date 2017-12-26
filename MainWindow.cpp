@@ -101,6 +101,7 @@ MainWindow::MainWindow(QWidget * parent):
         //button
         switch_button = new QPushButton("Switch View", this);
         start_game_button = new QPushButton("Start Game", this);
+        test_button = new QPushButton("test button",this);
         start_game_button->setFixedSize(100,30);
         switch_button->setFixedHeight(30);
         switch_button->setFixedWidth(100);
@@ -108,6 +109,7 @@ MainWindow::MainWindow(QWidget * parent):
         layoutButtion->addStretch(1);
         layoutButtion->addWidget(switch_button);
         layoutButtion->addWidget(start_game_button);
+        layoutButtion->addWidget(test_button);
         layoutButtion->addStretch(1);
 
         layout->addWidget(graphicGameView,0,0,6,1);
@@ -125,6 +127,7 @@ MainWindow::MainWindow(QWidget * parent):
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
+        connect(test_button,SIGNAL (released()), this, SLOT (handleTestButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
@@ -132,7 +135,7 @@ MainWindow::MainWindow(QWidget * parent):
         connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
         connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::showDestination);
         connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
-
+        connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (handleTestButton()));
 
 }
 
@@ -231,4 +234,11 @@ void MainWindow::handleStartButton()
     }
 
     //Here the pathfinding game start.
+}
+
+void MainWindow::handleTestButton()
+{
+    myModel->FindNextStep();
+    emit pathFound(round((protaSpeed->text()).toInt()));
+
 }

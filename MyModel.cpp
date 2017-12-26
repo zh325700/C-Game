@@ -85,9 +85,9 @@ bool MyModel::moveFast()
     return myAstar->getIsFound();
 }
 
-void MyModel::autoNavigate()
+void MyModel::FindNextStep()
 {
-    while((!myEnemies.empty())||(!myPEnemies.empty()))
+    if((!myEnemies.empty())||(!myPEnemies.empty()))
     {
         MyEnemy ** nearestEnemy = findNearestEnemy();       //select nearest enemy (PEnemy not implemented yet)
         if(myProtagonist->getHealth() > (*nearestEnemy)->getValue())  //if health is enough to defeat the enemy -> go and fight
@@ -103,6 +103,10 @@ void MyModel::autoNavigate()
             this->setDestinationY((*nearestHP)->getYPos());
             moveFast();
         }
+    }
+    else
+    {
+        //all enemy defeated
     }
 
 }

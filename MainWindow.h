@@ -52,16 +52,19 @@ public slots:
     void restartTheGame();
     void showDestination();
 
+
 private slots:
 
    void handleSwitchButton();
    void handleStartButton();
+   void handleTestButton();
 signals:
    void pathFound(int speed);
 
 private:
     QPushButton *switch_button;
     QPushButton *start_game_button;
+    QPushButton *test_button;
 
 };
 
