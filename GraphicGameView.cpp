@@ -168,8 +168,9 @@ void GraphicGameView::deleteEnemy()
 
 }
 
-void GraphicGameView::drawThePath()
+void GraphicGameView::drawThePath(int speed)
 {
+
     MyModel *tempM = myModel;
     for(int i = myModel->getMyAstar()->getSolution().size()-1;i>=0;i--){
         int x = myModel->getMyAstar()->getSolution()[i]->getPos_x();
@@ -178,7 +179,7 @@ void GraphicGameView::drawThePath()
                 ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
                 ->setPixmap(QPixmap(":/images/icons/coin.gif"));
     }
-    myModel->getMyProtagonist()->timer->start(50);
+    myModel->getMyProtagonist()->timer->start(speed);
 
 }
 

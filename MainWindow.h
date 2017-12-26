@@ -39,6 +39,10 @@ public:
     QLineEdit* yValue;
     QLineEdit* destinationX;
     QLineEdit* destinationY;
+    QLineEdit* aStarParameter;
+    QLineEdit* protaSpeed;
+    QLineEdit* healthPackNum;
+    QLineEdit* enemyNum;
     QProgressBar *healthbar ;
     QProgressBar *energtbar;
 
@@ -53,7 +57,7 @@ private slots:
    void handleSwitchButton();
    void handleStartButton();
 signals:
-   void pathFound();
+   void pathFound(int speed);
 
 private:
     QPushButton *switch_button;

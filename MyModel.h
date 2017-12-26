@@ -15,7 +15,7 @@
 class MyModel
 {
 public:
-    MyModel();
+    MyModel(QString map = ":/images/maps/worldmap.png",int enemyNum = 50,int healthpackNum = 500);
     ~MyModel();
 
     bool moveFast();

@@ -43,20 +43,29 @@ MainWindow::MainWindow(QWidget * parent):
         layoutY->addWidget(yLabel);
         layoutY->addWidget(yValue);
 
+        //create destination x and y  input
         auto dxdyGroup = new QGroupBox();
         auto layoutdx = new QHBoxLayout(dxdyGroup);
         auto dxLabel = new QLabel("xDestination: ");
         destinationX = new QLineEdit();
-        //destinationX->setReadOnly(true);
-        //destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
         layoutdx->addWidget(dxLabel);
         layoutdx->addWidget(destinationX);
         auto dyLabel = new QLabel("yDestination: ");
         destinationY = new QLineEdit();
-        //destinationY->setReadOnly(true);
-        //destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
         layoutdx->addWidget(dyLabel);
         layoutdx->addWidget(destinationY);
+
+        //create Astar parameter
+        auto aStarNProtaGroup = new QGroupBox();
+        auto layoutANP = new QHBoxLayout(aStarNProtaGroup);
+        auto  aStarLabel  =new QLabel("AStar Parameter");
+        aStarParameter = new QLineEdit();
+        layoutANP -> addWidget(aStarLabel);
+        layoutANP -> addWidget(aStarParameter);
+        auto protaSpeedLabel = new QLabel("Speed of protagonist (ms)");
+        protaSpeed = new QLineEdit();
+        layoutANP -> addWidget(protaSpeedLabel);
+        layoutANP -> addWidget(protaSpeed);
 
 
         //create health group for health info
@@ -107,6 +116,7 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(xpositionGroup);
         layoutStatistic->addWidget(ypositionGroup);
         layoutStatistic->addWidget(dxdyGroup);
+        layoutStatistic->addWidget(aStarNProtaGroup);
         layoutStatistic->addWidget(healthGroup);
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButtion);
@@ -198,7 +208,7 @@ void MainWindow::handleSwitchButton()
 
 void MainWindow::handleStartButton()
 {
-    //Model get the destination x and y , false is grapgicView , true is terinalView
+    //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
                         //xuqingji de fangfa lai nadao x,y
@@ -215,7 +225,7 @@ void MainWindow::handleStartButton()
 
     if(myModel->moveFast()){
         MyModel *tempM = myModel;
-        emit pathFound();
+        emit pathFound(round((protaSpeed->text()).toInt()));
     }else{
         qDebug()<<"Can not find the path";
     }

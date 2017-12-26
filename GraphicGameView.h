@@ -37,7 +37,7 @@ public slots:
     void drawPoinsonCircle();
     void deletePnemy();
     void deleteEnemy();
-    void drawThePath();
+    void drawThePath(int speed);
 
 signals:
     void destinationFound();

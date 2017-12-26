@@ -1,11 +1,11 @@
 #include "MyModel.h"
 
-MyModel::MyModel()
+MyModel::MyModel(QString map, int enemyNum, int healthpackNum)
 {
     std::shared_ptr<World> world = std::make_shared<World>();
-    mapTiles = world->createWorld(":/images/maps/worldmap.png");
-    std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(500);
-    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(50);
+    mapTiles = world->createWorld(map);
+    std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(healthpackNum);
+    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(enemyNum);
     myProtagonist = new MyProtagonist();
     const std::type_info& typeE = typeid(Enemy);
     const std::type_info& typeP = typeid(PEnemy);
@@ -78,10 +78,10 @@ MyModel::~MyModel()
 
 bool MyModel::moveFast()
 {
-    int first = myProtagonist->getXPos();
-    int second = myProtagonist->getYPos();
-    int third = destinationX;
-    int fourth = destinationY;
+//    int first = myProtagonist->getXPos();
+//    int second = myProtagonist->getYPos();
+//    int third = destinationX;
+//    int fourth = destinationY;
 
     myAstar->find_path(myProtagonist->getXPos(),myProtagonist->getYPos(),destinationX,destinationY,mapTiles,rows,cols);
     return myAstar->getIsFound();
