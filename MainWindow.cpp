@@ -127,7 +127,7 @@ MainWindow::MainWindow(QWidget * parent):
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
-        connect(test_button,SIGNAL (released()), this, SLOT (handleTestButton()));
+        connect(test_button,SIGNAL (released()), this, SLOT (autoNavigate()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
@@ -135,7 +135,7 @@ MainWindow::MainWindow(QWidget * parent):
         connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
         connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::showDestination);
         connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
-        connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (handleTestButton()));
+        connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
 
 }
 
@@ -236,7 +236,7 @@ void MainWindow::handleStartButton()
     //Here the pathfinding game start.
 }
 
-void MainWindow::handleTestButton()
+void MainWindow::autoNavigate()
 {
     myModel->FindNextStep();
     emit pathFound(round((protaSpeed->text()).toInt()));

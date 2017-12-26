@@ -57,7 +57,7 @@ private slots:
 
    void handleSwitchButton();
    void handleStartButton();
-   void handleTestButton();
+   void autoNavigate();
 signals:
    void pathFound(int speed);
 
