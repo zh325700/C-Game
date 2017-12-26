@@ -29,7 +29,7 @@ public:
     void setSizeOfTile(int value);
 
     QTimer * timer;
-    int countSteps = 0;
+    unsigned countSteps = 0;
 
 signals:
     void protagonistDead();

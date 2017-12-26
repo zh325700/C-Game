@@ -194,6 +194,7 @@ void MyProtagonist::moveAlongWithPath()
         countSteps ++;
     }else{
         timer->stop();
+        countSteps = 0;
     }
 }
 

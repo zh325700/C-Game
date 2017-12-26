@@ -10,6 +10,7 @@
 #include "world.h"
 #include "GraphicGameView.h"
 #include "Astar.h"
+#include <math.h>
 
 
 class MyModel
@@ -18,7 +19,12 @@ public:
     MyModel(QString map = ":/images/maps/worldmap.png",int enemyNum = 50,int healthpackNum = 500);
     ~MyModel();
 
-    bool moveFast();
+    bool moveFast();      //move to a certain position
+    void autoNavigate();
+    MyEnemy ** findNearestEnemy();
+    MyPEnemy ** findNearestPEnemy();
+    HealthPack ** findNearestHealthPack();
+    int calculateDistance(int givenX, int givenY);    //simplified but faster version, can be improved later if needed
 
     bool getWhichView() const;
     void setWhichView(bool value);
@@ -52,11 +58,15 @@ public:
 
     std::shared_ptr<Astar> getMyAstar() const;
 
+    bool getReadyToNext() const;
+    void setReadyToNext(bool value);
+
 private:
     int cols;
     int rows;
     int destinationX;
     int destinationY;
+    bool readyToNext;
     MyProtagonist *myProtagonist;
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};

@@ -43,6 +43,9 @@ void Astar::find_path(int startP_x, int startP_y, int goalP_x, int goalP_y,
                       const std::vector<std::unique_ptr<Tile>> &tiles,
                       const int &world_rows, const int &world_cols)
 {
+    open.clear();
+    solution.clear();
+
     isDone = false;
     isFound = false;
     bool goalReached = false;
