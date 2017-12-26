@@ -35,6 +35,7 @@ public:
     QGroupBox* energyGroup;
     QHBoxLayout* layoutEnergy;
     QVBoxLayout* layoutStatistic;
+    QHBoxLayout *boxLayout;
     QLineEdit* xValue;
     QLineEdit* yValue;
     QLineEdit* destinationX;
@@ -56,12 +57,14 @@ private slots:
 
    void handleSwitchButton();
    void handleStartButton();
+   void handleMapButton();
 signals:
    void pathFound(int speed);
 
 private:
     QPushButton *switch_button;
     QPushButton *start_game_button;
+    QPushButton *addNewMap;
 
 };
 

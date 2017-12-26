@@ -3,6 +3,8 @@
 
 
 #include <QMessageBox>
+#include <QMenuBar>
+#include <QFileDialog>
 
 
 
@@ -12,16 +14,33 @@ GraphicGameView *graphicGameView;
 TerminalGameView *terminalGameView;
 
 MainWindow::MainWindow(QWidget * parent):
-    QWidget (parent)
+     QWidget(parent)
 {
 
+    //  Add toolbar to the mainwindow
         myModel = new MyModel();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
 
         //create a Horizontal layout to show info
+
         layout = new QGridLayout(this);
         layoutStatistic = new QVBoxLayout();
+
+
+    //This part not working!!
+        boxLayout = new QHBoxLayout(this);
+
+        QMenuBar* menuBar = new QMenuBar();
+        QMenu *fileMenu = new QMenu("File");
+        menuBar->addMenu(fileMenu);
+        fileMenu->addAction("Save");
+        fileMenu->addAction("Exit");
+
+        boxLayout->setMenuBar(menuBar);
+    //till here
+
+
 
         //create xposition group for prota info
         auto xpositionGroup = new QGroupBox();
@@ -101,6 +120,7 @@ MainWindow::MainWindow(QWidget * parent):
         //button
         switch_button = new QPushButton("Switch View", this);
         start_game_button = new QPushButton("Start Game", this);
+        addNewMap = new QPushButton("add new map");
         start_game_button->setFixedSize(100,30);
         switch_button->setFixedHeight(30);
         switch_button->setFixedWidth(100);
@@ -108,7 +128,12 @@ MainWindow::MainWindow(QWidget * parent):
         layoutButtion->addStretch(1);
         layoutButtion->addWidget(switch_button);
         layoutButtion->addWidget(start_game_button);
+        layoutButtion->addWidget(addNewMap);
         layoutButtion->addStretch(1);
+
+
+        QPixmap openpix("open.png");
+        QPixmap quitpix("quit.png");
 
         layout->addWidget(graphicGameView,0,0,6,1);
         layout->addWidget(terminalGameView,0,0,6,1);
@@ -121,10 +146,12 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButtion);
         layout->addLayout(layoutStatistic,0,1,6,1);
+        layout->addLayout(boxLayout,0,2,6,1);
 
 
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
+        connect(addNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
@@ -231,4 +258,16 @@ void MainWindow::handleStartButton()
     }
 
     //Here the pathfinding game start.
+}
+
+void MainWindow::handleMapButton()
+{
+    QString fileName;
+    fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
+    qDebug()<<fileName;
+    graphicGameView->scene->clear();
+    delete myModel;
+    myModel = new MyModel(fileName,50,500);
+
 }
