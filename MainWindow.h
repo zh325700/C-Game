@@ -68,7 +68,7 @@ signals:
 private:
     QPushButton *switch_button;
     QPushButton *start_game_button;
-    QPushButton *addNewMap;
+    QPushButton *chooseNewMap;
     QPushButton *auto_button;
     QPushButton *pause_button;
     QPushButton *soundbutton;

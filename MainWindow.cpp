@@ -31,15 +31,15 @@ MainWindow::MainWindow(QWidget * parent):
 
 
     //This part not working!!
-        boxLayout = new QHBoxLayout(this);
+//        boxLayout = new QHBoxLayout(this);
 
-        QMenuBar* menuBar = new QMenuBar();
-        QMenu *fileMenu = new QMenu("File");
-        menuBar->addMenu(fileMenu);
-        fileMenu->addAction("Save");
-        fileMenu->addAction("Exit");
+//        QMenuBar* menuBar = new QMenuBar();
+//        QMenu *fileMenu = new QMenu("File");
+//        menuBar->addMenu(fileMenu);
+//        fileMenu->addAction("Save");
+//        fileMenu->addAction("Exit");
 
-        boxLayout->setMenuBar(menuBar);
+//        boxLayout->setMenuBar(menuBar);
     //till here
 
 
@@ -133,7 +133,7 @@ MainWindow::MainWindow(QWidget * parent):
         switch_button = new QPushButton("Switch View", this);
         start_game_button = new QPushButton("Start Game", this);
         start_game_button->setIcon(startGameIcon);
-        addNewMap = new QPushButton("add new map");
+        chooseNewMap = new QPushButton("choose a new map");
         auto_button = new QPushButton("auto run",this);
         pause_button = new QPushButton("Pause",this);
         start_game_button->setFixedSize(100,30);
@@ -144,7 +144,7 @@ MainWindow::MainWindow(QWidget * parent):
         layoutButton->addStretch(1);
         layoutButton->addWidget(switch_button);
         layoutButton->addWidget(start_game_button);
-        layoutButton->addWidget(addNewMap);
+        layoutButton->addWidget(chooseNewMap);
         layoutButton->addWidget(auto_button);
         layoutButton->addWidget(pause_button);
         layoutButton->addWidget(soundbutton);
@@ -162,12 +162,12 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButton);
         layout->addLayout(layoutStatistic,0,1,6,1);
-        layout->addLayout(boxLayout,0,2,6,1);
+//        layout->addLayout(boxLayout,0,2,6,1);
 
         // connect button
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
-        connect(addNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
+        connect(chooseNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
         connect(auto_button,SIGNAL (released()), this, SLOT (autoNavigate()));
         connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
         connect(soundbutton,SIGNAL (released()), this, SLOT (handleSoundButton()));
