@@ -32,7 +32,6 @@ public:
     QGraphicsEllipseItem *ellipse;
     int getMultipleSizeOfCircle() const;
     void setMultipleSizeOfCircle(int value);
-    void mousePressEvent(QMouseEvent *event);
 
     QPointF getEndPoint() const;
     std::vector<QGraphicsPixmapItem *> pathTiles ={};
@@ -49,9 +48,10 @@ public slots:
     void deletePnemy();
     void deleteEnemy();
     void drawThePath(int speed);
+    void changeCircleColor();
 
 signals:
-    void destinationFound();
+
 
 private:
     int multipleSizeOfCircle;

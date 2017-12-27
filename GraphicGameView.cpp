@@ -47,7 +47,7 @@ GraphicGameView::GraphicGameView()
 
 
     //set position of the protagonist
-    myModel->getMyProtagonist()->QGraphicsItem::setPos(myModel->getMyProtagonist()->getXPos(),myModel->getMyProtagonist()->getYPos());
+    myModel->getMyProtagonist()->QGraphicsItem::setPos(myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile(),myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile());
     myModel->getMyProtagonist()->setFlag(QGraphicsItem::ItemIsFocusable);
     myModel->getMyProtagonist()->setFocus();
 
@@ -89,6 +89,7 @@ GraphicGameView::GraphicGameView()
          QObject::connect(aPEnemy,SIGNAL(dead()),this,SLOT(deletePnemy()));
          QObject::connect(myModel->getMyProtagonist(),&MyProtagonist::encounterPenemy,this,&GraphicGameView::drawPoinsonCircle);
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myModel->getMyProtagonist(),&MyProtagonist::ifInPoisonarea);
+         QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,this,&GraphicGameView::changeCircleColor);
     }
 
     //add auto zoom in and out
@@ -133,6 +134,7 @@ void GraphicGameView::drawPoinsonCircle()
 
 void GraphicGameView::deletePnemy()
 {
+    setPoisonLevelcount(0);
     MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
     if(deadPenemy){
         scene->removeItem(deadPenemy);
@@ -178,12 +180,23 @@ void GraphicGameView::drawThePath(int speed)
         aTile->setPixmap(QPixmap(":/images/icons/coin.gif"));
         pathTiles.push_back(aTile);
         scene->addItem(aTile);
-//        myModel->getMyProtagonist()
-//                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
-//                ->setPixmap(QPixmap(":/images/icons/coin.gif"));
+
     }
     myModel->getMyProtagonist()->timer->start(speed);
 
+}
+
+void GraphicGameView::changeCircleColor()
+{
+//        float widthOfCircle = 2*(0.5 + getMultipleSizeOfCircle())*myModel->getMyProtagonist()->getSizeOfTile();
+//        float heightOfCircle = widthOfCircle;
+   vector<QColor> color = {Qt::magenta,Qt::blue,Qt::white,Qt::green,Qt::red,Qt::yellow,Qt::gray};
+    QBrush *brush = new QBrush();
+    brush->setStyle(Qt::CrossPattern);
+    brush->setColor(color[getPoisonLevelcount()%7]);
+    ellipse->setBrush(*brush);
+    scene->addItem(ellipse);
+    setPoisonLevelcount(getPoisonLevelcount()+1);
 }
 
 int GraphicGameView::getPoisonLevelcount() const
@@ -197,10 +210,6 @@ void GraphicGameView::setPoisonLevelcount(int value)
 }
 
 
-QPointF GraphicGameView::getEndPoint() const
-{
-    return endPoint;
-}
 
 std::vector<QGraphicsPixmapItem *> GraphicGameView::getPathTiles()
 {
@@ -218,24 +227,7 @@ void GraphicGameView::setMultipleSizeOfCircle(int value)
     multipleSizeOfCircle = value;
 }
 
-void GraphicGameView::mousePressEvent(QMouseEvent *event)
-{
-    endPoint = event->pos();
-    int x = endPoint.x();
-    int y = endPoint.y();
-    if(x%20!=0||y%20!=0){
-        x = x/20 ;
-        y = y/20 ;
-    }
-    else{
-        x = x/20 -1;
-        y = y/20 -1;
-    }
-    endPoint.setX(x);
-    endPoint.setY(y);
 
-    emit destinationFound();
-}
 
 
 

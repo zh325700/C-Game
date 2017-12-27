@@ -51,7 +51,6 @@ public slots:
     void refreshEandH();
     void refreshXandY();
     void restartTheGame();
-    void showDestination();
 
 
 private slots:

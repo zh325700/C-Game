@@ -177,8 +177,6 @@ MainWindow::MainWindow(QWidget * parent):
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
-        connect(graphicGameView,&GraphicGameView::destinationFound,this,&MainWindow::showDestination);
-        connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::showDestination);
         connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
         connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
 
@@ -227,18 +225,6 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
     }
 }
 
-void MainWindow::showDestination()
-{
-
-    if(myModel->getWhichView()){
-        destinationX->setText(QString::number(terminalGameView->getDX()));
-        destinationY->setText(QString::number(terminalGameView->getDY()));
-    }
-    else{
-        destinationX->setText(QString::number(graphicGameView->getEndPoint().x()));
-        destinationY->setText(QString::number(graphicGameView->getEndPoint().y()));
-    }
-}
 
 void MainWindow::handleSwitchButton()
 {
