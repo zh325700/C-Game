@@ -11,6 +11,7 @@
 #include "GraphicGameView.h"
 #include "Astar.h"
 #include <math.h>
+#include <limits.h>
 
 
 class MyModel
