@@ -34,6 +34,9 @@ public:
     float getTotalCost() const;
     void setTotalCost(float value);
 
+    void setW(float value);
+    float getW() const;
+
 private:
 
     int pos_x;
@@ -44,6 +47,12 @@ private:
     bool isInOpen;
     bool isInClosed;
     float totalCost;
+
+    /* This will control the CPU and memory usage vs. optimality of the solution.
+     * The lager the value of w, the more Best-First the A* algorithm will behave.
+     * The smaller the value of w, the more Dijkstra the A* algorithm will be. */
+    float w = 1.0;
+
     std::shared_ptr<Node> parent;
 };
 

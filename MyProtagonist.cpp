@@ -173,7 +173,7 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
     for (size_t i = 0, n = colliding_items.size(); i < n; i++){
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
         if(aCircle){
-                this->setHealth(this->getHealth()-poisonValue/100);
+                this->setHealth(this->getHealth()-poisonValue/10);
                 emit inCircle();
         }
     }
@@ -181,22 +181,37 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
 
 void MyProtagonist::moveAlongWithPath()
 {
-    int totalSize = myModel->getMyAstar()->getSolution().size();
-    if(countSteps<myModel->getMyAstar()->getSolution().size())
-    {
-        int x = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_x();
-        int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y();
-        myModel->getMyProtagonist()
-                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
-                ->setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
-        this->Protagonist::setPos(x,y);
+    if(!getPaused()){
+        int totalSize = myModel->getMyAstar()->getSolution().size();
+        if(countSteps<myModel->getMyAstar()->getSolution().size())
+        {
+            int x = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_x();
+            int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y();
+    //        myModel->getMyProtagonist()
+    //                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
+    //                ->setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
+            graphicGameView->scene->removeItem(graphicGameView->getPathTiles()[countSteps]);
+            this->Protagonist::setPos(x,y);
 
-        countSteps ++;
-    }else{
-        timer->stop();
-        countSteps = 0;
-        emit findNext();
+            countSteps ++;
+        }else{
+            timer->stop();
+            countSteps = 0;
+            graphicGameView->pathTiles.clear();
+            emit findNext();
+        }
     }
+
+}
+
+bool MyProtagonist::getPaused() const
+{
+    return paused;
+}
+
+void MyProtagonist::setPaused(bool value)
+{
+    paused = value;
 }
 
 void MyProtagonist::setSizeOfTile(int value)

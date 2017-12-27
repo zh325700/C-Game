@@ -3,6 +3,8 @@
 
 
 #include <QMessageBox>
+#include <QMenuBar>
+#include <QFileDialog>
 
 
 
@@ -12,16 +14,33 @@ GraphicGameView *graphicGameView;
 TerminalGameView *terminalGameView;
 
 MainWindow::MainWindow(QWidget * parent):
-    QWidget (parent)
+     QWidget(parent)
 {
 
+    //  Add toolbar to the mainwindow
         myModel = new MyModel();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
 
         //create a Horizontal layout to show info
+
         layout = new QGridLayout(this);
         layoutStatistic = new QVBoxLayout();
+
+
+    //This part not working!!
+        boxLayout = new QHBoxLayout(this);
+
+        QMenuBar* menuBar = new QMenuBar();
+        QMenu *fileMenu = new QMenu("File");
+        menuBar->addMenu(fileMenu);
+        fileMenu->addAction("Save");
+        fileMenu->addAction("Exit");
+
+        boxLayout->setMenuBar(menuBar);
+    //till here
+
+
 
         //create xposition group for prota info
         auto xpositionGroup = new QGroupBox();
@@ -101,17 +120,23 @@ MainWindow::MainWindow(QWidget * parent):
         //button
         switch_button = new QPushButton("Switch View", this);
         start_game_button = new QPushButton("Start Game", this);
-        test_button = new QPushButton("test button",this);
+        addNewMap = new QPushButton("add new map");
+        auto_button = new QPushButton("test button",this);
+        pause_button = new QPushButton("Pause",this);
         start_game_button->setFixedSize(100,30);
         switch_button->setFixedHeight(30);
         switch_button->setFixedWidth(100);
         auto layoutButtion = new QHBoxLayout();
+        //add button to layout
         layoutButtion->addStretch(1);
         layoutButtion->addWidget(switch_button);
         layoutButtion->addWidget(start_game_button);
-        layoutButtion->addWidget(test_button);
+        layoutButtion->addWidget(addNewMap);
+        layoutButtion->addWidget(auto_button);
+        layoutButtion->addWidget(pause_button);
         layoutButtion->addStretch(1);
 
+        //add all widget to overall layout
         layout->addWidget(graphicGameView,0,0,6,1);
         layout->addWidget(terminalGameView,0,0,6,1);
         terminalGameView->hide();                     //by default show graphicView
@@ -123,11 +148,16 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(energyGroup);
         layoutStatistic->addLayout(layoutButtion);
         layout->addLayout(layoutStatistic,0,1,6,1);
+        layout->addLayout(boxLayout,0,2,6,1);
 
-
+        // connect button
         connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
         connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
-        connect(test_button,SIGNAL (released()), this, SLOT (autoNavigate()));
+        connect(addNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
+        connect(auto_button,SIGNAL (released()), this, SLOT (autoNavigate()));
+        connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
+
+        //connect signal and slot
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
         connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
         connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
@@ -236,9 +266,25 @@ void MainWindow::handleStartButton()
     //Here the pathfinding game start.
 }
 
+
+void MainWindow::handleMapButton()
+{
+    QString fileName;
+    fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
+    qDebug()<<fileName;
+    graphicGameView->scene->clear();
+    delete myModel;
+    myModel = new MyModel(fileName,50,500);
+}
+
 void MainWindow::autoNavigate()
 {
     myModel->FindNextStep();
     emit pathFound(round((protaSpeed->text()).toInt()));
+}
 
+void MainWindow::handlePauseButton()
+{
+    myModel->getMyProtagonist()->setPaused(!myModel->getMyProtagonist()->getPaused());
 }

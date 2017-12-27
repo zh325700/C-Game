@@ -8,6 +8,17 @@ MyPEnemy::MyPEnemy(int xPosition, int yPosition, float strength):
     setPixmap(QPixmap(":/images/icons/penemy.png"));
 }
 
+bool MyPEnemy::getAlreadyDefeated() const
+{
+    return alreadyDefeated;
+}
+
+void MyPEnemy::setAlreadyDefeated(bool value)
+{
+    alreadyDefeated = value;
+}
+
+
 //MyPEnemy::~PEnemy()
 //{
 

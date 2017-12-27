@@ -115,6 +115,7 @@ void MyModel::FindNextStep()
                 this->setDestinationX((*nearestPEnemy)->getXPos());
                 this->setDestinationY((*nearestPEnemy)->getYPos());
                 moveFast();
+                (*nearestPEnemy)->setAlreadyDefeated(true);
             }
             else                      //else -> find nearest health pack
             {
@@ -154,12 +155,17 @@ MyEnemy **MyModel::findNearestEnemy()
 MyPEnemy **MyModel::findNearestPEnemy()
 {
     MyPEnemy ** wantedPEnemy = new MyPEnemy * ();
-    int currentMinDistance = 0;
-    wantedPEnemy = &(myPEnemies.front());
-    currentMinDistance = calculateDistance((*wantedPEnemy)->getXPos(),(*wantedPEnemy)->getYPos());
+    int currentMinDistance = INT_MAX;               //find the smallest
+    if(myPEnemies.front()->getAlreadyDefeated()) {wantedPEnemy = nullptr;}
+    else
+    {
+        wantedPEnemy = &(myPEnemies.front());
+        currentMinDistance = calculateDistance((*wantedPEnemy)->getXPos(),(*wantedPEnemy)->getYPos());
+    }
 
     for (unsigned index = 0; index < myPEnemies.size()-1; index++)
     {
+        if(myPEnemies[index]->getAlreadyDefeated()) break;
         int distance = calculateDistance(myPEnemies[index]->getXPos(),myPEnemies[index]->getYPos());
         if (distance < currentMinDistance)
         {
