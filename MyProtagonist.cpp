@@ -19,6 +19,8 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     setSizeOfTile(20);
     setStepCost(0.05);
     //set the origin position of protahonist
+    this->setXPos(7);
+    this->setYPos(7);
     this->graphicX = xPos*getSizeOfTile();
     this->graphicY = yPos*getSizeOfTile();
 
