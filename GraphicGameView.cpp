@@ -47,7 +47,9 @@ GraphicGameView::GraphicGameView()
 
 
     //set position of the protagonist
-    myModel->getMyProtagonist()->QGraphicsItem::setPos(myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile(),myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile());
+    myModel->getMyProtagonist()->QGraphicsItem::setPos(myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile(),
+                                                       myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile());
+
     myModel->getMyProtagonist()->setFlag(QGraphicsItem::ItemIsFocusable);
     myModel->getMyProtagonist()->setFocus();
 

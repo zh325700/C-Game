@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QProgressBar>
+#include <QString>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -47,6 +48,9 @@ public:
     QProgressBar *healthbar ;
     QProgressBar *energtbar;
 
+    QString getCurrentFileName() const;
+    void setCurrentFileName(const QString &value);
+
 public slots:
     void refreshEandH();
     void refreshXandY();
@@ -65,14 +69,17 @@ signals:
    void pathFound(int speed);
 
 private:
-    QPushButton *switch_button;
-    QPushButton *start_game_button;
-    QPushButton *addNewMap;
-    QPushButton *auto_button;
-    QPushButton *pause_button;
-    QPushButton *soundbutton;
+   void reset();
+
+   QPushButton *switch_button;
+   QPushButton *start_game_button;
+   QPushButton *chooseNewMap;
+   QPushButton *auto_button;
+   QPushButton *pause_button;
+   QPushButton *soundbutton;
 
     bool soundOn = true;
+    QString currentFileName = ":/images/maps/worldmap.png";
 };
 
 #endif // MAINWINDOW_H
