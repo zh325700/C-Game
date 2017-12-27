@@ -101,11 +101,11 @@ GraphicGameView::GraphicGameView()
     centerOn(myModel->getMyProtagonist());
 
     //play background music in a loop
-    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist = new QMediaPlaylist();
     playlist->addMedia(QUrl("qrc:/sounds/butterfly.mp3"));
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
-    QMediaPlayer *music = new QMediaPlayer();
+    music = new QMediaPlayer();
     music->setPlaylist(playlist);
     music->play();
 }
@@ -175,9 +175,14 @@ void GraphicGameView::drawThePath(int speed)
     for(int i = myModel->getMyAstar()->getSolution().size()-1;i>=0;i--){
         int x = myModel->getMyAstar()->getSolution()[i]->getPos_x();
         int y = myModel->getMyAstar()->getSolution()[i]->getPos_y();
-        myModel->getMyProtagonist()
-                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
-                ->setPixmap(QPixmap(":/images/icons/coin.gif"));
+        QGraphicsPixmapItem *aTile =  new QGraphicsPixmapItem();
+        aTile->setPos(x*myModel->getMyProtagonist()->getSizeOfTile(),y*myModel->getMyProtagonist()->getSizeOfTile());
+        aTile->setPixmap(QPixmap(":/images/icons/coin.gif"));
+        pathTiles.push_back(aTile);
+        scene->addItem(aTile);
+//        myModel->getMyProtagonist()
+//                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
+//                ->setPixmap(QPixmap(":/images/icons/coin.gif"));
     }
     myModel->getMyProtagonist()->timer->start(speed);
 
@@ -186,6 +191,11 @@ void GraphicGameView::drawThePath(int speed)
 QPointF GraphicGameView::getEndPoint() const
 {
     return endPoint;
+}
+
+std::vector<QGraphicsPixmapItem *> GraphicGameView::getPathTiles()
+{
+    return pathTiles;
 }
 
 

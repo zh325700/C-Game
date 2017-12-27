@@ -31,6 +31,9 @@ public:
     QTimer * timer;
     unsigned countSteps = 0;
 
+    bool getPaused() const;
+    void setPaused(bool value);
+
 signals:
     void protagonistDead();
     void encounterPenemy();
@@ -50,6 +53,7 @@ private :
     float stepCost;
     int graphicX=0;
     int graphicY=0;
+    bool paused = false;
 
 
 

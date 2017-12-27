@@ -103,7 +103,6 @@ void MyModel::FindNextStep()
             this->setDestinationY((*nearestHP)->getYPos());
             moveFast();
         }
-        delete nearestEnemy;
     }
     else
     {
