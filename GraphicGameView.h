@@ -7,6 +7,8 @@
 #include <memory>
 #include <QObject>
 #include <QPointF>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 
 #include "MyEnemy.h"
 #include "MyProtagonist.h"
@@ -34,8 +36,12 @@ public:
     QPointF getEndPoint() const;
     std::vector<QGraphicsPixmapItem *> pathTiles ={};
     std::vector<QGraphicsPixmapItem *> getPathTiles() ;
+    QMediaPlayer *music;
+    QMediaPlaylist *playlist = new QMediaPlaylist();
 
 
+    int getPoisonLevelcount() const;
+    void setPoisonLevelcount(int value);
 
 public slots:
     void drawPoinsonCircle();
@@ -48,9 +54,9 @@ signals:
 
 private:
     int multipleSizeOfCircle;
+    int poisonLevelcount=0;
     QPointF endPoint ;
-    QMediaPlayer *music;
-    QMediaPlaylist *playlist = new QMediaPlaylist();
+
 };
 
 #endif // GraphicGameView_H

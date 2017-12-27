@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QMenuBar>
 #include <QFileDialog>
+#include <QStateMachine>
+#include <QState>
 
 
 
@@ -117,24 +119,36 @@ MainWindow::MainWindow(QWidget * parent):
         layoutEnergy->addWidget(energyLabel);
         layoutEnergy->addWidget(energtbar);
 
+        //prepare button image
+        QPixmap startPix(":/images/icons/startGameIcon.png");
+        QIcon startGameIcon(startPix);
+        QPixmap soundOnPix(":/images/icons/sound.png");
+        QIcon soundOnIcon(soundOnPix);
+
+        // sound button
+        soundbutton = new QPushButton();
+        soundbutton->setIcon(soundOnIcon);
+
         //button
         switch_button = new QPushButton("Switch View", this);
         start_game_button = new QPushButton("Start Game", this);
+        start_game_button->setIcon(startGameIcon);
         addNewMap = new QPushButton("add new map");
-        auto_button = new QPushButton("test button",this);
+        auto_button = new QPushButton("auto run",this);
         pause_button = new QPushButton("Pause",this);
         start_game_button->setFixedSize(100,30);
         switch_button->setFixedHeight(30);
         switch_button->setFixedWidth(100);
-        auto layoutButtion = new QHBoxLayout();
+        auto layoutButton = new QHBoxLayout();
         //add button to layout
-        layoutButtion->addStretch(1);
-        layoutButtion->addWidget(switch_button);
-        layoutButtion->addWidget(start_game_button);
-        layoutButtion->addWidget(addNewMap);
-        layoutButtion->addWidget(auto_button);
-        layoutButtion->addWidget(pause_button);
-        layoutButtion->addStretch(1);
+        layoutButton->addStretch(1);
+        layoutButton->addWidget(switch_button);
+        layoutButton->addWidget(start_game_button);
+        layoutButton->addWidget(addNewMap);
+        layoutButton->addWidget(auto_button);
+        layoutButton->addWidget(pause_button);
+        layoutButton->addWidget(soundbutton);
+        layoutButton->addStretch(1);
 
         //add all widget to overall layout
         layout->addWidget(graphicGameView,0,0,6,1);
@@ -146,7 +160,7 @@ MainWindow::MainWindow(QWidget * parent):
         layoutStatistic->addWidget(aStarNProtaGroup);
         layoutStatistic->addWidget(healthGroup);
         layoutStatistic->addWidget(energyGroup);
-        layoutStatistic->addLayout(layoutButtion);
+        layoutStatistic->addLayout(layoutButton);
         layout->addLayout(layoutStatistic,0,1,6,1);
         layout->addLayout(boxLayout,0,2,6,1);
 
@@ -156,6 +170,7 @@ MainWindow::MainWindow(QWidget * parent):
         connect(addNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
         connect(auto_button,SIGNAL (released()), this, SLOT (autoNavigate()));
         connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
+        connect(soundbutton,SIGNAL (released()), this, SLOT (handleSoundButton()));
 
         //connect signal and slot
         connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
@@ -287,4 +302,20 @@ void MainWindow::autoNavigate()
 void MainWindow::handlePauseButton()
 {
     myModel->getMyProtagonist()->setPaused(!myModel->getMyProtagonist()->getPaused());
+}
+
+void MainWindow::handleSoundButton()
+{
+    QPixmap soundOnPix(":/images/icons/sound.png");
+    QIcon soundOnIcon(soundOnPix);
+    QPixmap soundOffPix(":/images/icons/soundoff.png");
+    QIcon soundOffIcon(soundOffPix);
+    if(soundOn){
+        soundbutton->setIcon(soundOffIcon);
+        graphicGameView->music->pause();
+    }else{
+        soundbutton->setIcon(soundOnIcon);
+        graphicGameView->music->play();
+    }
+    soundOn = !soundOn;
 }

@@ -169,6 +169,13 @@ void MyProtagonist::checkProtagonistDead()
 
 void MyProtagonist::ifInPoisonarea(float poisonValue)
 {
+    float widthOfCircle = 2*(0.5 + graphicGameView->getMultipleSizeOfCircle())*myModel->getMyProtagonist()->getSizeOfTile();
+    float heightOfCircle = widthOfCircle;
+    graphicGameView->ellipse->setRect(graphicGameView->ellipse->x(),
+                                      graphicGameView->ellipse->y(),
+                                      widthOfCircle+graphicGameView->getPoisonLevelcount()*sizeOfTile,
+                                      heightOfCircle+graphicGameView->getPoisonLevelcount()*sizeOfTile);
+    graphicGameView->setPoisonLevelcount(graphicGameView->getMultipleSizeOfCircle()+1);
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
     for (size_t i = 0, n = colliding_items.size(); i < n; i++){
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);

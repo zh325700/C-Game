@@ -61,6 +61,7 @@ private slots:
    void handleMapButton();
    void autoNavigate();
    void handlePauseButton();
+   void handleSoundButton();
 signals:
    void pathFound(int speed);
 
@@ -70,7 +71,9 @@ private:
     QPushButton *addNewMap;
     QPushButton *auto_button;
     QPushButton *pause_button;
+    QPushButton *soundbutton;
 
+    bool soundOn = true;
 };
 
 #endif // MAINWINDOW_H

@@ -9,8 +9,6 @@
 #include <typeinfo>
 #include <QGraphicsEllipseItem>
 #include <QColor>
-#include <QMediaPlaylist>
-#include <QMediaPlayer>
 #include <QGraphicsScene>
 #include <vector>
 #include <QDebug>
@@ -187,6 +185,17 @@ void GraphicGameView::drawThePath(int speed)
     myModel->getMyProtagonist()->timer->start(speed);
 
 }
+
+int GraphicGameView::getPoisonLevelcount() const
+{
+    return poisonLevelcount;
+}
+
+void GraphicGameView::setPoisonLevelcount(int value)
+{
+    poisonLevelcount = value;
+}
+
 
 QPointF GraphicGameView::getEndPoint() const
 {

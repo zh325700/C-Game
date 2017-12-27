@@ -15,6 +15,9 @@
         <file>icons/blueSea.jpg</file>
         <file>icons/deadEnemy.png</file>
         <file>icons/coin.gif</file>
+        <file>icons/startGameIcon.png</file>
+        <file>icons/sound.png</file>
+        <file>icons/soundoff.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>butterfly.mp3</file>
