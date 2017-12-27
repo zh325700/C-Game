@@ -90,20 +90,40 @@ void MyModel::FindNextStep()
     if((!myEnemies.empty())||(!myPEnemies.empty()))
     {
         MyEnemy ** nearestEnemy = findNearestEnemy();       //select nearest enemy (PEnemy not implemented yet)
-        if(myProtagonist->getHealth() > (*nearestEnemy)->getValue())  //if health is enough to defeat the enemy -> go and fight
+        MyPEnemy ** nearestPEnemy = findNearestPEnemy();
+        if(calculateDistance((*nearestEnemy)->getXPos(),(*nearestEnemy)->getYPos())
+                < calculateDistance((*nearestPEnemy)->getXPos(),(*nearestPEnemy)->getYPos()))
         {
-            this->setDestinationX((*nearestEnemy)->getXPos());
-            this->setDestinationY((*nearestEnemy)->getYPos());
-            moveFast();
+            if(myProtagonist->getHealth() > (*nearestEnemy)->getValue())  //if health is enough to defeat the enemy -> go and fight
+            {
+                this->setDestinationX((*nearestEnemy)->getXPos());
+                this->setDestinationY((*nearestEnemy)->getYPos());
+                moveFast();
+            }
+            else                      //else -> find nearest health pack
+            {
+                HealthPack ** nearestHP = findNearestHealthPack();
+                this->setDestinationX((*nearestHP)->getXPos());
+                this->setDestinationY((*nearestHP)->getYPos());
+                moveFast();
+            }
         }
-        else                      //else -> find nearest health pack
+        else
         {
-            HealthPack ** nearestHP = findNearestHealthPack();
-            this->setDestinationX((*nearestHP)->getXPos());
-            this->setDestinationY((*nearestHP)->getYPos());
-            moveFast();
+            if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 1.1)  //1 + 0.1
+            {
+                this->setDestinationX((*nearestPEnemy)->getXPos());
+                this->setDestinationY((*nearestPEnemy)->getYPos());
+                moveFast();
+            }
+            else                      //else -> find nearest health pack
+            {
+                HealthPack ** nearestHP = findNearestHealthPack();
+                this->setDestinationX((*nearestHP)->getXPos());
+                this->setDestinationY((*nearestHP)->getYPos());
+                moveFast();
+            }
         }
-        delete nearestEnemy;
     }
     else
     {
