@@ -77,6 +77,9 @@ public:
     void setNrOfHealthPacks(int value);
 
 
+    bool getOnceOrMore() const;
+    void setOnceOrMore(bool value);
+
 private:
     int cols;
     int rows;
@@ -87,6 +90,7 @@ private:
     bool whichView = false;
     int nrOfEnemies = 50;
     int nrOfHealthPacks = 500;
+    bool onceOrMore = true;
     MyEnemy ** nearestEnemy = nullptr;
     MyPEnemy ** nearestPEnemy = nullptr;
     HealthPack ** nearestHP = nullptr;

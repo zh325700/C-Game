@@ -548,3 +548,13 @@ void MyModel::setNrOfHealthPacks(int value)
     nrOfHealthPacks = value;
 }
 
+bool MyModel::getOnceOrMore() const
+{
+    return onceOrMore;
+}
+
+void MyModel::setOnceOrMore(bool value)
+{
+    onceOrMore = value;
+}
+

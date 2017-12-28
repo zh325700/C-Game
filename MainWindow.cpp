@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget * parent):
 
     //button
     switch_button = new QPushButton("Switch View", this);
-    start_game_button = new QPushButton("Start Game", this);
+    start_game_button = new QPushButton("Move to", this);
     start_game_button->setIcon(startGameIcon);
     chooseNewMap = new QPushButton("Choose a new map");
     auto_button = new QPushButton("Auto run",this);
@@ -313,7 +313,9 @@ void MainWindow::handleStartButton()
 
     if(myModel->moveFast()){
         //MyModel *tempM = myModel;    //for testing purpose
+        myModel->setOnceOrMore(true);
         emit pathFound(round((protaSpeed->text()).toInt()));
+
     }else{
         qDebug()<<"Can not find the path";
     }
@@ -355,6 +357,7 @@ void MainWindow::autoNavigate()
     if (moreEnemy)
     {
         qDebug()<<"w is: "<<myModel->getW();
+        myModel->setOnceOrMore(false);
         emit pathFound(round((protaSpeed->text()).toInt()));
     }
     else
@@ -395,10 +398,12 @@ void MainWindow::handlePauseButton()
 void MainWindow::handleSaveButton()
 {
     myModel->saveGame();
+    QMessageBox::information(this,"Success","Save successfully!",true);
 }
 
 void MainWindow::handleLoadButton()
 {
+    hide();
     delete terminalGameView;
     delete graphicGameView;
 //    removeEveryFromTheScene();
@@ -407,6 +412,7 @@ void MainWindow::handleLoadButton()
     graphicGameView = new GraphicGameView();
     graphicGameView->initialGraphicView();
     reset();
+    show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
 }
 
