@@ -152,6 +152,8 @@ void MainWindow::reset()
     energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
     energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
 
+    aStarParameter->setText(QString::number(myModel->getW()));
+
     //connect signal and slot
     connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
     connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
@@ -249,8 +251,8 @@ void MainWindow::handleStartButton()
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
-        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
-        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
+//        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
+//        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
 
     }
 
@@ -290,6 +292,7 @@ void MainWindow::autoNavigate()
 {
     myModel->setW((aStarParameter->text()).toFloat());
     myModel->FindNextStep();
+    qDebug()<<"w is: "<<myModel->getW();
     emit pathFound(round((protaSpeed->text()).toInt()));
 }
 

@@ -70,7 +70,7 @@ private:
     int rows;
     int destinationX;
     int destinationY;
-    float w;
+    float w = 1.0;
     bool readyToNext;
     MyProtagonist *myProtagonist;
     std::vector<MyTile *> myTilesMap ={};

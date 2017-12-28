@@ -1,4 +1,6 @@
 #include "MyModel.h"
+#include <QTime>
+#include <QDebug>
 
 MyModel::MyModel(QString map, int enemyNum, int healthpackNum)
 {
@@ -81,7 +83,12 @@ MyModel::~MyModel()
 
 bool MyModel::moveFast()
 {
+    QTime myTimer;
+    myTimer.start();
     myAstar->find_path(myProtagonist->getXPos(),myProtagonist->getYPos(),destinationX,destinationY,mapTiles,rows,cols);
+    int nMilliseconds = myTimer.elapsed();
+    float nSeconds = (float)nMilliseconds / 1000;
+    qDebug()<<"Astar executing time: "<<nSeconds<<"s";
     return myAstar->getIsFound();
 }
 

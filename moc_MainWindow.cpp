@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[14];
-    char stringdata0[187];
+    QByteArrayData data[12];
+    char stringdata0[153];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,20 +38,18 @@ QT_MOC_LITERAL(3, 22, 5), // "speed"
 QT_MOC_LITERAL(4, 28, 12), // "refreshEandH"
 QT_MOC_LITERAL(5, 41, 12), // "refreshXandY"
 QT_MOC_LITERAL(6, 54, 14), // "restartTheGame"
-QT_MOC_LITERAL(7, 69, 15), // "showDestination"
-QT_MOC_LITERAL(8, 85, 18), // "handleSwitchButton"
-QT_MOC_LITERAL(9, 104, 17), // "handleStartButton"
-QT_MOC_LITERAL(10, 122, 15), // "handleMapButton"
-QT_MOC_LITERAL(11, 138, 12), // "autoNavigate"
-QT_MOC_LITERAL(12, 151, 17), // "handlePauseButton"
-QT_MOC_LITERAL(13, 169, 17) // "handleSoundButton"
+QT_MOC_LITERAL(7, 69, 18), // "handleSwitchButton"
+QT_MOC_LITERAL(8, 88, 17), // "handleStartButton"
+QT_MOC_LITERAL(9, 106, 15), // "handleMapButton"
+QT_MOC_LITERAL(10, 122, 12), // "autoNavigate"
+QT_MOC_LITERAL(11, 135, 17) // "handlePauseButton"
 
     },
     "MainWindow\0pathFound\0\0speed\0refreshEandH\0"
-    "refreshXandY\0restartTheGame\0showDestination\0"
+    "refreshXandY\0restartTheGame\0"
     "handleSwitchButton\0handleStartButton\0"
     "handleMapButton\0autoNavigate\0"
-    "handlePauseButton\0handleSoundButton"
+    "handlePauseButton"
 };
 #undef QT_MOC_LITERAL
 
@@ -61,7 +59,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -69,26 +67,22 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   69,    2, 0x06 /* Public */,
+       1,    1,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   72,    2, 0x0a /* Public */,
-       5,    0,   73,    2, 0x0a /* Public */,
-       6,    0,   74,    2, 0x0a /* Public */,
-       7,    0,   75,    2, 0x0a /* Public */,
-       8,    0,   76,    2, 0x08 /* Private */,
-       9,    0,   77,    2, 0x08 /* Private */,
-      10,    0,   78,    2, 0x08 /* Private */,
-      11,    0,   79,    2, 0x08 /* Private */,
-      12,    0,   80,    2, 0x08 /* Private */,
-      13,    0,   81,    2, 0x08 /* Private */,
+       4,    0,   62,    2, 0x0a /* Public */,
+       5,    0,   63,    2, 0x0a /* Public */,
+       6,    0,   64,    2, 0x0a /* Public */,
+       7,    0,   65,    2, 0x08 /* Private */,
+       8,    0,   66,    2, 0x08 /* Private */,
+       9,    0,   67,    2, 0x08 /* Private */,
+      10,    0,   68,    2, 0x08 /* Private */,
+      11,    0,   69,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -111,13 +105,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->refreshEandH(); break;
         case 2: _t->refreshXandY(); break;
         case 3: _t->restartTheGame(); break;
-        case 4: _t->showDestination(); break;
-        case 5: _t->handleSwitchButton(); break;
-        case 6: _t->handleStartButton(); break;
-        case 7: _t->handleMapButton(); break;
-        case 8: _t->autoNavigate(); break;
-        case 9: _t->handlePauseButton(); break;
-        case 10: _t->handleSoundButton(); break;
+        case 4: _t->handleSwitchButton(); break;
+        case 5: _t->handleStartButton(); break;
+        case 6: _t->handleMapButton(); break;
+        case 7: _t->autoNavigate(); break;
+        case 8: _t->handlePauseButton(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -158,13 +150,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 9;
     }
     return _id;
 }
