@@ -318,3 +318,13 @@ void MyModel::setReadyToNext(bool value)
     readyToNext = value;
 }
 
+float MyModel::getW() const
+{
+    return w;
+}
+
+void MyModel::setW(float value)
+{
+    w = value;
+}
+

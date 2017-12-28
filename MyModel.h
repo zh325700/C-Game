@@ -62,11 +62,15 @@ public:
     bool getReadyToNext() const;
     void setReadyToNext(bool value);
 
+    float getW() const;
+    void setW(float value);
+
 private:
     int cols;
     int rows;
     int destinationX;
     int destinationY;
+    float w;
     bool readyToNext;
     MyProtagonist *myProtagonist;
     std::vector<MyTile *> myTilesMap ={};

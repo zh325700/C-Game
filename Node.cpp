@@ -1,8 +1,9 @@
 #include "Node.h"
 #include "math.h"
 #include "iostream"
+#include "MyModel.h"
 
-
+extern MyModel *myModel;
 std::shared_ptr<Node> Node::getParent() const
 {
     return parent;
@@ -73,7 +74,7 @@ void Node::computeTotalCost(const int &goalP_x, const int &goalP_y, const std::v
     float newGivenCost = oneStepCost + parentNode->getGivenCost();
     this->setGivenCost(newGivenCost);
     /*compute totalCost*/
-    this->setTotalCost(w*newHcost+newGivenCost);
+    this->setTotalCost(myModel->getW()*newHcost+newGivenCost);
 }
 
 int Node::getTileIndex() const
@@ -136,15 +137,6 @@ void Node::setTotalCost(float value)
     totalCost = value;
 }
 
-void Node::setW(float value)
-{
-    w = value;
-}
-
-float Node::getW() const
-{
-    return w;
-}
 
 Node::Node(int apos_x, int apos_y) :
     pos_x{apos_x},pos_y{apos_y},hcost{0},tileIndex{0},givenCost{0.0},isInOpen{false},isInClosed{false},totalCost{0.0}

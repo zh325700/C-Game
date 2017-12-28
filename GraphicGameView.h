@@ -7,8 +7,6 @@
 #include <memory>
 #include <QObject>
 #include <QPointF>
-#include <QMediaPlaylist>
-#include <QMediaPlayer>
 
 
 #include "MyEnemy.h"
@@ -36,8 +34,6 @@ public:
     QPointF getEndPoint() const;
     std::vector<QGraphicsPixmapItem *> pathTiles ={};
     std::vector<QGraphicsPixmapItem *> getPathTiles() ;
-    QMediaPlayer *music;
-    QMediaPlaylist *playlist = new QMediaPlaylist();
 
 
     int getPoisonLevelcount() const;

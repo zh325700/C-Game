@@ -64,7 +64,6 @@ private slots:
    void handleMapButton();
    void autoNavigate();
    void handlePauseButton();
-   void handleSoundButton();
 signals:
    void pathFound(int speed);
 
@@ -76,7 +75,8 @@ private:
    QPushButton *chooseNewMap;
    QPushButton *auto_button;
    QPushButton *pause_button;
-   QPushButton *soundbutton;
+   QPushButton *save_button;
+   QPushButton *load_button;
 
     bool soundOn = true;
     QString currentFileName = ":/images/maps/worldmap.png";

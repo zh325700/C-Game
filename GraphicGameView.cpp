@@ -97,18 +97,11 @@ GraphicGameView::GraphicGameView()
     //add auto zoom in and out
     Graphics_view_zoom* z = new Graphics_view_zoom(this);
     z->set_modifiers(Qt::NoModifier);
-    //show the scene
-//    show();
+
+    //center the prota
     centerOn(myModel->getMyProtagonist());
 
-    //play background music in a loop
-    playlist = new QMediaPlaylist();
-    playlist->addMedia(QUrl("qrc:/sounds/butterfly.mp3"));
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
-    music = new QMediaPlayer();
-    music->setPlaylist(playlist);
-    music->play();
 }
 
 GraphicGameView::~GraphicGameView()

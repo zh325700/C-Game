@@ -97,12 +97,7 @@ MainWindow::MainWindow(QWidget * parent):
     //prepare button image
     QPixmap startPix(":/images/icons/startGameIcon.png");
     QIcon startGameIcon(startPix);
-    QPixmap soundOnPix(":/images/icons/sound.png");
-    QIcon soundOnIcon(soundOnPix);
 
-    // sound button
-    soundbutton = new QPushButton();
-    soundbutton->setIcon(soundOnIcon);
 
     //button
     switch_button = new QPushButton("Switch View", this);
@@ -111,6 +106,7 @@ MainWindow::MainWindow(QWidget * parent):
     chooseNewMap = new QPushButton("choose a new map");
     auto_button = new QPushButton("auto run",this);
     pause_button = new QPushButton("Pause",this);
+
     start_game_button->setFixedSize(100,30);
     switch_button->setFixedHeight(30);
     switch_button->setFixedWidth(100);
@@ -122,7 +118,6 @@ MainWindow::MainWindow(QWidget * parent):
     layoutButton->addWidget(chooseNewMap);
     layoutButton->addWidget(auto_button);
     layoutButton->addWidget(pause_button);
-    layoutButton->addWidget(soundbutton);
     layoutButton->addStretch(1);
 
     //add all widget to overall layout
@@ -141,7 +136,6 @@ MainWindow::MainWindow(QWidget * parent):
     connect(chooseNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
     connect(auto_button,SIGNAL (released()), this, SLOT (autoNavigate()));
     connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
-    connect(soundbutton,SIGNAL (released()), this, SLOT (handleSoundButton()));
 
     reset();
     layout->addLayout(layoutStatistic,0,1,6,1);
@@ -294,6 +288,7 @@ void MainWindow::handleMapButton()
 
 void MainWindow::autoNavigate()
 {
+    myModel->setW((aStarParameter->text()).toFloat());
     myModel->FindNextStep();
     emit pathFound(round((protaSpeed->text()).toInt()));
 }
@@ -303,20 +298,6 @@ void MainWindow::handlePauseButton()
     myModel->getMyProtagonist()->setPaused(!myModel->getMyProtagonist()->getPaused());
 }
 
-void MainWindow::handleSoundButton()
-{
-    QPixmap soundOnPix(":/images/icons/sound.png");
-    QIcon soundOnIcon(soundOnPix);
-    QPixmap soundOffPix(":/images/icons/soundoff.png");
-    QIcon soundOffIcon(soundOffPix);
-    if(soundOn){
-        soundbutton->setIcon(soundOffIcon);
-        graphicGameView->music->pause();
-    }else{
-        soundbutton->setIcon(soundOnIcon);
-        graphicGameView->music->play();
-    }
-    soundOn = !soundOn;
-}
+
 
 
