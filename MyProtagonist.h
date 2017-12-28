@@ -17,7 +17,7 @@ public:
     MyProtagonist(QGraphicsItem * parent=0);  // allow you yo have a parent point
     void keyPressEvent(QKeyEvent * event);
     float getNextSpotValue(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
-    void decreaseHealth(float healthCost);
+    float decreaseHealth(float healthCost);
     void recoverHealth(float health);
     void recoverEnergy();
     MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);

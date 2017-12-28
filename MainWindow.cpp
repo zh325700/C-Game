@@ -225,6 +225,7 @@ void MainWindow::restartTheGame()
     switch (result) {
     case QMessageBox::Yes:
         hide();
+        delete myModel->getMyProtagonist();
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
