@@ -1,6 +1,5 @@
 #include <memory>
 #include <QTimer>
-#include <memory>
 #include <QImage>
 #include <QGraphicsTextItem>
 #include <iostream>
@@ -10,8 +9,6 @@
 #include <QGraphicsEllipseItem>
 #include <QColor>
 #include <QGraphicsScene>
-#include <vector>
-#include <QDebug>
 
 #include "GraphicGameView.h"
 #include "Graphics_view_zoom.h"
@@ -140,7 +137,7 @@ void GraphicGameView::deletePnemy()
             }
         }
 
-        qDebug()<<"PEnemy is deleted";
+//        qDebug()<<"PEnemy is deleted";
     }
     scene->removeItem(ellipse);
 
@@ -158,7 +155,7 @@ void GraphicGameView::deleteEnemy()
                     myModel->getMyEnemies().erase(myModel->getMyEnemies().begin()+i);
                 }
             }
-            qDebug()<<"Enemy is deleted";
+//            qDebug()<<"Enemy is deleted";
         }
 
 }
