@@ -1,4 +1,3 @@
-#include<QDebug>
 #include "ui_mainwindow.h"
 #include "world.h"
 #include <QDebug>
@@ -570,7 +569,6 @@ void TerminalGameView::encouterHe()
 
 void TerminalGameView::enemyDead()
 {
-    qDebug()<<"xuqingjie enemydead";  //just print
     output->appendPlainText("  Congratulations! You has defeated one enemy and your energy is full now!");
 }
 

@@ -74,8 +74,10 @@ void Node::computeTotalCost(const int &goalP_x, const int &goalP_y, const std::v
     float newGivenCost = oneStepCost + parentNode->getGivenCost();
     this->setGivenCost(newGivenCost);
     /*compute totalCost*/
-//    this->setTotalCost(myModel->getW()*newHcost+newGivenCost);
-    this->setTotalCost(newHcost+newGivenCost);
+
+    this->setTotalCost(myModel->getW()*newHcost+newGivenCost);
+//     this->setTotalCost(newHcost+newGivenCost);
+
 }
 
 int Node::getTileIndex() const

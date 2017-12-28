@@ -7,6 +7,8 @@
 #include <QFileDialog>
 #include <QStateMachine>
 #include <QState>
+#include <QInputDialog>
+#include <string>
 
 
 
@@ -20,6 +22,8 @@ MainWindow::MainWindow(QWidget * parent):
 {
     //  Add toolbar to the mainwindow
     myModel = new MyModel(currentFileName);
+    gameSetting();
+    myModel->modelInitialize();
     terminalGameView = new TerminalGameView();
     graphicGameView = new GraphicGameView();
     graphicGameView->initialGraphicView();
@@ -165,6 +169,8 @@ void MainWindow::reset()
     energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
     energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
 
+    aStarParameter->setText(QString::number(myModel->getW()));
+
     //connect signal and slot
     connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
     connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
@@ -178,6 +184,19 @@ void MainWindow::reset()
     terminalGameView->hide();                     //by default show graphicView
 
 
+}
+
+void MainWindow::gameSetting()
+{
+    bool enemyOK;
+    int i = QInputDialog::getInt(this, tr("Enemies"),
+                                 tr("Choose the number of enemies:"), 50, 0, 100, 1, &enemyOK);
+    if (enemyOK) myModel->setNrOfEnemies(i);
+
+    bool healthpackOK;
+    int j = QInputDialog::getInt(this, tr("HealthPacks"),
+                                 tr("Choose the number of healthpacks:"), 500, 0, 1000, 1, &healthpackOK);
+    if (enemyOK) myModel->setNrOfHealthPacks(j);
 }
 
 QString MainWindow::getCurrentFileName() const
@@ -231,21 +250,26 @@ void MainWindow::refreshXandY()
     yValue->setText(QString::number(myModel->getMyProtagonist()->getYPos()));
 }
 
-void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
+void MainWindow::restartTheGame()
 {
     int result = QMessageBox::warning(this, tr("My Game"),
-                                      tr("You Are Dead.\n"
-                                         "Do you want to play agin?"),
+                                      tr("You Are Dead.\n Do you want to play agin?"),
                                       QMessageBox::Yes | QMessageBox::No);
     switch (result) {
     case QMessageBox::Yes:
+        hide();
+        delete myModel->getMyProtagonist();
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
-        myModel = new MyModel(currentFileName,50,500);
+        myModel = new MyModel(currentFileName);
+        gameSetting();
+        myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
+        graphicGameView->initialGraphicView();
         reset();
+        show();
         break;
     case QMessageBox::No:
         close();
@@ -282,8 +306,8 @@ void MainWindow::handleStartButton()
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
-        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
-        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
+        //        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
+        //        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
 
     }
 
@@ -300,6 +324,7 @@ void MainWindow::handleStartButton()
 
 void MainWindow::handleMapButton()
 {
+    hide();
     QString fileName;
     fileName = QFileDialog::getOpenFileName(this,
                                             tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
@@ -310,11 +335,14 @@ void MainWindow::handleMapButton()
         delete terminalGameView;
         delete graphicGameView;
         setCurrentFileName(fileName);
-        myModel = new MyModel(fileName,50,500);
+        myModel = new MyModel(fileName);
+        gameSetting();
+        myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         graphicGameView->initialGraphicView();
         reset();
+        show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
     }
 
@@ -323,8 +351,40 @@ void MainWindow::handleMapButton()
 void MainWindow::autoNavigate()
 {
     myModel->setW((aStarParameter->text()).toFloat());
-    myModel->FindNextStep();
-    emit pathFound(round((protaSpeed->text()).toInt()));
+    bool moreEnemy = myModel->FindNextStep();
+    if (moreEnemy)
+    {
+        qDebug()<<"w is: "<<myModel->getW();
+        emit pathFound(round((protaSpeed->text()).toInt()));
+    }
+    else
+    {
+        int result = QMessageBox::information(this, tr("My Game"),
+                                          tr("Congratulations! You win!\n Do you want to play agin?"),
+                                          QMessageBox::Yes | QMessageBox::No);
+        switch (result) {
+        case QMessageBox::Yes:
+            hide();
+            delete myModel;
+            delete terminalGameView;
+            delete graphicGameView;
+            myModel = new MyModel(currentFileName);
+            gameSetting();
+            myModel->modelInitialize();
+            terminalGameView = new TerminalGameView();
+            graphicGameView = new GraphicGameView();
+            graphicGameView->initialGraphicView();
+            reset();
+            show();
+            break;
+        case QMessageBox::No:
+            close();
+            break;
+        default:
+            break;
+        }
+    }
+
 }
 
 void MainWindow::handlePauseButton()

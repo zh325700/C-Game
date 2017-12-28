@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GraphicGameView_t {
     QByteArrayData data[8];
-    char stringdata0[94];
+    char stringdata0[95];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,18 +32,18 @@ struct qt_meta_stringdata_GraphicGameView_t {
 static const qt_meta_stringdata_GraphicGameView_t qt_meta_stringdata_GraphicGameView = {
     {
 QT_MOC_LITERAL(0, 0, 15), // "GraphicGameView"
-QT_MOC_LITERAL(1, 16, 16), // "destinationFound"
-QT_MOC_LITERAL(2, 33, 0), // ""
-QT_MOC_LITERAL(3, 34, 17), // "drawPoinsonCircle"
-QT_MOC_LITERAL(4, 52, 11), // "deletePnemy"
-QT_MOC_LITERAL(5, 64, 11), // "deleteEnemy"
-QT_MOC_LITERAL(6, 76, 11), // "drawThePath"
-QT_MOC_LITERAL(7, 88, 5) // "speed"
+QT_MOC_LITERAL(1, 16, 17), // "drawPoinsonCircle"
+QT_MOC_LITERAL(2, 34, 0), // ""
+QT_MOC_LITERAL(3, 35, 11), // "deletePnemy"
+QT_MOC_LITERAL(4, 47, 11), // "deleteEnemy"
+QT_MOC_LITERAL(5, 59, 11), // "drawThePath"
+QT_MOC_LITERAL(6, 71, 5), // "speed"
+QT_MOC_LITERAL(7, 77, 17) // "changeCircleColor"
 
     },
-    "GraphicGameView\0destinationFound\0\0"
-    "drawPoinsonCircle\0deletePnemy\0deleteEnemy\0"
-    "drawThePath\0speed"
+    "GraphicGameView\0drawPoinsonCircle\0\0"
+    "deletePnemy\0deleteEnemy\0drawThePath\0"
+    "speed\0changeCircleColor"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,25 +58,21 @@ static const uint qt_meta_data_GraphicGameView[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x06 /* Public */,
+       0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x0a /* Public */,
        3,    0,   40,    2, 0x0a /* Public */,
        4,    0,   41,    2, 0x0a /* Public */,
-       5,    0,   42,    2, 0x0a /* Public */,
-       6,    1,   43,    2, 0x0a /* Public */,
-
- // signals: parameters
-    QMetaType::Void,
+       5,    1,   42,    2, 0x0a /* Public */,
+       7,    0,   45,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -87,22 +83,12 @@ void GraphicGameView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         GraphicGameView *_t = static_cast<GraphicGameView *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->destinationFound(); break;
-        case 1: _t->drawPoinsonCircle(); break;
-        case 2: _t->deletePnemy(); break;
-        case 3: _t->deleteEnemy(); break;
-        case 4: _t->drawThePath((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->drawPoinsonCircle(); break;
+        case 1: _t->deletePnemy(); break;
+        case 2: _t->deleteEnemy(); break;
+        case 3: _t->drawThePath((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->changeCircleColor(); break;
         default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
-        {
-            typedef void (GraphicGameView::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&GraphicGameView::destinationFound)) {
-                *result = 0;
-                return;
-            }
         }
     }
 }
@@ -141,12 +127,6 @@ int GraphicGameView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 5;
     }
     return _id;
-}
-
-// SIGNAL 0
-void GraphicGameView::destinationFound()
-{
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

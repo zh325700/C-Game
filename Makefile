@@ -1131,6 +1131,7 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qicon.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QProgressBar \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qprogressbar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -1148,7 +1149,6 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSharedDataPointer \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
@@ -1176,9 +1176,6 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		MainWindow.h \
 		TerminalGameView.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
@@ -1611,8 +1608,16 @@ moc_GraphicGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
+		MyEnemy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediacontent.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaresource.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
@@ -1622,21 +1627,10 @@ moc_GraphicGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qaudio.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
-		MyEnemy.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		libworld/world.h \
 		libworld/world_global.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
@@ -1833,8 +1827,16 @@ main.o: main.cpp /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
+		MyEnemy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediacontent.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaresource.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
@@ -1844,21 +1846,10 @@ main.o: main.cpp /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qaudio.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
-		MyEnemy.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		libworld/world.h \
 		libworld/world_global.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
@@ -2186,9 +2177,6 @@ MyProtagonist.o: MyProtagonist.cpp /opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent 
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		MyEnemy.h \
 		MyPEnemy.h \
 		HealthPack.h \
@@ -2729,6 +2717,7 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qicon.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QProgressBar \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qprogressbar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		MyProtagonist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -2746,7 +2735,6 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSharedDataPointer \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
@@ -2774,9 +2762,6 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		MyModel.h \
 		Astar.h \
 		Node.h \
@@ -3085,9 +3070,6 @@ MyModel.o: MyModel.cpp MyModel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -3283,7 +3265,125 @@ Node.o: Node.cpp Node.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		MyModel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		MyProtagonist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediacontent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaresource.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSharedDataPointer \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qaudio.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasictimer.h \
+		MyTile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPaintEvent \
+		MyEnemy.h \
+		MyPEnemy.h \
+		HealthPack.h \
+		GraphicGameView.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		MainWindow.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGridLayout \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLabel \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlabel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGroupBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgroupbox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QProgressBar \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qprogressbar.h \
+		TerminalGameView.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmainwindow.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QPlainTextEdit \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qplaintextedit.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtextedit.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextdocument.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextlayout.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qglyphrun.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrawfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontdatabase.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
+		Astar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Node.o Node.cpp
 
 GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
@@ -3408,8 +3508,15 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
+		MyEnemy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediacontent.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaresource.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
@@ -3419,20 +3526,10 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QString \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QUrl \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimediaglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qtmultimedia-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmultimedia.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qaudio.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
-		MyEnemy.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		libworld/world.h \
 		libworld/world_global.h \
 		MyProtagonist.h \
@@ -3705,9 +3802,6 @@ TerminalGameView.o: TerminalGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDe
 		GraphicGameView.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlaylist \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplaylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediabindableinterface.h \
 		MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmessagebox.h \

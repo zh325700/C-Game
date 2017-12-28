@@ -16,11 +16,14 @@
 
 class MyModel{
 public:
-    MyModel(QString map,int enemyNum = 50,int healthpackNum = 500);
+    MyModel(QString map);
     ~MyModel();
 
+    void modelInitialize();
     bool moveFast();      //move to a certain position
-    void FindNextStep();
+    bool FindNextStep();
+    void gotoNextEnemy();
+    void gotoNextPEnemy();
     MyEnemy ** findNearestEnemy();
     MyPEnemy ** findNearestPEnemy();
     HealthPack ** findNearestHealthPack();
@@ -64,8 +67,14 @@ public:
     float getW() const;
     void setW(float value);
 
+
     void saveGame();
     void loadGame();
+    int getNrOfEnemies() const;
+    void setNrOfEnemies(int value);
+
+    int getNrOfHealthPacks() const;
+    void setNrOfHealthPacks(int value);
 
 
 private:
@@ -73,14 +82,22 @@ private:
     int rows;
     int destinationX;
     int destinationY;
-    float w;
+    float w = 1.0;
     bool readyToNext;
+    bool whichView = false;
+    int nrOfEnemies = 50;
+    int nrOfHealthPacks = 500;
+    MyEnemy ** nearestEnemy = nullptr;
+    MyPEnemy ** nearestPEnemy = nullptr;
+    HealthPack ** nearestHP = nullptr;
     MyProtagonist *myProtagonist;
+    std::shared_ptr<World> world;
+
     std::vector<MyTile *> myTilesMap ={};
     std::vector<MyEnemy *> myEnemies ={};
     std::vector<MyPEnemy *> myPEnemies ={};
     std::vector<HealthPack *> myHealthPacks ={};
-    bool whichView = false;
+
     std::shared_ptr<Astar> myAstar;
     std::vector<std::unique_ptr<Tile>> mapTiles;
 

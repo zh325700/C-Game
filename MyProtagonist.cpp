@@ -79,9 +79,11 @@ void MyProtagonist::moveToNextSpot()
     graphicGameView->centerOn(this);
 }
 
-void MyProtagonist::decreaseHealth(float healthCost)
+float MyProtagonist::decreaseHealth(float healthCost)
 {
-    setHealth(getHealth()-healthCost);
+    float currentHealth = getHealth()-healthCost;
+    setHealth(currentHealth);
+    return currentHealth;
 }
 
 void MyProtagonist::recoverHealth(float health)
@@ -123,7 +125,8 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                      qDebug() << "Enemy strength: " <<aMyenemy->getValue();
                      // If encounter with enemy,kill, decrease health,set black
                     emit encounterEnemy();
-                    decreaseHealth(aMyenemy->getValue());
+                    float currentHealth = decreaseHealth(aMyenemy->getValue());
+                    if(currentHealth<=0) return;
                     recoverEnergy();
                     this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
                     aMyenemy->setDefeated(true);   //set defeated then emit dead()
@@ -132,6 +135,8 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                 else if(aPenemy){
                     qDebug() << "PEnemy strength: " <<aPenemy->getValue();
                     decreaseHealth(aPenemy->getValue());
+                    float currentHealth = decreaseHealth(aPenemy->getValue());
+                    if(currentHealth<=0) return;
                     recoverEnergy();
                     this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
                     QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
