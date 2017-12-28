@@ -50,7 +50,7 @@ public:
 
     QString getCurrentFileName() const;
     void setCurrentFileName(const QString &value);
-
+    void removeEveryFromTheScene();
 public slots:
     void refreshEandH();
     void refreshXandY();
@@ -64,6 +64,8 @@ private slots:
    void handleMapButton();
    void autoNavigate();
    void handlePauseButton();
+   void handleSaveButton();
+   void handleLoadButton();
 signals:
    void pathFound(int speed);
 

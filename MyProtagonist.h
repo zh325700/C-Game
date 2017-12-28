@@ -42,6 +42,7 @@ signals:
     void inCircle();
     void findNext();
 
+
 public slots:
     void moveToNextSpot();
     void aquire_target();

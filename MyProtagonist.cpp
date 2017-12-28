@@ -142,12 +142,12 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                     emit encounterHealthPack();
                     recoverHealth(aHealthPack->getValue());
                     graphicGameView->scene->removeItem(aHealthPack);
-//                    for(int i=0;i<graphicGameView->myHealthPacks.size();i++){
-//                        if(graphicGameView->myHealthPacks[i] == aHealthPack){
-//                            graphicGameView->myHealthPacks.erase(i);
-//                        }
-//                    }
                     delete aHealthPack;
+                    for(unsigned i=0;i<myModel->getMyHealthPacks().size();i++){
+                        if(myModel->getMyHealthPacks()[i] == aHealthPack){
+                            myModel->getMyHealthPacks().erase(myModel->getMyHealthPacks().begin()+i);
+                        }
+                    }
                 }
                 else if(aMyTile){
                     float costOfStep =this->getValue()-aMyTile->getValue();   //previous value - Next Tile value

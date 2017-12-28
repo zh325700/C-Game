@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget * parent):
     myModel = new MyModel(currentFileName);
     terminalGameView = new TerminalGameView();
     graphicGameView = new GraphicGameView();
+    graphicGameView->initialGraphicView();
 
     //create a Horizontal layout to show info
 
@@ -103,14 +104,17 @@ MainWindow::MainWindow(QWidget * parent):
     switch_button = new QPushButton("Switch View", this);
     start_game_button = new QPushButton("Start Game", this);
     start_game_button->setIcon(startGameIcon);
-    chooseNewMap = new QPushButton("choose a new map");
-    auto_button = new QPushButton("auto run",this);
+    chooseNewMap = new QPushButton("Choose a new map");
+    auto_button = new QPushButton("Auto run",this);
     pause_button = new QPushButton("Pause",this);
+    save_button = new QPushButton("Save",this);
+    load_button = new QPushButton("Load",this);
 
     start_game_button->setFixedSize(100,30);
     switch_button->setFixedHeight(30);
     switch_button->setFixedWidth(100);
     auto layoutButton = new QHBoxLayout();
+    auto layoutSaveNload = new QHBoxLayout();
     //add button to layout
     layoutButton->addStretch(1);
     layoutButton->addWidget(switch_button);
@@ -120,6 +124,11 @@ MainWindow::MainWindow(QWidget * parent):
     layoutButton->addWidget(pause_button);
     layoutButton->addStretch(1);
 
+    layoutSaveNload->addStretch(1);
+    layoutSaveNload->addWidget(save_button);
+    layoutSaveNload->addWidget(load_button);
+    layoutSaveNload->addStretch(1);
+
     //add all widget to overall layout
     layoutStatistic->addWidget(xpositionGroup);
     layoutStatistic->addWidget(ypositionGroup);
@@ -128,6 +137,7 @@ MainWindow::MainWindow(QWidget * parent):
     layoutStatistic->addWidget(healthGroup);
     layoutStatistic->addWidget(energyGroup);
     layoutStatistic->addLayout(layoutButton);
+    layoutStatistic->addLayout(layoutSaveNload);
 
 
     // connect button
@@ -136,6 +146,9 @@ MainWindow::MainWindow(QWidget * parent):
     connect(chooseNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
     connect(auto_button,SIGNAL (released()), this, SLOT (autoNavigate()));
     connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
+    connect(save_button,SIGNAL (released()), this, SLOT (handleSaveButton()));
+    connect(load_button,SIGNAL (released()), this, SLOT (handleLoadButton()));
+
 
     reset();
     layout->addLayout(layoutStatistic,0,1,6,1);
@@ -172,9 +185,29 @@ QString MainWindow::getCurrentFileName() const
     return currentFileName;
 }
 
-void MainWindow::setCurrentFileName(const QString &value)
+void MainWindow::setCurrentFileName(const QString &valuehandleSaveButton)
 {
-    currentFileName = value;
+    currentFileName = valuehandleSaveButton;
+}
+
+void MainWindow::removeEveryFromTheScene()
+{
+//    for(auto &aTile:myModel->getMyTilesMap()){
+//        graphicGameView->scene->removeItem(aTile);
+//    }
+    //add pack to the scene and connect
+    for(auto &aPack:myModel->getMyHealthPacks()){
+         graphicGameView->scene->removeItem(aPack);
+    }
+    // add the Enemies to the scene
+    for(auto &aEnemy:myModel->getMyEnemies()){
+         graphicGameView->scene->removeItem(aEnemy);
+    }
+
+    //add pEnemies to the scene and connect
+    for(auto &aPEnemy:myModel->getMyPEnemies()){
+         graphicGameView->scene->removeItem(aPEnemy);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -280,6 +313,7 @@ void MainWindow::handleMapButton()
         myModel = new MyModel(fileName,50,500);
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
+        graphicGameView->initialGraphicView();
         reset();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
     }
@@ -296,6 +330,24 @@ void MainWindow::autoNavigate()
 void MainWindow::handlePauseButton()
 {
     myModel->getMyProtagonist()->setPaused(!myModel->getMyProtagonist()->getPaused());
+}
+
+void MainWindow::handleSaveButton()
+{
+    myModel->saveGame();
+}
+
+void MainWindow::handleLoadButton()
+{
+    delete terminalGameView;
+    delete graphicGameView;
+//    removeEveryFromTheScene();
+    myModel->loadGame();
+    terminalGameView = new TerminalGameView();
+    graphicGameView = new GraphicGameView();
+    graphicGameView->initialGraphicView();
+    reset();
+    QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
 }
 
 

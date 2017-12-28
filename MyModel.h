@@ -14,8 +14,7 @@
 #include <limits.h>
 
 
-class MyModel
-{
+class MyModel{
 public:
     MyModel(QString map,int enemyNum = 50,int healthpackNum = 500);
     ~MyModel();
@@ -64,6 +63,10 @@ public:
 
     float getW() const;
     void setW(float value);
+
+    void saveGame();
+    void loadGame();
+
 
 private:
     int cols;

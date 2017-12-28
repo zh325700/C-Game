@@ -47,6 +47,15 @@ GraphicGameView::GraphicGameView()
 
 
     //set position of the protagonist
+}
+
+GraphicGameView::~GraphicGameView()
+{
+    // delete all memories
+}
+
+void GraphicGameView::initialGraphicView()
+{
     myModel->getMyProtagonist()->QGraphicsItem::setPos(myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile(),
                                                        myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile());
 
@@ -94,19 +103,13 @@ GraphicGameView::GraphicGameView()
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,this,&GraphicGameView::changeCircleColor);
     }
 
+
     //add auto zoom in and out
     Graphics_view_zoom* z = new Graphics_view_zoom(this);
     z->set_modifiers(Qt::NoModifier);
 
     //center the prota
     centerOn(myModel->getMyProtagonist());
-
-
-}
-
-GraphicGameView::~GraphicGameView()
-{
-    // delete all memories
 }
 
 void GraphicGameView::drawPoinsonCircle()
@@ -129,6 +132,7 @@ void GraphicGameView::drawPoinsonCircle()
 
 void GraphicGameView::deletePnemy()
 {
+    scene->removeItem(ellipse);
     setPoisonLevelcount(0);
     MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
     if(deadPenemy){
@@ -142,7 +146,6 @@ void GraphicGameView::deletePnemy()
 
         qDebug()<<"PEnemy is deleted";
     }
-    scene->removeItem(ellipse);
 
 
 }
@@ -194,6 +197,8 @@ void GraphicGameView::changeCircleColor()
     setPoisonLevelcount(getPoisonLevelcount()+1);
 }
 
+
+
 int GraphicGameView::getPoisonLevelcount() const
 {
     return poisonLevelcount;
@@ -203,6 +208,8 @@ void GraphicGameView::setPoisonLevelcount(int value)
 {
     poisonLevelcount = value;
 }
+
+
 
 
 

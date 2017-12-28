@@ -38,6 +38,7 @@ public:
 
     int getPoisonLevelcount() const;
     void setPoisonLevelcount(int value);
+    void initialGraphicView();
 
 public slots:
     void drawPoinsonCircle();

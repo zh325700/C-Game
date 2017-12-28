@@ -19,7 +19,3 @@ void MyPEnemy::setAlreadyDefeated(bool value)
 }
 
 
-//MyPEnemy::~PEnemy()
-//{
-
-//}
