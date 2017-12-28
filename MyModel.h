@@ -22,7 +22,9 @@ public:
 
     void modelInitialize();
     bool moveFast();      //move to a certain position
-    void FindNextStep();
+    bool FindNextStep();
+    void gotoNextEnemy();
+    void gotoNextPEnemy();
     MyEnemy ** findNearestEnemy();
     MyPEnemy ** findNearestPEnemy();
     HealthPack ** findNearestHealthPack();
@@ -82,6 +84,9 @@ private:
     bool whichView = false;
     int nrOfEnemies = 50;
     int nrOfHealthPacks = 500;
+    MyEnemy ** nearestEnemy = nullptr;
+    MyPEnemy ** nearestPEnemy = nullptr;
+    HealthPack ** nearestHP = nullptr;
     MyProtagonist *myProtagonist;
     std::shared_ptr<World> world;
 

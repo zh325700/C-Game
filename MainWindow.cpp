@@ -8,6 +8,7 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
+#include <string>
 
 
 
@@ -216,14 +217,14 @@ void MainWindow::refreshXandY()
     yValue->setText(QString::number(myModel->getMyProtagonist()->getYPos()));
 }
 
-void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game, No: close the window
+void MainWindow::restartTheGame()
 {
     int result = QMessageBox::warning(this, tr("My Game"),
-                                      tr("You Are Dead.\n"
-                                         "Do you want to play agin?"),
+                                      tr("You Are Dead.\n Do you want to play agin?"),
                                       QMessageBox::Yes | QMessageBox::No);
     switch (result) {
     case QMessageBox::Yes:
+        hide();
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
@@ -233,6 +234,7 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         reset();
+        show();
         break;
     case QMessageBox::No:
         close();
@@ -313,9 +315,39 @@ void MainWindow::handleMapButton()
 void MainWindow::autoNavigate()
 {
     myModel->setW((aStarParameter->text()).toFloat());
-    myModel->FindNextStep();
-    qDebug()<<"w is: "<<myModel->getW();
-    emit pathFound(round((protaSpeed->text()).toInt()));
+    bool moreEnemy = myModel->FindNextStep();
+    if (moreEnemy)
+    {
+        qDebug()<<"w is: "<<myModel->getW();
+        emit pathFound(round((protaSpeed->text()).toInt()));
+    }
+    else
+    {
+        int result = QMessageBox::information(this, tr("My Game"),
+                                          tr("Congratulations! You win!\n Do you want to play agin?"),
+                                          QMessageBox::Yes | QMessageBox::No);
+        switch (result) {
+        case QMessageBox::Yes:
+            hide();
+            delete myModel;
+            delete terminalGameView;
+            delete graphicGameView;
+            myModel = new MyModel(currentFileName);
+            gameSetting();
+            myModel->modelInitialize();
+            terminalGameView = new TerminalGameView();
+            graphicGameView = new GraphicGameView();
+            reset();
+            show();
+            break;
+        case QMessageBox::No:
+            close();
+            break;
+        default:
+            break;
+        }
+    }
+
 }
 
 void MainWindow::handlePauseButton()
