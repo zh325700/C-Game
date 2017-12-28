@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QStateMachine>
 #include <QState>
+#include <QInputDialog>
 
 
 
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget * parent):
 {
     //  Add toolbar to the mainwindow
     myModel = new MyModel(currentFileName);
+    gameSetting();
+    myModel->modelInitialize();
     terminalGameView = new TerminalGameView();
     graphicGameView = new GraphicGameView();
 
@@ -169,6 +172,19 @@ void MainWindow::reset()
 
 }
 
+void MainWindow::gameSetting()
+{
+    bool enemyOK;
+    int i = QInputDialog::getInt(this, tr("Enemies"),
+                                 tr("Choose the number of enemies:"), 50, 0, 100, 1, &enemyOK);
+    if (enemyOK) myModel->setNrOfEnemies(i);
+
+    bool healthpackOK;
+    int j = QInputDialog::getInt(this, tr("HealthPacks"),
+                                 tr("Choose the number of healthpacks:"), 500, 0, 1000, 1, &healthpackOK);
+    if (enemyOK) myModel->setNrOfHealthPacks(j);
+}
+
 QString MainWindow::getCurrentFileName() const
 {
     return currentFileName;
@@ -211,7 +227,9 @@ void MainWindow::restartTheGame()   // Yes: clean all memory and restart a game,
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
-        myModel = new MyModel(currentFileName,50,500);
+        myModel = new MyModel(currentFileName);
+        gameSetting();
+        myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         reset();
@@ -251,8 +269,8 @@ void MainWindow::handleStartButton()
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
-//        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
-//        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
+        //        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
+        //        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
 
     }
 
@@ -269,6 +287,7 @@ void MainWindow::handleStartButton()
 
 void MainWindow::handleMapButton()
 {
+    hide();
     QString fileName;
     fileName = QFileDialog::getOpenFileName(this,
                                             tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
@@ -279,10 +298,13 @@ void MainWindow::handleMapButton()
         delete terminalGameView;
         delete graphicGameView;
         setCurrentFileName(fileName);
-        myModel = new MyModel(fileName,50,500);
+        myModel = new MyModel(fileName);
+        gameSetting();
+        myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         reset();
+        show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
     }
 

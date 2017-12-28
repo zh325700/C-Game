@@ -69,6 +69,7 @@ signals:
 
 private:
    void reset();
+   void gameSetting();
 
    QPushButton *switch_button;
    QPushButton *start_game_button;

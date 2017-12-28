@@ -2,18 +2,30 @@
 #include <QTime>
 #include <QDebug>
 
-MyModel::MyModel(QString map, int enemyNum, int healthpackNum)
+MyModel::MyModel(QString map)
 {
-    std::shared_ptr<World> world = std::make_shared<World>();
+    world = std::make_shared<World>();
     mapTiles = world->createWorld(map);
-    std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(healthpackNum);
-    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(enemyNum);
+}
+
+MyModel::~MyModel()
+{
+
+}
+
+void MyModel::modelInitialize()
+{
+    std::vector<std::unique_ptr<Tile>> healthpacks = world->getHealthPacks(nrOfHealthPacks);
+    std::vector<std::unique_ptr<Enemy>> enemiesFromWorld = world->getEnemies(nrOfEnemies);
+    qDebug()<<"enemies in total: "<<nrOfEnemies;
+    qDebug()<<"healthpacks in total: "<<nrOfHealthPacks;
     myProtagonist = new MyProtagonist();
     const std::type_info& typeE = typeid(Enemy);
     const std::type_info& typeP = typeid(PEnemy);
 
     cols = world->getCols();
     rows = world->getRows();
+
 
     // Give all the world tiles in Mymaptiles
     for ( auto &aTile: mapTiles){
@@ -74,11 +86,6 @@ MyModel::MyModel(QString map, int enemyNum, int healthpackNum)
 
     //intialize readyToNext
     readyToNext = true;
-}
-
-MyModel::~MyModel()
-{
-
 }
 
 bool MyModel::moveFast()
@@ -333,5 +340,25 @@ float MyModel::getW() const
 void MyModel::setW(float value)
 {
     w = value;
+}
+
+int MyModel::getNrOfEnemies() const
+{
+    return nrOfEnemies;
+}
+
+void MyModel::setNrOfEnemies(int value)
+{
+    nrOfEnemies = value;
+}
+
+int MyModel::getNrOfHealthPacks() const
+{
+    return nrOfHealthPacks;
+}
+
+void MyModel::setNrOfHealthPacks(int value)
+{
+    nrOfHealthPacks = value;
 }
 
