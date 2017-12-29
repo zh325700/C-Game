@@ -282,8 +282,8 @@ int MyModel::calculateDistance(int givenX, int givenY)
 
 void MyModel::saveGame(QString filename)
 {
+
     QSettings setting("Team104",filename);
-    //    QSettings record("Team104","record");
 
     /*store filename into local file*/
     QFile file("save_filenames.txt");
@@ -348,6 +348,8 @@ void MyModel::saveGame(QString filename)
 void MyModel::loadGame(QString filename)
 {
     QSettings  setting("Team104",filename);
+    myEnemies.clear();
+    myPEnemies.clear();
 
     setting.beginGroup("MyProtagonist");
     myProtagonist->Protagonist::setPos(setting.value("protaX").toInt(),setting.value("protaY").toInt());
@@ -358,8 +360,7 @@ void MyModel::loadGame(QString filename)
     setting.endGroup();
 
     setting.beginGroup("MyEnemies");
-    myEnemies.clear();
-    myPEnemies.clear();
+
     int sizeE = setting.beginReadArray("Enemies");
     for (int i = 0; i < sizeE; ++i) {
         setting.setArrayIndex(i);
@@ -381,6 +382,7 @@ void MyModel::loadGame(QString filename)
         myPEnemies.push_back(aPMyEnemy);
     }
     setting.endArray();
+
 
     setting.endGroup();                 //Till here is correct
 

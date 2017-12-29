@@ -393,6 +393,7 @@ void MainWindow::handlePauseButton()
 
 void MainWindow::handleSaveButton()
 {
+
     bool ok;
     QString text = QInputDialog::getText(this, tr("Save"),
                                          tr("Name:"), QLineEdit::Normal,
@@ -414,6 +415,7 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
+
     QStringList fileNameList;
     /*read filenames from local file*/
     QFile file("save_filenames.txt");

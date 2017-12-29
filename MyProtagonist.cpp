@@ -31,7 +31,6 @@ MyProtagonist::MyProtagonist(QGraphicsItem *parent):
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(moveAlongWithPath()));
 
-//    this->setValue(getTileByXY(this->getXPos()/sizeOfTile,this->getYPos()/sizeOfTile,game->myTilesMap,game->cols)->getValue());
 }
 
 void MyProtagonist::keyPressEvent(QKeyEvent *event)
@@ -109,9 +108,6 @@ MyTile *MyProtagonist::getTileByXY(int x, int y, std::vector<MyTile *> &myTiles,
 
 void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
     // get a list of all items colliding with attack_area
-
-
-
     Protagonist::setEnergy(Protagonist::getEnergy()-stepCost);
 
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
@@ -132,8 +128,8 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
 
                 }
                 else if(aPenemy){
-                    decreaseHealth(aPenemy->getValue());
-                    float currentHealth = decreaseHealth(aPenemy->getValue());
+                    qDebug() << "PEnemy strength: " <<aPenemy->getValue();
+                    float currentHealth = decreaseHealth(aPenemy->getValue()/10);
                     if(currentHealth<=0) return;
                     recoverEnergy();
                     this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
@@ -193,6 +189,7 @@ void MyProtagonist::moveAlongWithPath()
         if(countSteps<myModel->getMyAstar()->getSolution().size())
         {
             int x = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_x();
+
             int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y(); //move along the path
 
             graphicGameView->scene->removeItem(graphicGameView->getPathTiles()[countSteps]); //remove the path
@@ -207,6 +204,16 @@ void MyProtagonist::moveAlongWithPath()
         }
     }
 
+}
+
+bool MyProtagonist::getAlReadyDrawCircle() const
+{
+    return alReadyDrawCircle;
+}
+
+void MyProtagonist::setAlReadyDrawCircle(bool value)
+{
+    alReadyDrawCircle = value;
 }
 
 bool MyProtagonist::getPaused() const
