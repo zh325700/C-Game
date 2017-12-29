@@ -353,6 +353,7 @@ void MyModel::loadGame()
         myPEnemies.clear();
         int sizeE = setting.beginReadArray("Enemies");
         for (int i = 0; i < sizeE; ++i) {
+            setting.setArrayIndex(i);
             int xEnemy = setting.value("EnemyX").toInt();
             int yEnemy = setting.value("EnemyY").toInt();
             float eStrength =setting.value("EnemyValue").toFloat();;
@@ -363,6 +364,7 @@ void MyModel::loadGame()
 
         int sizeP = setting.beginReadArray("PEnemies");
         for (int i = 0; i < sizeP; ++i) {
+            setting.setArrayIndex(i);
             int xPEnemy = setting.value("PEnemyX").toInt();
             int yPEnemy = setting.value("PEnemyY").toInt();
             float pStrength =setting.value("PEnemyValue").toFloat();;
@@ -373,23 +375,25 @@ void MyModel::loadGame()
 
     setting.endGroup();                 //Till here is correct
 
-//    setting.beginGroup("MyTiles");
-//        myTilesMap.clear();
-//        int sizeT = setting.beginReadArray("Tiles");
-//            for (int i = 0; i < sizeT; ++i) {
-//                int xTile = setting.value("TileX").toInt();
-//                int yTile = setting.value("TileY").toInt();
-//                float Tvalue =setting.value("TileValue").toFloat();;
-//                MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
-//                myTilesMap.push_back(aTile);
-//            }
-//        setting.endArray();
-//    setting.endGroup();
+    setting.beginGroup("MyTiles");
+        myTilesMap.clear();
+        int sizeT = setting.beginReadArray("Tiles");
+            for (int i = 0; i < sizeT; ++i) {
+                setting.setArrayIndex(i);
+                int xTile = setting.value("TileX").toInt();
+                int yTile = setting.value("TileY").toInt();
+                float Tvalue =setting.value("TileValue").toFloat();;
+                MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
+                myTilesMap.push_back(aTile);
+            }
+        setting.endArray();
+    setting.endGroup();
 
     setting.beginGroup("MyHealthpacks");
         myHealthPacks.clear();
         int sizeH = setting.beginReadArray("Healthpacks");
             for (int i = 0; i < sizeH; ++i) {
+                setting.setArrayIndex(i);
                 int xHealthpack = setting.value("HealthpackX").toInt();
                 int yHealthpack = setting.value("HealthpackY").toInt();
                 float valueHealthpack =setting.value("HealthpackValue").toFloat();;

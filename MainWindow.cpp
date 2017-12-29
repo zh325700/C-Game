@@ -211,9 +211,9 @@ void MainWindow::setCurrentFileName(const QString &valuehandleSaveButton)
 
 void MainWindow::removeEveryFromTheScene()
 {
-//    for(auto &aTile:myModel->getMyTilesMap()){
-//        graphicGameView->scene->removeItem(aTile);
-//    }
+    for(auto &aTile:myModel->getMyTilesMap()){
+        graphicGameView->scene->removeItem(aTile);
+    }
     //add pack to the scene and connect
     for(auto &aPack:myModel->getMyHealthPacks()){
          graphicGameView->scene->removeItem(aPack);
@@ -227,6 +227,7 @@ void MainWindow::removeEveryFromTheScene()
     for(auto &aPEnemy:myModel->getMyPEnemies()){
          graphicGameView->scene->removeItem(aPEnemy);
     }
+    graphicGameView->scene->removeItem(myModel->getMyProtagonist());
 }
 
 MainWindow::~MainWindow()
@@ -299,28 +300,21 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-        //xuqingji de fangfa lai nadao x,y
         myModel->setDestinationX(22);
         myModel->setDestinationY(22);
     }
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
-        //        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
-        //        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
-
     }
 
     if(myModel->moveFast()){
-        //MyModel *tempM = myModel;    //for testing purpose
         myModel->setOnceOrMore(true);
         emit pathFound(round((protaSpeed->text()).toInt()));
 
     }else{
         qDebug()<<"Can not find the path";
     }
-
-    //Here the pathfinding game start.
 }
 
 
@@ -356,7 +350,6 @@ void MainWindow::autoNavigate()
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
-        qDebug()<<"w is: "<<myModel->getW();
         myModel->setOnceOrMore(false);
         emit pathFound(round((protaSpeed->text()).toInt()));
     }
@@ -404,14 +397,12 @@ void MainWindow::handleSaveButton()
 void MainWindow::handleLoadButton()
 {
     hide();
-    delete terminalGameView;
-    delete graphicGameView;
-//    removeEveryFromTheScene();
+    QMessageBox::information(this,"Success","Game is loading... please wait a bit :)",true);
+//    delete terminalGameView;
+    removeEveryFromTheScene();
     myModel->loadGame();
-    terminalGameView = new TerminalGameView();
-    graphicGameView = new GraphicGameView();
-    graphicGameView->initialGraphicView();
-    reset();
+//    terminalGameView = new TerminalGameView();
+    graphicGameView->initialGraphicView();   //terminal initial may be needed
     show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
 }

@@ -34,6 +34,9 @@ public:
     bool getPaused() const;
     void setPaused(bool value);
 
+    unsigned getCountSteps() const;
+    void setCountSteps(const unsigned &value);
+
 signals:
     void protagonistDead();
     void encounterPenemy();

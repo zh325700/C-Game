@@ -122,7 +122,6 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
                 HealthPack *aHealthPack = dynamic_cast<HealthPack *>(colliding_items[i]);
                 MyTile *aMyTile = dynamic_cast<MyTile *>(colliding_items[i]);
                 if (aMyenemy){
-                     qDebug() << "Enemy strength: " <<aMyenemy->getValue();
                      // If encounter with enemy,kill, decrease health,set black
                     emit encounterEnemy();
                     float currentHealth = decreaseHealth(aMyenemy->getValue());
@@ -133,7 +132,6 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
 
                 }
                 else if(aPenemy){
-                    qDebug() << "PEnemy strength: " <<aPenemy->getValue();
                     decreaseHealth(aPenemy->getValue());
                     float currentHealth = decreaseHealth(aPenemy->getValue());
                     if(currentHealth<=0) return;
@@ -195,11 +193,9 @@ void MyProtagonist::moveAlongWithPath()
         if(countSteps<myModel->getMyAstar()->getSolution().size())
         {
             int x = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_x();
-            int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y();
-    //        myModel->getMyProtagonist()
-    //                ->getTileByXY(x,y,myModel->getMyTilesMap(),myModel->getCols())
-    //                ->setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
-            graphicGameView->scene->removeItem(graphicGameView->getPathTiles()[countSteps]);
+            int y = myModel->getMyAstar()->getSolution()[totalSize - countSteps - 1]->getPos_y(); //move along the path
+
+            graphicGameView->scene->removeItem(graphicGameView->getPathTiles()[countSteps]); //remove the path
             this->Protagonist::setPos(x,y);
 
             countSteps ++;
@@ -226,6 +222,16 @@ void MyProtagonist::setPaused(bool value)
 void MyProtagonist::setSizeOfTile(int value)
 {
     sizeOfTile = value;
+}
+
+unsigned MyProtagonist::getCountSteps() const
+{
+    return countSteps;
+}
+
+void MyProtagonist::setCountSteps(const unsigned &value)
+{
+    countSteps = value;
 }
 
 float MyProtagonist::getStepCost() const
