@@ -285,63 +285,72 @@ void MyModel::saveGame(QString filename)
 
     QSettings setting("Team104",filename);
 
+    /*store filename into local file*/
+    QFile file("save_filenames.txt");
+    if (!file.open(QIODevice::Append | QIODevice::Text))
+        return;
+    QTextStream in(&file);
+    in<<filename<<endl;
+
+
     setting.beginGroup("MyProtagonist");
-        setting.setValue("protaX",this->myProtagonist->getXPos());
-        setting.setValue("protaY",this->myProtagonist->getYPos());
-        setting.setValue("protaHealth",this->myProtagonist->getHealth());
-        setting.setValue("protaEnergy",this->myProtagonist->getEnergy());
-        setting.setValue("protaSize",this->myProtagonist->getSizeOfTile());
-        setting.setValue("protaPause",this->myProtagonist->getPaused());
+    setting.setValue("protaX",this->myProtagonist->getXPos());
+    setting.setValue("protaY",this->myProtagonist->getYPos());
+    setting.setValue("protaHealth",this->myProtagonist->getHealth());
+    setting.setValue("protaEnergy",this->myProtagonist->getEnergy());
+    setting.setValue("protaSize",this->myProtagonist->getSizeOfTile());
+    setting.setValue("protaPause",this->myProtagonist->getPaused());
     setting.endGroup();
 
     setting.beginGroup("MyEnemies");
-        setting.beginWriteArray("Enemies");
-            for (unsigned i = 0; i < myEnemies.size(); ++i) {
-                    setting.setArrayIndex(i);
-                    setting.setValue("EnemyX", myEnemies[i]->getXPos());
-                    setting.setValue("EnemyY", myEnemies[i]->getYPos());
-                    setting.setValue("EnemyValue", myEnemies[i]->getValue());
-            }
-        setting.endArray();
-        setting.beginWriteArray("PEnemies");
-            for (unsigned i = 0; i < myPEnemies.size(); ++i) {
-                    setting.setArrayIndex(i);
-                    setting.setValue("PEnemyX", myPEnemies[i]->getXPos());
-                    setting.setValue("PEnemyY", myPEnemies[i]->getYPos());
-                    setting.setValue("PEnemyValue", myPEnemies[i]->getValue());
-            }
-        setting.endArray();
+    setting.beginWriteArray("Enemies");
+    for (unsigned i = 0; i < myEnemies.size(); ++i) {
+        setting.setArrayIndex(i);
+        setting.setValue("EnemyX", myEnemies[i]->getXPos());
+        setting.setValue("EnemyY", myEnemies[i]->getYPos());
+        setting.setValue("EnemyValue", myEnemies[i]->getValue());
+    }
+    setting.endArray();
+    setting.beginWriteArray("PEnemies");
+    for (unsigned i = 0; i < myPEnemies.size(); ++i) {
+        setting.setArrayIndex(i);
+        setting.setValue("PEnemyX", myPEnemies[i]->getXPos());
+        setting.setValue("PEnemyY", myPEnemies[i]->getYPos());
+        setting.setValue("PEnemyValue", myPEnemies[i]->getValue());
+    }
+    setting.endArray();
     setting.endGroup();
 
     setting.beginGroup("MyTiles");
-        setting.beginWriteArray("Tiles");
-            for (unsigned i = 0; i < myTilesMap.size(); ++i) {
-                    setting.setArrayIndex(i);
-                    setting.setValue("TileX", myTilesMap[i]->getXPos());
-                    setting.setValue("TileY", myTilesMap[i]->getYPos());
-                    setting.setValue("TileValue", myTilesMap[i]->getValue());
-            }
-        setting.endArray();
+    setting.beginWriteArray("Tiles");
+    for (unsigned i = 0; i < myTilesMap.size(); ++i) {
+        setting.setArrayIndex(i);
+        setting.setValue("TileX", myTilesMap[i]->getXPos());
+        setting.setValue("TileY", myTilesMap[i]->getYPos());
+        setting.setValue("TileValue", myTilesMap[i]->getValue());
+    }
+    setting.endArray();
     setting.endGroup();
 
     setting.beginGroup("MyHealthpacks");
-        setting.beginWriteArray("Healthpacks");
-            for (unsigned i = 0; i < myHealthPacks.size(); ++i) {
-                    setting.setArrayIndex(i);
-                    setting.setValue("HealthpackX", myHealthPacks[i]->getXPos());
-                    setting.setValue("HealthpackY", myHealthPacks[i]->getYPos());
-                    setting.setValue("HealthpackValue", myHealthPacks[i]->getValue());
-            }
-        setting.endArray();
+    setting.beginWriteArray("Healthpacks");
+    for (unsigned i = 0; i < myHealthPacks.size(); ++i) {
+        setting.setArrayIndex(i);
+        setting.setValue("HealthpackX", myHealthPacks[i]->getXPos());
+        setting.setValue("HealthpackY", myHealthPacks[i]->getYPos());
+        setting.setValue("HealthpackValue", myHealthPacks[i]->getValue());
+    }
+    setting.endArray();
     setting.endGroup();
 
 }
 
 void MyModel::loadGame(QString filename)
 {
+    QSettings  setting("Team104",filename);
     myEnemies.clear();
     myPEnemies.clear();
-    QSettings  setting("Team104",filename);
+
 
     setting.beginGroup("MyProtagonist");
     myProtagonist->Protagonist::setPos(setting.value("protaX").toInt(),setting.value("protaY").toInt());
@@ -353,56 +362,57 @@ void MyModel::loadGame(QString filename)
 
     setting.beginGroup("MyEnemies");
 
-        int sizeE = setting.beginReadArray("Enemies");
-        for (int i = 0; i < sizeE; ++i) {
-            setting.setArrayIndex(i);
-            int xEnemy = setting.value("EnemyX").toInt();
-            int yEnemy = setting.value("EnemyY").toInt();
-            float eStrength =setting.value("EnemyValue").toFloat();;
-            MyEnemy *aMyEnemy = new MyEnemy(xEnemy,yEnemy,eStrength);
-            myEnemies.push_back(aMyEnemy);
-        }
-        setting.endArray();
+    int sizeE = setting.beginReadArray("Enemies");
+    for (int i = 0; i < sizeE; ++i) {
+        setting.setArrayIndex(i);
+        int xEnemy = setting.value("EnemyX").toInt();
+        int yEnemy = setting.value("EnemyY").toInt();
+        float eStrength =setting.value("EnemyValue").toFloat();;
+        MyEnemy *aMyEnemy = new MyEnemy(xEnemy,yEnemy,eStrength);
+        myEnemies.push_back(aMyEnemy);
+    }
+    setting.endArray();
 
-        int sizeP = setting.beginReadArray("PEnemies");
-        for (int i = 0; i < sizeP; ++i) {
-            setting.setArrayIndex(i);
-            int xPEnemy = setting.value("PEnemyX").toInt();
-            int yPEnemy = setting.value("PEnemyY").toInt();
-            float pStrength =setting.value("PEnemyValue").toFloat();;
-            MyPEnemy *aPMyEnemy = new MyPEnemy(xPEnemy,yPEnemy,pStrength);
-            myPEnemies.push_back(aPMyEnemy);
-        }
-        setting.endArray();
+    int sizeP = setting.beginReadArray("PEnemies");
+    for (int i = 0; i < sizeP; ++i) {
+        setting.setArrayIndex(i);
+        int xPEnemy = setting.value("PEnemyX").toInt();
+        int yPEnemy = setting.value("PEnemyY").toInt();
+        float pStrength =setting.value("PEnemyValue").toFloat();;
+        MyPEnemy *aPMyEnemy = new MyPEnemy(xPEnemy,yPEnemy,pStrength);
+        myPEnemies.push_back(aPMyEnemy);
+    }
+    setting.endArray();
+
 
     setting.endGroup();                 //Till here is correct
 
     setting.beginGroup("MyTiles");
-        myTilesMap.clear();
-        int sizeT = setting.beginReadArray("Tiles");
-            for (int i = 0; i < sizeT; ++i) {
-                setting.setArrayIndex(i);
-                int xTile = setting.value("TileX").toInt();
-                int yTile = setting.value("TileY").toInt();
-                float Tvalue =setting.value("TileValue").toFloat();;
-                MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
-                myTilesMap.push_back(aTile);
-            }
-        setting.endArray();
+    myTilesMap.clear();
+    int sizeT = setting.beginReadArray("Tiles");
+    for (int i = 0; i < sizeT; ++i) {
+        setting.setArrayIndex(i);
+        int xTile = setting.value("TileX").toInt();
+        int yTile = setting.value("TileY").toInt();
+        float Tvalue =setting.value("TileValue").toFloat();;
+        MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
+        myTilesMap.push_back(aTile);
+    }
+    setting.endArray();
     setting.endGroup();
 
     setting.beginGroup("MyHealthpacks");
-        myHealthPacks.clear();
-        int sizeH = setting.beginReadArray("Healthpacks");
-            for (int i = 0; i < sizeH; ++i) {
-                setting.setArrayIndex(i);
-                int xHealthpack = setting.value("HealthpackX").toInt();
-                int yHealthpack = setting.value("HealthpackY").toInt();
-                float valueHealthpack =setting.value("HealthpackValue").toFloat();;
-                HealthPack *aTile = new HealthPack(xHealthpack,yHealthpack,valueHealthpack);
-                myHealthPacks.push_back(aTile);
-            }
-        setting.endArray();
+    myHealthPacks.clear();
+    int sizeH = setting.beginReadArray("Healthpacks");
+    for (int i = 0; i < sizeH; ++i) {
+        setting.setArrayIndex(i);
+        int xHealthpack = setting.value("HealthpackX").toInt();
+        int yHealthpack = setting.value("HealthpackY").toInt();
+        float valueHealthpack =setting.value("HealthpackValue").toFloat();;
+        HealthPack *aTile = new HealthPack(xHealthpack,yHealthpack,valueHealthpack);
+        myHealthPacks.push_back(aTile);
+    }
+    setting.endArray();
     setting.endGroup();
 
 }

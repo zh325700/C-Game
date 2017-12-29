@@ -37,7 +37,8 @@ SOURCES += \
     Astar.cpp \
     Node.cpp \
     GraphicGameView.cpp \
-    TerminalGameView.cpp
+    TerminalGameView.cpp \
+    Customdialog.cpp
 
 HEADERS += \
     MyEnemy.h \
@@ -51,7 +52,8 @@ HEADERS += \
     TerminalGameView.h\
     Astar.h \
     Node.h \
-    GraphicGameView.h
+    GraphicGameView.h \
+    Customdialog.h
 
 FORMS +=
 
