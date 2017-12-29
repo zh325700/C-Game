@@ -68,6 +68,8 @@ private slots:
    void handlePauseButton();
    void handleSaveButton();
    void handleLoadButton();
+   void handleAddHealthpackButton();
+   void handleClearAllFilesButton();
 signals:
    void pathFound(int speed);
 
@@ -82,6 +84,8 @@ private:
    QPushButton *pause_button;
    QPushButton *save_button;
    QPushButton *load_button;
+   QPushButton *addHealthpack_button;
+   QPushButton *clearAllFiles_button;
 
     bool soundOn = true;
     QString currentFileName = ":/images/maps/worldmap.png";

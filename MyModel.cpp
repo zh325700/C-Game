@@ -341,7 +341,7 @@ void MyModel::loadGame(QString filename)
 {
     myEnemies.clear();
     myPEnemies.clear();
-    QSettings  setting("Team104","myapp");
+    QSettings  setting("Team104",filename);
 
     setting.beginGroup("MyProtagonist");
     myProtagonist->Protagonist::setPos(setting.value("protaX").toInt(),setting.value("protaY").toInt());

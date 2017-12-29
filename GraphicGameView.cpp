@@ -10,6 +10,9 @@
 #include <QColor>
 #include <QGraphicsScene>
 #include <QPixmap>
+#include <QPoint>
+#include <QPointF>
+#include <QGraphicsSceneMouseEvent>
 
 #include <QDrag>
 #include <QMimeData>
@@ -244,8 +247,11 @@ void GraphicGameView::mousePressEvent(QMouseEvent * event)
   QDataStream dataStream(&itemData, QIODevice::WriteOnly);
   QPixmap pixmap = ahealthpack->pixmap();
   float value = ahealthpack->getValue();
+  QPointF eventPoint = mapToScene(event->pos()) ;
+  QPoint poiintHealthpack = QPoint(ahealthpack->pos().toPoint());
+  QPoint offset = QPoint(eventPoint.toPoint() - ahealthpack->pos().toPoint());
   //in this example, the pixmap, the size of the label, the relative position of the label to the mouse
-  dataStream << pixmap << value<< QPoint(event->pos() - ahealthpack->pos().toPoint());
+  dataStream << pixmap << value<< offset;
   //create the drag object
   QDrag *drag = new QDrag(this);
   //define MIMEtype of your data and add byte array to mimedata
@@ -255,7 +261,7 @@ void GraphicGameView::mousePressEvent(QMouseEvent * event)
   //pixmap to show when draggin the object
   drag->setPixmap(ahealthpack->pixmap());
   //set hot-spot position = position of topleft corner of label
-  drag->setHotSpot(event->pos() - ahealthpack->pos().toPoint());
+  drag->setHotSpot(eventPoint.toPoint() - ahealthpack->pos().toPoint());
 
   if(drag->exec(Qt::MoveAction | Qt::CopyAction) == Qt::MoveAction)
     delete ahealthpack;
@@ -300,20 +306,22 @@ void GraphicGameView::dropEvent(QDropEvent *event)
     QDataStream dataStream(&itemData, QIODevice::ReadOnly);
 
     QPixmap pixmap;
-    QPointF offset;
+    QPoint offset;
     float value;
 //    QSize labelSize;
     dataStream >> pixmap >> value >> offset;
 
     //create new QLabel at new position
-    float x =(event->pos() - offset).x();
-    float y = (event->pos() - offset).y();
+    QPointF eventPoint = mapToScene(event->pos()) ;
+    int x =round((eventPoint.toPoint() - offset).x());
+    int y = round((eventPoint.toPoint() - offset).y());
+    x = x/20;
+    y = y/20;
     HealthPack *newHealthpack = new HealthPack(x,y,value);
     newHealthpack->setPixmap(pixmap);
-//    newHealthpack->setScaledContents(true);
-//    newHealthpack->setPos(event->pos() - offset);
-//    newHealthpack->setValue(value);
-    newHealthpack->show();
+    myModel->getMyHealthPacks().push_back(newHealthpack);
+    scene->addItem(newHealthpack);
+
 #ifdef SIMPLE
         event->setDropAction(Qt::MoveAction);
         event->accept();

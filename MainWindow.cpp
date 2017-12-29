@@ -8,6 +8,7 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
+#include <QDateTime>
 
 
 
@@ -111,6 +112,8 @@ MainWindow::MainWindow(QWidget * parent):
     pause_button = new QPushButton("Pause",this);
     save_button = new QPushButton("Save",this);
     load_button = new QPushButton("Load",this);
+    clearAllFiles_button = new QPushButton("Clear Save",this);
+    addHealthpack_button = new QPushButton("Add Healthpack",this);
 
     start_game_button->setFixedSize(100,30);
     switch_button->setFixedHeight(30);
@@ -129,6 +132,8 @@ MainWindow::MainWindow(QWidget * parent):
     layoutSaveNload->addStretch(1);
     layoutSaveNload->addWidget(save_button);
     layoutSaveNload->addWidget(load_button);
+    layoutSaveNload->addWidget(clearAllFiles_button);
+    layoutSaveNload->addWidget(addHealthpack_button);
     layoutSaveNload->addStretch(1);
 
     //add all widget to overall layout
@@ -150,6 +155,8 @@ MainWindow::MainWindow(QWidget * parent):
     connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
     connect(save_button,SIGNAL (released()), this, SLOT (handleSaveButton()));
     connect(load_button,SIGNAL (released()), this, SLOT (handleLoadButton()));
+    connect(addHealthpack_button,SIGNAL (released()), this, SLOT (handleAddHealthpackButton()));
+    connect(clearAllFiles_button,SIGNAL (released()), this, SLOT (handleClearAllFilesButton()));
 
 
     reset();
@@ -413,11 +420,28 @@ void MainWindow::handleLoadButton()
     QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
     //    delete terminalGameView;
     removeEveryFromTheScene();
-    myModel->loadGame();
+    myModel->loadGame("myapp");
     //    terminalGameView = new TerminalGameView();
     graphicGameView->initialGraphicView();   //terminal initial may be needed
     show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+}
+
+void MainWindow::handleAddHealthpackButton()
+{
+    qsrand(QDateTime::currentMSecsSinceEpoch());
+    int x = myModel->getMyProtagonist()->getXPos();
+    int y = myModel->getMyProtagonist()->getYPos();
+    float value = qrand()%100;
+    HealthPack *aHealthpack = new HealthPack(x+1,y,value);
+    myModel->getMyHealthPacks().push_back(aHealthpack);
+    graphicGameView->scene->addItem(aHealthpack);
+}
+
+void MainWindow::handleClearAllFilesButton()
+{
+    QFile file("save_files.txt");
+    file.open(QFile::WriteOnly|QFile::Truncate);  //clear the file
 }
 
 

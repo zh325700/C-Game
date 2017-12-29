@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = team1041.0.0
-DISTDIR = /home/jiahao/team104/.tmp/team1041.0.0
+DISTDIR = /home/han/Desktop/Cpp/project/team104/.tmp/team1041.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.9.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/jiahao/team104/libworld/ -lworld -L/opt/Qt/5.9.1/gcc_64/lib -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/han/Desktop/Cpp/project/team104/libworld/ -lworld -L/opt/Qt/5.9.1/gcc_64/lib -lQt5Multimedia -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -879,7 +879,7 @@ moc_MyProtagonist.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem 
 		MyProtagonist.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyProtagonist.h -o moc_MyProtagonist.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyProtagonist.h -o moc_MyProtagonist.cpp
 
 moc_MyTile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -1002,7 +1002,7 @@ moc_MyTile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		MyTile.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyTile.h -o moc_MyTile.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MyTile.h -o moc_MyTile.cpp
 
 moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -1176,6 +1176,10 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MainWindow.h \
 		TerminalGameView.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
@@ -1199,7 +1203,7 @@ moc_MainWindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		MainWindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 moc_Graphics_view_zoom.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
@@ -1313,7 +1317,7 @@ moc_Graphics_view_zoom.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		Graphics_view_zoom.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Graphics_view_zoom.h -o moc_Graphics_view_zoom.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Graphics_view_zoom.h -o moc_Graphics_view_zoom.cpp
 
 moc_TerminalGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -1494,7 +1498,7 @@ moc_TerminalGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
 		TerminalGameView.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include TerminalGameView.h -o moc_TerminalGameView.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include TerminalGameView.h -o moc_TerminalGameView.cpp
 
 moc_GraphicGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
@@ -1608,6 +1612,10 @@ moc_GraphicGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -1691,7 +1699,7 @@ moc_GraphicGameView.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
 		GraphicGameView.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/jiahao/team104 -I/home/jiahao/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include GraphicGameView.h -o moc_GraphicGameView.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/han/Desktop/Cpp/project/team104 -I/home/han/Desktop/Cpp/project/team104/libworld -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtMultimedia -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include GraphicGameView.h -o moc_GraphicGameView.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1827,6 +1835,10 @@ main.o: main.cpp /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
@@ -2177,6 +2189,10 @@ MyProtagonist.o: MyProtagonist.cpp /opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent 
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyEnemy.h \
 		MyPEnemy.h \
 		HealthPack.h \
@@ -2762,6 +2778,10 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyModel.h \
 		Astar.h \
 		Node.h \
@@ -3072,6 +3092,10 @@ MyModel.o: MyModel.cpp MyModel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -3456,6 +3480,10 @@ Node.o: Node.cpp Node.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -3597,15 +3625,18 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
-		GraphicGameView.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDrag \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qdrag.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QMimeData \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPainter \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLabel \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlabel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
@@ -3619,9 +3650,18 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		GraphicGameView.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
@@ -3664,8 +3704,6 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlineedit.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextcursor.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextformat.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLabel \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlabel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGroupBox \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgroupbox.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
@@ -3916,6 +3954,10 @@ TerminalGameView.o: TerminalGameView.cpp ui_mainwindow.h \
 		GraphicGameView.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMessageBox \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmessagebox.h \
