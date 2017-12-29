@@ -397,7 +397,7 @@ void MainWindow::handlePauseButton()
 
 void MainWindow::handleSaveButton()
 {
-    myModel->saveGame();
+    myModel->saveGame("myApp");
     QMessageBox::information(this,"Success","Save successfully!",true);
 }
 
@@ -407,7 +407,7 @@ void MainWindow::handleLoadButton()
     delete terminalGameView;
     delete graphicGameView;
 //    removeEveryFromTheScene();
-    myModel->loadGame();
+    myModel->loadGame("myApp");
     terminalGameView = new TerminalGameView();
     graphicGameView = new GraphicGameView();
     graphicGameView->initialGraphicView();

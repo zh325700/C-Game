@@ -280,9 +280,11 @@ int MyModel::calculateDistance(int givenX, int givenY)
 }
 
 
-void MyModel::saveGame()
+void MyModel::saveGame(QString filename)
 {
-    QSettings  setting("Team104","myapp");
+    //by default storeed in home/.config/Team104/filename
+    QSettings  setting("Team104",filename);
+    QSettings record("Team104","record");
 
     setting.beginGroup("MyProtagonist");
         setting.setValue("protaX",this->myProtagonist->getXPos());
@@ -336,8 +338,10 @@ void MyModel::saveGame()
 
 }
 
-void MyModel::loadGame()
+void MyModel::loadGame(QString filename)
 {
+    myEnemies.clear();
+    myPEnemies.clear();
     QSettings  setting("Team104","myapp");
 
     setting.beginGroup("MyProtagonist");
@@ -349,8 +353,7 @@ void MyModel::loadGame()
     setting.endGroup();
 
     setting.beginGroup("MyEnemies");
-        myEnemies.clear();
-        myPEnemies.clear();
+
         int sizeE = setting.beginReadArray("Enemies");
         for (int i = 0; i < sizeE; ++i) {
             int xEnemy = setting.value("EnemyX").toInt();
@@ -373,18 +376,18 @@ void MyModel::loadGame()
 
     setting.endGroup();                 //Till here is correct
 
-//    setting.beginGroup("MyTiles");
-//        myTilesMap.clear();
-//        int sizeT = setting.beginReadArray("Tiles");
-//            for (int i = 0; i < sizeT; ++i) {
-//                int xTile = setting.value("TileX").toInt();
-//                int yTile = setting.value("TileY").toInt();
-//                float Tvalue =setting.value("TileValue").toFloat();;
-//                MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
-//                myTilesMap.push_back(aTile);
-//            }
-//        setting.endArray();
-//    setting.endGroup();
+    setting.beginGroup("MyTiles");
+        myTilesMap.clear();
+        int sizeT = setting.beginReadArray("Tiles");
+            for (int i = 0; i < sizeT; ++i) {
+                int xTile = setting.value("TileX").toInt();
+                int yTile = setting.value("TileY").toInt();
+                float Tvalue =setting.value("TileValue").toFloat();;
+                MyTile *aTile = new MyTile(xTile,yTile,Tvalue);
+                myTilesMap.push_back(aTile);
+            }
+        setting.endArray();
+    setting.endGroup();
 
     setting.beginGroup("MyHealthpacks");
         myHealthPacks.clear();

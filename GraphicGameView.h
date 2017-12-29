@@ -8,6 +8,11 @@
 #include <QObject>
 #include <QPointF>
 
+#include <QMouseEvent>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+
 
 #include "MyEnemy.h"
 #include "MyProtagonist.h"
@@ -39,6 +44,14 @@ public:
     int getPoisonLevelcount() const;
     void setPoisonLevelcount(int value);
     void initialGraphicView();
+
+    //drag and drop
+    void mousePressEvent(QMouseEvent *);
+    void dragEnterEvent(QDragEnterEvent *);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dropEvent(QDropEvent *event);
+
+
 
 public slots:
     void drawPoinsonCircle();

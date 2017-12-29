@@ -34,6 +34,9 @@ public:
     bool getPaused() const;
     void setPaused(bool value);
 
+    bool getAlReadyDrawCircle() const;
+    void setAlReadyDrawCircle(bool value);
+
 signals:
     void protagonistDead();
     void encounterPenemy();
@@ -55,6 +58,7 @@ private :
     int graphicX=0;
     int graphicY=0;
     bool paused = false;
+    bool alReadyDrawCircle = false;
 
 
 

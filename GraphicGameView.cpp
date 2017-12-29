@@ -9,6 +9,12 @@
 #include <QGraphicsEllipseItem>
 #include <QColor>
 #include <QGraphicsScene>
+#include <QPixmap>
+
+#include <QDrag>
+#include <QMimeData>
+#include <QPainter>
+#include <QLabel>
 
 #include "GraphicGameView.h"
 #include "Graphics_view_zoom.h"
@@ -111,24 +117,30 @@ void GraphicGameView::initialGraphicView()
 
 void GraphicGameView::drawPoinsonCircle()
 {
-    //add one circle to the scene the x,y is based on protagoinist current position
-    setMultipleSizeOfCircle(2);
-    int xCircle = myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile() ;
-    int yCircle = myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile();
-    float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myModel->getMyProtagonist()->getSizeOfTile();
-    float heightOfCircle = widthOfCircle;
 
-    //set brush to the poison circle
-    QBrush *brush = new QBrush();
-    brush->setStyle(Qt::CrossPattern);
-    brush->setColor(Qt::magenta);
-    ellipse->setRect(xCircle,yCircle,widthOfCircle,heightOfCircle);
-    ellipse->setBrush(*brush);
-    scene->addItem(ellipse);
+    if(!myModel->getMyProtagonist()->getAlReadyDrawCircle()){
+        //add one circle to the scene the x,y is based on protagoinist current position
+        setMultipleSizeOfCircle(2);
+        int xCircle = myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile() ;
+        int yCircle = myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile();
+        float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myModel->getMyProtagonist()->getSizeOfTile();
+        float heightOfCircle = widthOfCircle;
+
+        //set brush to the poison circle
+        QBrush *brush = new QBrush();
+        brush->setStyle(Qt::CrossPattern);
+        brush->setColor(Qt::magenta);
+        ellipse->setRect(xCircle,yCircle,widthOfCircle,heightOfCircle);
+        ellipse->setBrush(*brush);
+        scene->addItem(ellipse);
+    }
+        myModel->getMyProtagonist()->setAlReadyDrawCircle(true);
+
 }
 
 void GraphicGameView::deletePnemy()
 {
+    myModel->getMyProtagonist()->setAlReadyDrawCircle(false);
     scene->removeItem(ellipse);
     setPoisonLevelcount(0);
     MyPEnemy * deadPenemy = dynamic_cast<MyPEnemy *>(sender());
@@ -158,7 +170,6 @@ void GraphicGameView::deleteEnemy()
                     myModel->getMyEnemies().erase(myModel->getMyEnemies().begin()+i);
                 }
             }
-//            qDebug()<<"Enemy is deleted";
         }
 
 }
@@ -190,7 +201,6 @@ void GraphicGameView::changeCircleColor()
     brush->setStyle(Qt::CrossPattern);
     brush->setColor(color[getPoisonLevelcount()%7]);
     ellipse->setBrush(*brush);
-    scene->addItem(ellipse);
     setPoisonLevelcount(getPoisonLevelcount()+1);
 }
 
@@ -225,6 +235,114 @@ void GraphicGameView::setMultipleSizeOfCircle(int value)
 {
     multipleSizeOfCircle = value;
 }
+
+
+//Everything starts with a mouse press
+void GraphicGameView::mousePressEvent(QMouseEvent * event)
+  {
+  //if not pressed on a label, simply return
+  HealthPack *ahealthpack = dynamic_cast<HealthPack*>(itemAt(event->pos()));
+  if (!ahealthpack)
+    return;
+
+
+  //store all necessary data of draggable object in byte array coupled to datastream
+  QByteArray itemData;
+  QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+  QPixmap pixmap = ahealthpack->pixmap();
+  float value = ahealthpack->getValue();
+  //in this example, the pixmap, the size of the label, the relative position of the label to the mouse
+  dataStream << pixmap << value<< QPoint(event->pos() - ahealthpack->pos().toPoint());
+  //create the drag object
+  QDrag *drag = new QDrag(this);
+  //define MIMEtype of your data and add byte array to mimedata
+  QMimeData *mimeData = new QMimeData;
+  mimeData->setData("application/Demo-QLabeldata", itemData);
+  drag->setMimeData(mimeData);
+  //pixmap to show when draggin the object
+  drag->setPixmap(ahealthpack->pixmap());
+  //set hot-spot position = position of topleft corner of label
+  drag->setHotSpot(event->pos() - ahealthpack->pos().toPoint());
+
+  if(drag->exec(Qt::MoveAction | Qt::CopyAction) == Qt::MoveAction)
+    delete ahealthpack;
+  }
+
+//describe behaviour while dragging
+void GraphicGameView::dragMoveEvent(QDragMoveEvent *event)
+  {
+  //only process drags with this MIME type
+  if (event->mimeData()->hasFormat("application/Demo-QLabeldata"))
+    {
+    event->accept();
+    }
+  else
+    {
+    event->ignore();
+    }
+
+  }
+
+//describes behaviour if drag enters your application (here identical as move)
+void GraphicGameView::dragEnterEvent(QDragEnterEvent *event)
+  {
+  if (event->mimeData()->hasFormat("application/Demo-QLabeldata"))
+    {
+    event->accept();
+    }
+  else
+    {
+    event->ignore();
+    }
+  }
+
+//what to do if mouse is released when dragging
+void GraphicGameView::dropEvent(QDropEvent *event)
+  {
+  //first check for MIME type
+  if (event->mimeData()->hasFormat("application/Demo-QLabeldata"))
+    {
+    //get all needed data from byte array associated with event's mimeData
+    QByteArray itemData = event->mimeData()->data("application/Demo-QLabeldata");
+    QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+
+    QPixmap pixmap;
+    QPointF offset;
+    float value;
+//    QSize labelSize;
+    dataStream >> pixmap >> value >> offset;
+
+    //create new QLabel at new position
+    float x =(event->pos() - offset).x();
+    float y = (event->pos() - offset).y();
+    HealthPack *newHealthpack = new HealthPack(x,y,value);
+    newHealthpack->setPixmap(pixmap);
+//    newHealthpack->setScaledContents(true);
+//    newHealthpack->setPos(event->pos() - offset);
+//    newHealthpack->setValue(value);
+    newHealthpack->show();
+#ifdef SIMPLE
+        event->setDropAction(Qt::MoveAction);
+        event->accept();
+#else
+    if (event->source() == this)
+      {
+      event->setDropAction(Qt::MoveAction);
+      event->accept();
+      }
+    else
+      {
+      event->setDropAction(Qt::CopyAction);
+      event->accept();
+      }
+#endif
+    }
+  else
+    {
+    event->ignore();
+    }
+}
+
 
 
 

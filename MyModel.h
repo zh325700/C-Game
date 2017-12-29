@@ -68,8 +68,8 @@ public:
     void setW(float value);
 
 
-    void saveGame();
-    void loadGame();
+    void saveGame(QString filename);
+    void loadGame(QString filename);
     int getNrOfEnemies() const;
     void setNrOfEnemies(int value);
 

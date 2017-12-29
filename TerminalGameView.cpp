@@ -24,7 +24,6 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
                             "  use 'a,w,s,d' in the keyboard to control the movement \n"
                             "  you can enter 'help' to get manual at any time");
 
-    MyModel * tempModel = myModel;
     connect(lineEdit,&QLineEdit::returnPressed,this,&TerminalGameView::onEnter);
     connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&TerminalGameView::checkNewPos);
     connect(myModel->getMyProtagonist(),&MyProtagonist::encounterPenemy,this,&TerminalGameView::encounterPEn);
