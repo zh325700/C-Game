@@ -173,7 +173,7 @@ void MyModel::gotoNextEnemy()
 
 void MyModel::gotoNextPEnemy()
 {
-    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 1.1)  //1 + 0.1
+    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 0.11)  //(1 + 0.1)/10
     {
         this->setDestinationX((*nearestPEnemy)->getXPos());
         this->setDestinationY((*nearestPEnemy)->getYPos());
@@ -280,9 +280,10 @@ int MyModel::calculateDistance(int givenX, int givenY)
 }
 
 
-void MyModel::saveGame()
+void MyModel::saveGame(QString filename)
 {
-    QSettings  setting("Team104","myapp");
+    QSettings setting("Team104",filename);
+//    QSettings record("Team104","record");
 
     setting.beginGroup("MyProtagonist");
         setting.setValue("protaX",this->myProtagonist->getXPos());

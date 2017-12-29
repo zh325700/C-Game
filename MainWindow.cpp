@@ -8,8 +8,6 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
-#include <string>
-
 
 
 
@@ -216,16 +214,16 @@ void MainWindow::removeEveryFromTheScene()
     }
     //add pack to the scene and connect
     for(auto &aPack:myModel->getMyHealthPacks()){
-         graphicGameView->scene->removeItem(aPack);
+        graphicGameView->scene->removeItem(aPack);
     }
     // add the Enemies to the scene
     for(auto &aEnemy:myModel->getMyEnemies()){
-         graphicGameView->scene->removeItem(aEnemy);
+        graphicGameView->scene->removeItem(aEnemy);
     }
 
     //add pEnemies to the scene and connect
     for(auto &aPEnemy:myModel->getMyPEnemies()){
-         graphicGameView->scene->removeItem(aPEnemy);
+        graphicGameView->scene->removeItem(aPEnemy);
     }
     graphicGameView->scene->removeItem(myModel->getMyProtagonist());
 }
@@ -340,7 +338,7 @@ void MainWindow::handleMapButton()
         reset();
         show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
-    }
+    }        qDebug()<<"w is: "<<myModel->getW();
 
 }
 
@@ -356,8 +354,8 @@ void MainWindow::autoNavigate()
     else
     {
         int result = QMessageBox::information(this, tr("My Game"),
-                                          tr("Congratulations! You win!\n Do you want to play agin?"),
-                                          QMessageBox::Yes | QMessageBox::No);
+                                              tr("Congratulations! You win!\n Do you want to play agin?"),
+                                              QMessageBox::Yes | QMessageBox::No);
         switch (result) {
         case QMessageBox::Yes:
             hide();
@@ -390,18 +388,33 @@ void MainWindow::handlePauseButton()
 
 void MainWindow::handleSaveButton()
 {
-    myModel->saveGame();
-    QMessageBox::information(this,"Success","Save successfully!",true);
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Save"),
+                                         tr("Name:"), QLineEdit::Normal,
+                                         NULL, &ok);
+    if (ok && !text.isEmpty())
+    {
+        /*by default stored in home./config/Team104/filename*/
+        myModel->saveGame(text);
+        saveFileNames.push_back(text);
+        QMessageBox::information(this,"Success","Save successfully!",true);
+    }
+    else if ((ok && text.isEmpty()))
+    {
+        QMessageBox::information(this,"Error","The record name cannot be empty!",true);
+    }
+
 }
 
 void MainWindow::handleLoadButton()
 {
     hide();
-    QMessageBox::information(this,"Success","Game is loading... please wait a bit :)",true);
-//    delete terminalGameView;
+
+    QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+    //    delete terminalGameView;
     removeEveryFromTheScene();
     myModel->loadGame();
-//    terminalGameView = new TerminalGameView();
+    //    terminalGameView = new TerminalGameView();
     graphicGameView->initialGraphicView();   //terminal initial may be needed
     show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
