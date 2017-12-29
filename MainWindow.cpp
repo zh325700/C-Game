@@ -8,6 +8,8 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
+#include <QStringList>
+#include "Customdialog.h"
 
 
 
@@ -257,6 +259,7 @@ void MainWindow::restartTheGame()
     switch (result) {
     case QMessageBox::Yes:
         hide();
+        QMessageBox::information(this,"Loading","Restarting the game... please wait a bit...",true);
         delete myModel->getMyProtagonist();
         delete myModel;
         delete terminalGameView;
@@ -318,13 +321,14 @@ void MainWindow::handleStartButton()
 
 void MainWindow::handleMapButton()
 {
-    hide();
     QString fileName;
     fileName = QFileDialog::getOpenFileName(this,
                                             tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
     qDebug()<<fileName;
     if(fileName != NULL)
     {
+        hide();
+        QMessageBox::information(this,"Loading","Creating the new world... please wait a bit...",true);
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
@@ -359,6 +363,7 @@ void MainWindow::autoNavigate()
         switch (result) {
         case QMessageBox::Yes:
             hide();
+            QMessageBox::information(this,"Loading","Creating the new world... please wait a bit... :)",true);
             delete myModel;
             delete terminalGameView;
             delete graphicGameView;
@@ -395,6 +400,7 @@ void MainWindow::handleSaveButton()
     if (ok && !text.isEmpty())
     {
         /*by default stored in home./config/Team104/filename*/
+        QMessageBox::information(this,"Saving","The game is saving... please wait a bit...",true);
         myModel->saveGame(text);
         saveFileNames.push_back(text);
         QMessageBox::information(this,"Success","Save successfully!",true);
@@ -408,16 +414,42 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
-    hide();
+    QStringList fileNameList;
+    /*read filenames from local file*/
+    QFile file("save_filenames.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
 
-    QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-    //    delete terminalGameView;
-    removeEveryFromTheScene();
-    myModel->loadGame();
-    //    terminalGameView = new TerminalGameView();
-    graphicGameView->initialGraphicView();   //terminal initial may be needed
-    show();
-    QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        fileNameList<<line;
+    }
+
+    CustomDialog dialog(fileNameList);
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        QString fileName = dialog.comboBox()->currentText();
+        qDebug() << fileName;
+
+        if (fileName != NULL)
+        {
+            hide();
+            QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+            //    delete terminalGameView;
+            removeEveryFromTheScene();
+            myModel->loadGame(fileName);
+            //    terminalGameView = new TerminalGameView();
+            graphicGameView->initialGraphicView();   //terminal initial may be needed
+            show();
+            QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+        }
+        else show();
+    }
+
+
+
+
 }
 
 

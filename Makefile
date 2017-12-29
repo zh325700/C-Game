@@ -62,7 +62,8 @@ SOURCES       = main.cpp \
 		Astar.cpp \
 		Node.cpp \
 		GraphicGameView.cpp \
-		TerminalGameView.cpp qrc_res.cpp \
+		TerminalGameView.cpp \
+		Customdialog.cpp qrc_res.cpp \
 		moc_MyProtagonist.cpp \
 		moc_MyTile.cpp \
 		moc_MainWindow.cpp \
@@ -82,6 +83,7 @@ OBJECTS       = main.o \
 		Node.o \
 		GraphicGameView.o \
 		TerminalGameView.o \
+		Customdialog.o \
 		qrc_res.o \
 		moc_MyProtagonist.o \
 		moc_MyTile.o \
@@ -279,7 +281,8 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		TerminalGameView.h \
 		Astar.h \
 		Node.h \
-		GraphicGameView.h main.cpp \
+		GraphicGameView.h \
+		Customdialog.h main.cpp \
 		MyEnemy.cpp \
 		MyProtagonist.cpp \
 		MyTile.cpp \
@@ -291,7 +294,8 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		Astar.cpp \
 		Node.cpp \
 		GraphicGameView.cpp \
-		TerminalGameView.cpp
+		TerminalGameView.cpp \
+		Customdialog.cpp
 QMAKE_TARGET  = team104
 DESTDIR       = 
 TARGET        = team104
@@ -692,8 +696,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents MyEnemy.h MyProtagonist.h MyTile.h MyPEnemy.h HealthPack.h MainWindow.h Graphics_view_zoom.h MyModel.h TerminalGameView.h Astar.h Node.h GraphicGameView.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp MyEnemy.cpp MyProtagonist.cpp MyTile.cpp MyPEnemy.cpp HealthPack.cpp MainWindow.cpp Graphics_view_zoom.cpp MyModel.cpp Astar.cpp Node.cpp GraphicGameView.cpp TerminalGameView.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents MyEnemy.h MyProtagonist.h MyTile.h MyPEnemy.h HealthPack.h MainWindow.h Graphics_view_zoom.h MyModel.h TerminalGameView.h Astar.h Node.h GraphicGameView.h Customdialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp MyEnemy.cpp MyProtagonist.cpp MyTile.cpp MyPEnemy.cpp HealthPack.cpp MainWindow.cpp Graphics_view_zoom.cpp MyModel.cpp Astar.cpp Node.cpp GraphicGameView.cpp TerminalGameView.cpp Customdialog.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -3928,6 +3932,126 @@ TerminalGameView.o: TerminalGameView.cpp ui_mainwindow.h \
 		Astar.h \
 		Node.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TerminalGameView.o TerminalGameView.cpp
+
+Customdialog.o: Customdialog.cpp Customdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QComboBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qcombobox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractitemmodel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Customdialog.o Customdialog.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp

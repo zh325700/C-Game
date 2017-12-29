@@ -69,7 +69,7 @@ public:
 
 
     void saveGame(QString filename);
-    void loadGame();
+    void loadGame(QString filename);
     int getNrOfEnemies() const;
     void setNrOfEnemies(int value);
 
