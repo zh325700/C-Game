@@ -173,7 +173,7 @@ void MyModel::gotoNextEnemy()
 
 void MyModel::gotoNextPEnemy()
 {
-    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 1.1)  //1 + 0.1
+    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 0.11)  //(1 + 0.1)/10
     {
         this->setDestinationX((*nearestPEnemy)->getXPos());
         this->setDestinationY((*nearestPEnemy)->getYPos());
@@ -282,9 +282,8 @@ int MyModel::calculateDistance(int givenX, int givenY)
 
 void MyModel::saveGame(QString filename)
 {
-    //by default storeed in home/.config/Team104/filename
-    QSettings  setting("Team104",filename);
-    QSettings record("Team104","record");
+
+    QSettings setting("Team104",filename);
 
     setting.beginGroup("MyProtagonist");
         setting.setValue("protaX",this->myProtagonist->getXPos());
@@ -356,6 +355,7 @@ void MyModel::loadGame(QString filename)
 
         int sizeE = setting.beginReadArray("Enemies");
         for (int i = 0; i < sizeE; ++i) {
+            setting.setArrayIndex(i);
             int xEnemy = setting.value("EnemyX").toInt();
             int yEnemy = setting.value("EnemyY").toInt();
             float eStrength =setting.value("EnemyValue").toFloat();;
@@ -366,6 +366,7 @@ void MyModel::loadGame(QString filename)
 
         int sizeP = setting.beginReadArray("PEnemies");
         for (int i = 0; i < sizeP; ++i) {
+            setting.setArrayIndex(i);
             int xPEnemy = setting.value("PEnemyX").toInt();
             int yPEnemy = setting.value("PEnemyY").toInt();
             float pStrength =setting.value("PEnemyValue").toFloat();;
@@ -380,6 +381,7 @@ void MyModel::loadGame(QString filename)
         myTilesMap.clear();
         int sizeT = setting.beginReadArray("Tiles");
             for (int i = 0; i < sizeT; ++i) {
+                setting.setArrayIndex(i);
                 int xTile = setting.value("TileX").toInt();
                 int yTile = setting.value("TileY").toInt();
                 float Tvalue =setting.value("TileValue").toFloat();;
@@ -393,6 +395,7 @@ void MyModel::loadGame(QString filename)
         myHealthPacks.clear();
         int sizeH = setting.beginReadArray("Healthpacks");
             for (int i = 0; i < sizeH; ++i) {
+                setting.setArrayIndex(i);
                 int xHealthpack = setting.value("HealthpackX").toInt();
                 int yHealthpack = setting.value("HealthpackY").toInt();
                 float valueHealthpack =setting.value("HealthpackValue").toFloat();;

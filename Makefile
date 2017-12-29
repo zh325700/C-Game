@@ -2794,7 +2794,9 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstatemachine.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstate.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractstate.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QState
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QState \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QInputDialog \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 Graphics_view_zoom.o: Graphics_view_zoom.cpp Graphics_view_zoom.h \
@@ -3112,7 +3114,119 @@ MyModel.o: MyModel.cpp MyModel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
 		Astar.h \
-		Node.h
+		Node.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCoreDepends \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractanimation.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractstate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstracttransition.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qanimationgroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydataops.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbitarray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbuffer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcollator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcommandlineoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcommandlineparser.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcryptographichash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdir.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfileinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdiriterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qeasingcurve.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qendian.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qeventtransition.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qexception.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfactoryinterface.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfileselector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QStringList \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfinalstate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfuture.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfutureinterface.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrunnable.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qresultstore.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfuturewatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhistorystate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qisenum.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qjsonarray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qjsonvalue.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qjsondocument.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qjsonobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlibrary.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlibraryinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversionnumber.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlinkedlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlockfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qloggingcategory.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedatabase.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimetype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpauseanimation.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qplugin.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpluginloader.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocess.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpropertyanimation.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariantanimation.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qqueue.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qreadwritelock.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qresource.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsavefile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsemaphore.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsettings.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedmemory.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsignalmapper.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsignaltransition.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsocketnotifier.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstack.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstandardpaths.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstatemachine.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstorageinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlistmodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtemporarydir.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QScopedPointer \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtemporaryfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextcodec.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthreadpool.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthreadstorage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtimeline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtimezone.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtranslator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypetraits.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/quuid.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qwaitcondition.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qwineventnotifier.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qxmlstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcoreversion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QSettings \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QTime \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyModel.o MyModel.cpp
 
 Astar.o: Astar.cpp Astar.h \
@@ -3585,9 +3699,10 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		Graphics_view_zoom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GraphicGameView.o GraphicGameView.cpp
 
-TerminalGameView.o: TerminalGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+TerminalGameView.o: TerminalGameView.cpp ui_mainwindow.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
@@ -3599,46 +3714,46 @@ TerminalGameView.o: TerminalGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDe
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
@@ -3646,8 +3761,6 @@ TerminalGameView.o: TerminalGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDe
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		ui_mainwindow.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QAction \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qaction.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -3732,6 +3845,7 @@ TerminalGameView.o: TerminalGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDe
 		libworld/world_global.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
 		TerminalGameView.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \

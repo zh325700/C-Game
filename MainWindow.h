@@ -12,6 +12,8 @@
 #include <QPushButton>
 #include <QProgressBar>
 #include <QString>
+#include <string>
+#include <vector>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -83,6 +85,8 @@ private:
 
     bool soundOn = true;
     QString currentFileName = ":/images/maps/worldmap.png";
+
+    std::vector<QString> saveFileNames;
 };
 
 #endif // MAINWINDOW_H

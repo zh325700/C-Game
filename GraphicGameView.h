@@ -44,6 +44,7 @@ public:
     int getPoisonLevelcount() const;
     void setPoisonLevelcount(int value);
     void initialGraphicView();
+//    void makeConnectionsGraphicView();
 
     //drag and drop
     void mousePressEvent(QMouseEvent *);

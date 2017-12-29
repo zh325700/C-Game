@@ -44,12 +44,9 @@ GraphicGameView::GraphicGameView()
     setScene(scene);
     setFixedSize(800,600);
 
-    //create protagonist
-//    this->myProtagonist = myModel->myProtagonist;
-    // Used to be connect of myProtagonist ~~~~
-
-
-    //set position of the protagonist
+    //add auto zoom in and out
+    Graphics_view_zoom* z = new Graphics_view_zoom(this);
+    z->set_modifiers(Qt::NoModifier);
 }
 
 GraphicGameView::~GraphicGameView()
@@ -87,6 +84,10 @@ void GraphicGameView::initialGraphicView()
     scene->addItem(myModel->getMyProtagonist());
 
 
+    //center the prota
+    centerOn(myModel->getMyProtagonist());
+
+
     //make signal and slot connect of Enemies
     for(auto &aEnemy:myModel->getMyEnemies()){
          int x=aEnemy->getXPos();
@@ -105,14 +106,6 @@ void GraphicGameView::initialGraphicView()
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,myModel->getMyProtagonist(),&MyProtagonist::ifInPoisonarea);
          QObject::connect(aPEnemy,&MyPEnemy::poisonLevelUpdated,this,&GraphicGameView::changeCircleColor);
     }
-
-
-    //add auto zoom in and out
-    Graphics_view_zoom* z = new Graphics_view_zoom(this);
-    z->set_modifiers(Qt::NoModifier);
-
-    //center the prota
-    centerOn(myModel->getMyProtagonist());
 }
 
 void GraphicGameView::drawPoinsonCircle()

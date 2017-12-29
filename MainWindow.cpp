@@ -8,8 +8,6 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
-#include <string>
-
 
 
 
@@ -211,22 +209,23 @@ void MainWindow::setCurrentFileName(const QString &valuehandleSaveButton)
 
 void MainWindow::removeEveryFromTheScene()
 {
-//    for(auto &aTile:myModel->getMyTilesMap()){
-//        graphicGameView->scene->removeItem(aTile);
-//    }
+    for(auto &aTile:myModel->getMyTilesMap()){
+        graphicGameView->scene->removeItem(aTile);
+    }
     //add pack to the scene and connect
     for(auto &aPack:myModel->getMyHealthPacks()){
-         graphicGameView->scene->removeItem(aPack);
+        graphicGameView->scene->removeItem(aPack);
     }
     // add the Enemies to the scene
     for(auto &aEnemy:myModel->getMyEnemies()){
-         graphicGameView->scene->removeItem(aEnemy);
+        graphicGameView->scene->removeItem(aEnemy);
     }
 
     //add pEnemies to the scene and connect
     for(auto &aPEnemy:myModel->getMyPEnemies()){
-         graphicGameView->scene->removeItem(aPEnemy);
+        graphicGameView->scene->removeItem(aPEnemy);
     }
+    graphicGameView->scene->removeItem(myModel->getMyProtagonist());
 }
 
 MainWindow::~MainWindow()
@@ -299,28 +298,21 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-        //xuqingji de fangfa lai nadao x,y
         myModel->setDestinationX(22);
         myModel->setDestinationY(22);
     }
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
         myModel->setDestinationY(round((destinationY->text()).toDouble()));
-        //        qDebug()<<"Model destination X:"<<myModel->getDestinationX();
-        //        qDebug()<<"Model destination Y:"<<myModel->getDestinationY();
-
     }
 
     if(myModel->moveFast()){
-        //MyModel *tempM = myModel;    //for testing purpose
         myModel->setOnceOrMore(true);
         emit pathFound(round((protaSpeed->text()).toInt()));
 
     }else{
         qDebug()<<"Can not find the path";
     }
-
-    //Here the pathfinding game start.
 }
 
 
@@ -346,7 +338,7 @@ void MainWindow::handleMapButton()
         reset();
         show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
-    }
+    }        qDebug()<<"w is: "<<myModel->getW();
 
 }
 
@@ -356,15 +348,14 @@ void MainWindow::autoNavigate()
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
-        qDebug()<<"w is: "<<myModel->getW();
         myModel->setOnceOrMore(false);
         emit pathFound(round((protaSpeed->text()).toInt()));
     }
     else
     {
         int result = QMessageBox::information(this, tr("My Game"),
-                                          tr("Congratulations! You win!\n Do you want to play agin?"),
-                                          QMessageBox::Yes | QMessageBox::No);
+                                              tr("Congratulations! You win!\n Do you want to play agin?"),
+                                              QMessageBox::Yes | QMessageBox::No);
         switch (result) {
         case QMessageBox::Yes:
             hide();
@@ -397,21 +388,34 @@ void MainWindow::handlePauseButton()
 
 void MainWindow::handleSaveButton()
 {
-    myModel->saveGame("myApp");
-    QMessageBox::information(this,"Success","Save successfully!",true);
+
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Save"),
+                                         tr("Name:"), QLineEdit::Normal,
+                                         NULL, &ok);
+    if (ok && !text.isEmpty())
+    {
+        /*by default stored in home./config/Team104/filename*/
+        myModel->saveGame(text);
+        saveFileNames.push_back(text);
+        QMessageBox::information(this,"Success","Save successfully!",true);
+    }
+    else if ((ok && text.isEmpty()))
+    {
+        QMessageBox::information(this,"Error","The record name cannot be empty!",true);
+    }
+
 }
 
 void MainWindow::handleLoadButton()
 {
     hide();
-    delete terminalGameView;
-    delete graphicGameView;
-//    removeEveryFromTheScene();
-    myModel->loadGame("myApp");
-    terminalGameView = new TerminalGameView();
-    graphicGameView = new GraphicGameView();
-    graphicGameView->initialGraphicView();
-    reset();
+    QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+    //    delete terminalGameView;
+    removeEveryFromTheScene();
+    myModel->loadGame();
+    //    terminalGameView = new TerminalGameView();
+    graphicGameView->initialGraphicView();   //terminal initial may be needed
     show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
 }

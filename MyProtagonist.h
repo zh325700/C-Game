@@ -34,8 +34,13 @@ public:
     bool getPaused() const;
     void setPaused(bool value);
 
+
     bool getAlReadyDrawCircle() const;
     void setAlReadyDrawCircle(bool value);
+
+    unsigned getCountSteps() const;
+    void setCountSteps(const unsigned &value);
+
 
 signals:
     void protagonistDead();
@@ -44,7 +49,6 @@ signals:
     void encounterHealthPack();
     void inCircle();
     void findNext();
-
 
 public slots:
     void moveToNextSpot();
