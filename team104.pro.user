@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
 <<<<<<< HEAD
+<!-- Written by QtCreator 4.4.0, 2017-12-29T23:46:59. -->
+=======
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.4.1, 2017-12-29T23:46:53. -->
 <qtcreator>
  <data>
@@ -8,6 +11,7 @@
   <value type="QByteArray">{db07deed-28cb-4b7c-8443-2b05a757c5a7}</value>
 =======
 <!-- Written by QtCreator 4.4.0, 2017-12-29T23:20:39. -->
+>>>>>>> 9e40f23e78a9e6310265802be79b55a175b0ee92
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>

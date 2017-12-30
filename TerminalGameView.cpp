@@ -24,6 +24,7 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
                             "  pause going to destination or autorun: 'pause' \n"
                             "  continue to go to destination or autorun: 'continue' \n"
                             "  set parameter w: 'setW(2)' \n"
+                            "  choose the speed of protagonist from three levels(slow, normal and fast): 'setSpeed(slow)' \n"
                             "  automatically run the game: 'autorun' \n"
                             "  use 'a,w,s,d' in the keyboard to control the movement \n"
                             "  you can enter 'help' to get manual at any time");
@@ -58,6 +59,7 @@ void TerminalGameView::init()
                "  'pause' pause the process of goto command \n"
                "  'continue' continue the process of goto command \n"
                "  'setW(2)' set parameter w \n"
+               "  'setSpeed(slow)' choose the speed of protagonist from three levels(slow, normal and fast) \n"
                "  'autorun' automatically run the game \n"
                "  use 'a,w,s,d' in the keyboard to control the movement \n"
                "  you can enter 'help' to get manual at any time";
@@ -508,7 +510,24 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
-    else if(input.contains("setW(")&&input.contains("(")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
+    else if((input == "setSpeed(slow)") ||(input == "setSpeed(normal)") || (input == "setSpeed(fast)")){
+        if(input == "setSpeed(slow)"){
+            myModel->setSpeed(500);
+            emit terminalSpeedChanged();
+        }
+        else if(input == "setSpeed(normal)"){
+            myModel->setSpeed(100);
+            emit terminalSpeedChanged();
+        }
+        else{
+            myModel->setSpeed(10);
+            emit terminalSpeedChanged();
+        }
+
+        lineEdit->clear();
+    }
+
+    else if(input.contains("setW(")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
         int index0 = 0;
         int index1 = 0;
         index0 = input.indexOf("(");
@@ -519,10 +538,9 @@ void TerminalGameView::onEnter()
             if(okW){
                 myModel->setW(nW);
                 emit wChanged();
-                qDebug()<<"setW in terminal";
             }
             else{
-                output->appendPlainText(">>The new W must be float type!");
+                output->appendPlainText(">>Illigeal new w, please give a decimal number!");
             }
         }
         else{
@@ -532,7 +550,7 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
-    else if(input.contains("goto(")&&input.contains("(")&&input.contains(",")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
+    else if(input.contains("goto(")&&input.contains(",")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
         int index1 = 0;
         int index2 = 0;
         int index3 = 0;
@@ -549,7 +567,7 @@ void TerminalGameView::onEnter()
                 myModel->setDestinationY(dY);
                 if(myModel->moveFast()){
                     myModel->setOnceOrMore(true);
-                    emit destinationFind(myModel->getSpeed());
+                    emit destinationFind();
                 }
                 else{
                     qDebug()<<"illegal";
@@ -567,7 +585,7 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
-    else if(input.contains("health")){
+    else if(input.contains("health") || input.contains("pack") || input.contains("packs")){
         output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
                                 "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
                                 "world!");
@@ -579,25 +597,25 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
-    else if(input.contains("pack")){
-        output->appendPlainText(">>Invalid command, if you want to find the locations of health packs, please enter 'show health packs' to show the "
-                                "health packs near to you, or enter 'show all health packs' to show all the health packs in this "
-                                "world!");
-        lineEdit->clear();
-    }
-
-    else if(input.contains("goto")){
+    else if(input.contains("goto") || input.contains("go") || input.contains("to")){
         output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
                                 "enter 'goto(3,5)'");
         lineEdit->clear();
     }
 
-    else if(input.contains("auto")){
+    else if(input.contains("auto") || input.contains("autor") || input.contains("autoru") ||input.contains("run")){
         output->appendPlainText(">>Invalid command, if you want to run the game automatically, please use the right format,"
                                 "enter 'autorun'");
         lineEdit->clear();
     }
-    else if(input.contains("W")){
+
+    else if(input.contains("setSpeed") || input.contains("setspeed")){
+        output->appendPlainText(">>Invalid command, if you want to change the speed of protagonist, please use the right format,"
+                                "enter 'setSpeed(slow)' or 'setSpeed(normal)' or 'setSpeed(fast)'");
+        lineEdit->clear();
+    }
+
+    else if(input.contains("W") || input.contains("setW") ||input.contains("setw")){
         output->appendPlainText(">>Invalid command, if you want to set W, please use the right format,"
                                 "enter 'setW(2)'");
         lineEdit->clear();

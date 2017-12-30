@@ -58,8 +58,9 @@ public slots:
     void drawPoinsonCircle();
     void deletePnemy();
     void deleteEnemy();
-    void drawThePath(int speed);
+    void drawThePath();
     void changeCircleColor();
+    void changeTimer();
 
 signals:
 

@@ -76,7 +76,11 @@ MainWindow::MainWindow(QWidget * parent):
     layoutANP -> addWidget(aStarLabel);
     layoutANP -> addWidget(aStarParameter);
     auto protaSpeedLabel = new QLabel("Speed of protagonist (ms)");
-    protaSpeed = new QLineEdit();
+    protaSpeed = new QComboBox();
+    protaSpeed->addItem("slow");
+    protaSpeed->addItem("normal");
+    protaSpeed->addItem("fast");
+    protaSpeed->setCurrentIndex(1);
     layoutANP -> addWidget(protaSpeedLabel);
     layoutANP -> addWidget(protaSpeed);
 
@@ -153,7 +157,8 @@ MainWindow::MainWindow(QWidget * parent):
 
 
     // connect button
-    connect(protaSpeed,SIGNAL(editingFinished()),this,SLOT(handleSpeed()));
+    connect(aStarParameter,SIGNAL(editingFinished()),this,SLOT(handleW()));
+    connect(protaSpeed,SIGNAL(activated(int)),this,SLOT(handleSpeed(int)));
     connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
     connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
     connect(chooseNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
@@ -182,12 +187,17 @@ void MainWindow::reset()
 
     aStarParameter->setText(QString::number(myModel->getW()));
 
+   // protaSpeed->setText(QString::number(myModel->getSpeed()));
+
     //connect signal and slot
     connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
     connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+    connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,this,&MainWindow::showSpeedChanged);
     connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
+    connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
+    connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,graphicGameView,&GraphicGameView::changeTimer);
     connect(terminalGameView,&TerminalGameView::destinationFind,graphicGameView,&GraphicGameView::drawThePath);
     connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
     connect(terminalGameView,&TerminalGameView::wChanged,this,&MainWindow::showWChanged);
@@ -309,12 +319,51 @@ void MainWindow::handleSwitchButton()
         terminalGameView->show();
         graphicGameView->hide();
         aStarParameter->setReadOnly(true);
+        protaSpeed->setEnabled(false);
     }
     else{
         terminalGameView->hide();
         graphicGameView->show();
         aStarParameter->setReadOnly(false);
+        protaSpeed->setEnabled(true);
     }
+}
+
+void MainWindow::showSpeedChanged()
+{
+    if(myModel->getSpeed() == 500){
+        protaSpeed->setCurrentIndex(0);
+        emit speedChanged();
+    }
+
+    else if(myModel->getSpeed() == 100){
+        protaSpeed->setCurrentIndex(1);
+        emit speedChanged();
+    }
+
+    else if(myModel->getSpeed() == 10){
+        protaSpeed->setCurrentIndex(2);
+        emit speedChanged();
+    }
+
+}
+
+void MainWindow::handleSpeed(int idx)
+{
+    if(idx == 0){
+       myModel->setSpeed(500);
+       emit speedChanged();
+    }
+    else if(idx == 1){
+       myModel->setSpeed(100);
+       emit speedChanged();
+    }
+    else{
+       myModel->setSpeed(10);
+       emit speedChanged();
+   }
+
+    qDebug()<<"handlespeed"<<myModel->getSpeed();
 }
 
 void MainWindow::handleStartButton()
@@ -332,8 +381,7 @@ void MainWindow::handleStartButton()
 
     if(myModel->moveFast()){
         myModel->setOnceOrMore(true);
-        //emit pathFound(round((protaSpeed->text()).toInt()));
-        emit pathFound(myModel->getSpeed());
+        emit pathFound();
 
     }else{
         //        qDebug()<<"Can not find the path";
@@ -369,21 +417,24 @@ void MainWindow::handleMapButton()
 
 }
 
+void MainWindow::handleW()
+{
+    myModel->setW((aStarParameter->text()).toFloat());
+}
+
 void MainWindow::autoNavigate()
 {
-    if(myModel->getWhichView()){
-        //terminal use command to change W.
-        qDebug()<<"auto terminal";
-    }
-    else{
-        myModel->setW((aStarParameter->text()).toFloat());
-        qDebug()<<"autonavigaet";
-    }
+//    if(myModel->getWhichView()){
+//        //terminal use command to change W.
+//    }
+//    else{
+//        myModel->setW((aStarParameter->text()).toFloat());
+//    }
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
         myModel->setOnceOrMore(false);
-        emit pathFound(myModel->getSpeed());
+        emit pathFound();
     }
     else
     {
@@ -516,13 +567,6 @@ void MainWindow::handleClearAllFilesButton()
     {
         QMessageBox::information(this,"Warning","There are no record files!",true);
     }
-}
-
-void MainWindow::handleSpeed()
-{
-    myModel->setSpeed(round((protaSpeed->text()).toDouble()));
-    emit speedChanged(round((protaSpeed->text()).toDouble()));
-    qDebug()<<"model is "<<myModel->getSpeed();
 }
 
 
