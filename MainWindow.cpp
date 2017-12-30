@@ -319,7 +319,7 @@ void MainWindow::handleStartButton()
 
     if(myModel->moveFast()){
         myModel->setOnceOrMore(true);
-        emit pathFound(round((protaSpeed->text()).toInt()));
+        emit pathFound();
 
     }else{
         qDebug()<<"Can not find the path";
@@ -361,7 +361,7 @@ void MainWindow::autoNavigate()
     if (moreEnemy)
     {
         myModel->setOnceOrMore(false);
-        emit pathFound(round((protaSpeed->text()).toInt()));
+        emit pathFound();
     }
     else
     {

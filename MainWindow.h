@@ -71,7 +71,7 @@ private slots:
    void handleAddHealthpackButton();
    void handleClearAllFilesButton();
 signals:
-   void pathFound(int speed);
+   void pathFound();
 
 private:
    void reset();

@@ -574,3 +574,13 @@ void MyModel::setOnceOrMore(bool value)
     onceOrMore = value;
 }
 
+int MyModel::getSpeedOfProta() const
+{
+    return speedOfProta;
+}
+
+void MyModel::setSpeedOfProta(int value)
+{
+    speedOfProta = value;
+}
+

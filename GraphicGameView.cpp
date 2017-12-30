@@ -170,7 +170,7 @@ void GraphicGameView::deleteEnemy()
 
 }
 
-void GraphicGameView::drawThePath(int speed)
+void GraphicGameView::drawThePath()
 {
 
     //MyModel *tempM = myModel;    //for testing purpose
@@ -184,7 +184,7 @@ void GraphicGameView::drawThePath(int speed)
         scene->addItem(aTile);
 
     }
-    myModel->getMyProtagonist()->timer->start(speed);
+    myModel->getMyProtagonist()->timer->start();
 
 }
 
