@@ -387,7 +387,7 @@ void MainWindow::handleStartButton()
         emit pathFound();
 
     }else{
-        qDebug()<<"Can not find the path";
+         QMessageBox::information(this,"Error","The given desination is unreachable!",true);
     }
 }
 
