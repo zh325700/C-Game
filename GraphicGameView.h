@@ -28,23 +28,14 @@ class GraphicGameView: public QGraphicsView{
     Q_OBJECT
     //give game referance to scene,player,score,health
 public:
+
+    QGraphicsScene * scene;
+    QGraphicsEllipseItem *ellipse;
+    std::vector<QGraphicsPixmapItem *> pathTiles={};
+
     GraphicGameView();
     ~GraphicGameView();
-    QGraphicsScene * scene;
-//    MyEnemy *myEnemy;
-    QGraphicsEllipseItem *ellipse;
-    int getMultipleSizeOfCircle() const;
-    void setMultipleSizeOfCircle(int value);
-
-    QPointF getEndPoint() const;
-    std::vector<QGraphicsPixmapItem *> pathTiles={};
-    std::vector<QGraphicsPixmapItem *> getPathTiles() ;
-
-
-    int getPoisonLevelcount() const;
-    void setPoisonLevelcount(int value);
     void initialGraphicView();
-//    void makeConnectionsGraphicView();
 
     //drag and drop
     void mousePressEvent(QMouseEvent *);
@@ -52,6 +43,12 @@ public:
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
 
+    int getMultipleSizeOfCircle() const;
+    void setMultipleSizeOfCircle(int value);
+    QPointF getEndPoint() const;
+    int getPoisonLevelcount() const;
+    void setPoisonLevelcount(int value);
+    std::vector<QGraphicsPixmapItem *> getPathTiles();
 
 
 public slots:

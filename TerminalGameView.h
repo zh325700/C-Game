@@ -32,8 +32,9 @@ class TerminalGameView : public QWidget
 public:
     explicit TerminalGameView(QWidget *parent = 0);
     ~TerminalGameView();
-    void init();  //inite the help string and other string
+    void initText();  //inite the help string and other string
     void setupLayout();  //set up layout
+    void initTerminal();
 
     //check enemy warning
     void moveEnemy();

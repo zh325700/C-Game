@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
 #include "MyModel.h"
 
 
@@ -23,13 +22,12 @@ TerminalGameView *terminalGameView;
 MainWindow::MainWindow(QWidget * parent):
     QWidget(parent)
 {
-   //  Add toolbar to the mainwindow
+    //  Add toolbar to the mainwindow
     myModel = new MyModel(currentFileName);
     gameSetting();
     myModel->modelInitialize();
     terminalGameView = new TerminalGameView();
     graphicGameView = new GraphicGameView();
-    graphicGameView->initialGraphicView();
 
     //create a Horizontal layout to show info
     layout = new QGridLayout(this);
@@ -198,7 +196,7 @@ void MainWindow::reset()
 
     aStarParameter->setText(QString::number(myModel->getW()));
 
-   // protaSpeed->setText(QString::number(myModel->getSpeed()));
+    // protaSpeed->setText(QString::number(myModel->getSpeed()));
 
     //connect signal and slot
     connect(myModel->getMyProtagonist(),&MyProtagonist::posChanged,this,&MainWindow::refreshXandY);
@@ -299,7 +297,6 @@ void MainWindow::restartTheGame()
     case QMessageBox::Yes:
         hide();
         QMessageBox::information(this,"Loading","Restarting the game... please wait a bit...",true);
-        delete myModel->getMyProtagonist();
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
@@ -308,7 +305,6 @@ void MainWindow::restartTheGame()
         myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
-        graphicGameView->initialGraphicView();
         reset();
         show();
         break;
@@ -354,17 +350,17 @@ void MainWindow::showSpeedChanged()
 void MainWindow::handleSpeed(int idx)
 {
     if(idx == 0){
-       myModel->setSpeed(500);
-       emit speedChanged();
+        myModel->setSpeed(500);
+        emit speedChanged();
     }
     else if(idx == 1){
-       myModel->setSpeed(200);
-       emit speedChanged();
+        myModel->setSpeed(200);
+        emit speedChanged();
     }
     else{
-       myModel->setSpeed(10);
-       emit speedChanged();
-   }
+        myModel->setSpeed(10);
+        emit speedChanged();
+    }
 
     qDebug()<<"handlespeed"<<myModel->getSpeed();
 }
@@ -387,7 +383,7 @@ void MainWindow::handleStartButton()
         emit pathFound();
 
     }else{
-         QMessageBox::information(this,"Error","The given desination is unreachable!",true);
+        QMessageBox::information(this,"Error","The given desination is unreachable!",true);
     }
 }
 
@@ -411,7 +407,6 @@ void MainWindow::handleMapButton()
         myModel->modelInitialize();
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
-        graphicGameView->initialGraphicView();
         reset();
         show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
@@ -451,7 +446,6 @@ void MainWindow::autoNavigate()
             myModel->modelInitialize();
             terminalGameView = new TerminalGameView();
             graphicGameView = new GraphicGameView();
-            graphicGameView->initialGraphicView();
             reset();
             show();
             break;
@@ -518,11 +512,10 @@ void MainWindow::handleLoadButton()
         {
             hide();
             QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-            //    delete terminalGameView;
             removeEveryFromTheScene();
             myModel->loadGame(fileName);
-            //    terminalGameView = new TerminalGameView();
-            graphicGameView->initialGraphicView();   //terminal initial may be needed
+            graphicGameView->initialGraphicView();
+            terminalGameView->initTerminal();
             show();
             QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
         }

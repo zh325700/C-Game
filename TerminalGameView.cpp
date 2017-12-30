@@ -11,7 +11,7 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
     QWidget(parent)
 {
     setupLayout();
-    init();
+    initText();
 
     output->appendPlainText(">>The game is starting! \n"
                             "  From now on, you can use command lines to do the following things: \n"
@@ -39,19 +39,23 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
     connect(myModel->getMyProtagonist(),&MyProtagonist::inCircle,this,&TerminalGameView::poisonUser);
     connect(myModel->getMyProtagonist(),&MyProtagonist::encounterEnemy,this,&TerminalGameView::encouterEn);
     connect(myModel->getMyProtagonist(),&MyProtagonist::encounterHealthPack,this,&TerminalGameView::encouterHe);
+    initTerminal();
+}
 
+void TerminalGameView::initTerminal()
+{
     for(auto& ene:myModel->getMyEnemies()){
-            QObject::connect(ene,&MyEnemy::dead,this,&TerminalGameView::enemyDead);
+        QObject::connect(ene,&MyEnemy::dead,this,&TerminalGameView::enemyDead);
     }
 
     for(auto& pene:myModel->getMyPEnemies()){
-                connect(pene,&MyPEnemy::dead,this,&TerminalGameView::penemyDead);
-            }
+        connect(pene,&MyPEnemy::dead,this,&TerminalGameView::penemyDead);
+    }
 }
 
 TerminalGameView::~TerminalGameView(){}
 
-void TerminalGameView::init()
+void TerminalGameView::initText()
 {
     helpText = "You can use command lines to do the following things:\n "
                "  'show prota' get information of protagonist\n"
@@ -89,7 +93,7 @@ void TerminalGameView::setupLayout(){
     groupOutLayout->addWidget(plabel);
     groupOutLayout->addWidget(output);
     output->setStyleSheet("QPlainTextEdit{color: #ffff00; background-color: #303030;"
-                              " selection-background-color: #606060; selection-color: #ffffff;}");
+                          " selection-background-color: #606060; selection-color: #ffffff;}");
 
     auto group = new QGroupBox();
     auto groupLayout = new QHBoxLayout(group);
@@ -102,6 +106,7 @@ void TerminalGameView::setupLayout(){
     mainLayout->addWidget(groupOutput);
     mainLayout->addWidget(group);
 }
+
 
 void TerminalGameView::moveEnemy()
 {
@@ -181,7 +186,7 @@ bool TerminalGameView::movenoWall(QString direction)
     else if(direction=="right"){
         if(movePos(direction)){
             if(isinf(myModel->getMyTilesMap().at(myModel->getMyProtagonist()->getYPos()*myModel->getCols()+myModel->getMyProtagonist()->getXPos()+1)->getValue())){
-                    noWall = false;
+                noWall = false;
             }
         }
     }
@@ -214,7 +219,7 @@ void TerminalGameView::findAllEnemy()
         QString strength = QString::number(enemy->getValue());
 
         output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                +"), his strength is "+strength);
     }
 
     for(auto &penemy :myModel->getMyPEnemies()){
@@ -223,7 +228,7 @@ void TerminalGameView::findAllEnemy()
         QString strength = QString::number(penemy->getValue());
 
         output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                +"), his strength is "+strength);
     }
 }
 
@@ -237,7 +242,7 @@ void TerminalGameView::findNearEnemy()
 
         if((abs(enemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(enemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                    +"), his strength is "+strength);
         }
     }
 
@@ -248,7 +253,7 @@ void TerminalGameView::findNearEnemy()
 
         if((abs(penemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(penemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                    +"), his strength is "+strength);
         }
     }
 }
@@ -264,7 +269,7 @@ int TerminalGameView::countNearEnemy()
 
         if((abs(enemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(enemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A normal enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                    +"), his strength is "+strength);
             eTotal++;
         }
     }
@@ -276,7 +281,7 @@ int TerminalGameView::countNearEnemy()
 
         if((abs(penemy->getXPos()-myModel->getMyProtagonist()->getXPos())<=10)&&(abs(penemy->getYPos()-myModel->getMyProtagonist()->getYPos())<=10)){
             output->appendPlainText("  A poison enemy is at the location ("+xPosition+","+yPosition
-                                   +"), his strength is "+strength);
+                                    +"), his strength is "+strength);
             eTotal++;
         }
     }
@@ -330,9 +335,9 @@ int TerminalGameView::countNearHealth()
 QString TerminalGameView::showProta()
 {
     QString protaInfo = "protagonist is at ("
-                    +QString::number(myModel->getMyProtagonist()->getXPos())+","+QString::number(myModel->getMyProtagonist()->getYPos())
-                    +"), health is "+QString::number(myModel->getMyProtagonist()->getHealth())
-                    +", energy is "+QString::number(myModel->getMyProtagonist()->getEnergy());
+            +QString::number(myModel->getMyProtagonist()->getXPos())+","+QString::number(myModel->getMyProtagonist()->getYPos())
+            +"), health is "+QString::number(myModel->getMyProtagonist()->getHealth())
+            +", energy is "+QString::number(myModel->getMyProtagonist()->getEnergy());
 
     return protaInfo;
 }
@@ -378,8 +383,8 @@ void TerminalGameView::keyPressEvent(QKeyEvent *event)
             }
 
             output->appendPlainText(">>"+unmove);
+        }
     }
- }
 
     else if(event->key() == Qt::Key_W){
         QString direction = "up";

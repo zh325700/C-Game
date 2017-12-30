@@ -26,16 +26,10 @@
 #include "GraphicGameView.h"
 #include "TerminalGameView.h"
 
-namespace Ui {
-class MainWindow;
-}
-
 class MainWindow: public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent =0);
-    ~MainWindow();
     QGridLayout *layout;
     QLabel *healthLabel;
     QLabel * energyLabel;
@@ -56,9 +50,12 @@ public:
     QProgressBar *healthbar ;
     QProgressBar *energtbar;
 
+    MainWindow(QWidget *parent =0);
+    ~MainWindow();
+    void removeEveryFromTheScene();
+
     QString getCurrentFileName() const;
     void setCurrentFileName(const QString &value);
-    void removeEveryFromTheScene();
 
 public slots:
     void refreshEandH();
@@ -68,46 +65,44 @@ public slots:
 
 private slots:
 
-   void handleSwitchButton();
-   void showSpeedChanged();
-   void handleSpeed(int idx);
-   void handleStartButton();
-   void handleMapButton();
-   void handleW();
-   void showWChanged();
-   void autoNavigate();
-   void handlePauseButton();
-   void handleSaveButton();
-   void handleLoadButton();
-   void handleAddHealthpackButton();
-   void handleClearAllFilesButton();
-   void switchLayout();
+    void handleSwitchButton();
+    void showSpeedChanged();
+    void handleSpeed(int idx);
+    void handleStartButton();
+    void handleMapButton();
+    void handleW();
+    void showWChanged();
+    void autoNavigate();
+    void handlePauseButton();
+    void handleSaveButton();
+    void handleLoadButton();
+    void handleAddHealthpackButton();
+    void handleClearAllFilesButton();
+    void switchLayout();
 
 signals:
-   void pathFound();
-   void speedChanged();
+    void pathFound();
+    void speedChanged();
 
 private:
-   Ui::MainWindow *ui;
-   void reset();
-   void gameSetting();
+    QHBoxLayout *layoutButton;
+    QHBoxLayout *layoutSaveNload;
+    QPushButton *switch_button;
+    QPushButton *start_game_button;
+    QPushButton *chooseNewMap;
+    QPushButton *auto_button;
+    QPushButton *pause_button;
+    QPushButton *save_button;
+    QPushButton *load_button;
+    QPushButton *addHealthpack_button;
+    QPushButton *clearAllFiles_button;
 
-   QHBoxLayout *layoutButton;
-   QHBoxLayout *layoutSaveNload;
-   QPushButton *switch_button;
-   QPushButton *start_game_button;
-   QPushButton *chooseNewMap;
-   QPushButton *auto_button;
-   QPushButton *pause_button;
-   QPushButton *save_button;
-   QPushButton *load_button;
-   QPushButton *addHealthpack_button;
-   QPushButton *clearAllFiles_button;
-
-    bool soundOn = true;
     QString currentFileName = ":/images/maps/worldmap.png";
 
     std::vector<QString> saveFileNames;
+
+    void reset();
+    void gameSetting();
 };
 
 #endif // MAINWINDOW_H

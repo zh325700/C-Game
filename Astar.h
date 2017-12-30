@@ -1,10 +1,11 @@
 #ifndef ASTAR_H
 #define ASTAR_H
 
-#include "Node.h"
 #include <memory>
 #include <vector>
 #include <world.h>
+
+#include "Node.h"
 
 class Astar
 {
@@ -15,13 +16,11 @@ public:
                    const std::vector<std::unique_ptr<Tile>> &tiles,
                    const int &world_rows, const int &world_cols);
     void smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
-                           std::shared_ptr<Node> newNode);
-
-    bool getIsDone() const;
-
-    std::vector<std::shared_ptr<Node> > getSolution() const;
+                     std::shared_ptr<Node> newNode);
 
     bool getIsFound() const;
+    bool getIsDone() const;
+    std::vector<std::shared_ptr<Node> > getSolution() const;
 
 private:
     bool isDone;    //might be useful if we are going to use multi-thread later

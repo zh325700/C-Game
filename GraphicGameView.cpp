@@ -50,6 +50,8 @@ GraphicGameView::GraphicGameView()
     //add auto zoom in and out
     Graphics_view_zoom* z = new Graphics_view_zoom(this);
     z->set_modifiers(Qt::NoModifier);
+
+    initialGraphicView();
 }
 
 GraphicGameView::~GraphicGameView()
