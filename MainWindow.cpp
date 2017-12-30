@@ -465,7 +465,6 @@ void MainWindow::handleLoadButton()
         if (dialog.exec() == QDialog::Accepted)
         {
             QString fileName = dialog.comboBox()->currentText();
-            qDebug() << fileName;
 
             if (fileName != NULL)
             {
@@ -506,7 +505,7 @@ void MainWindow::handleAddHealthpackButton()
 
 void MainWindow::handleClearAllFilesButton()
 {
-    if(QDir("/home/jiahao/.config/Team104").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() != 0)
+    if(QDir(QDir::homePath()+"/.config/Team104").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() != 0)
     {
         QFile file("save_filenames.txt");
         file.remove();
@@ -517,7 +516,6 @@ void MainWindow::handleClearAllFilesButton()
     {
         QMessageBox::information(this,"Warning","There are no record files!",true);
     }
-
 }
 
 void MainWindow::handleSpeed()
