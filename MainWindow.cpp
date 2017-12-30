@@ -301,6 +301,16 @@ void MainWindow::restartTheGame()
         myModel = new MyModel(currentFileName);
         gameSetting();
         myModel->modelInitialize();
+
+        chooseNewMap->setEnabled(true);
+        start_game_button->setEnabled(true);
+        addHealthpack_button->setEnabled(true);
+        save_button->setEnabled(true);
+        load_button->setEnabled(true);
+        clearAllFiles_button->setEnabled(true);
+        auto_button->setEnabled(true);
+        protaSpeed->setCurrentIndex(1);
+
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         reset();
@@ -411,6 +421,16 @@ void MainWindow::handleMapButton()
         myModel = new MyModel(fileName);
         gameSetting();
         myModel->modelInitialize();
+
+        chooseNewMap->setEnabled(true);
+        start_game_button->setEnabled(true);
+        addHealthpack_button->setEnabled(true);
+        save_button->setEnabled(true);
+        load_button->setEnabled(true);
+        clearAllFiles_button->setEnabled(true);
+        auto_button->setEnabled(true);
+        protaSpeed->setCurrentIndex(1);
+
         terminalGameView = new TerminalGameView();
         graphicGameView = new GraphicGameView();
         reset();
@@ -458,6 +478,16 @@ void MainWindow::autoNavigate()
             myModel = new MyModel(currentFileName);
             gameSetting();
             myModel->modelInitialize();
+
+            chooseNewMap->setEnabled(true);
+            start_game_button->setEnabled(true);
+            addHealthpack_button->setEnabled(true);
+            save_button->setEnabled(true);
+            load_button->setEnabled(true);
+            clearAllFiles_button->setEnabled(true);
+            auto_button->setEnabled(true);
+            protaSpeed->setCurrentIndex(1);
+
             terminalGameView = new TerminalGameView();
             graphicGameView = new GraphicGameView();
             reset();
@@ -551,14 +581,15 @@ void MainWindow::handleLoadButton()
                 myModel->loadGame(fileName);
 
                 pause_button->setText("Pause");
-                                pause_button->setToolTip("Pause the game");
-                                chooseNewMap->setEnabled(true);
-                                start_game_button->setEnabled(true);
-                                addHealthpack_button->setEnabled(true);
-                                save_button->setEnabled(true);
-                                load_button->setEnabled(true);
-                                clearAllFiles_button->setEnabled(true);
-                                auto_button->setEnabled(true);
+                pause_button->setToolTip("Pause the game");
+                chooseNewMap->setEnabled(true);
+                start_game_button->setEnabled(true);
+                addHealthpack_button->setEnabled(true);
+                save_button->setEnabled(true);
+                load_button->setEnabled(true);
+                clearAllFiles_button->setEnabled(true);
+                auto_button->setEnabled(true);
+                protaSpeed->setCurrentIndex(1);
 
                 graphicGameView->initialGraphicView();
                 terminalGameView->initTerminal();
