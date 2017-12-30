@@ -145,6 +145,7 @@ MainWindow::MainWindow(QWidget * parent):
 
 
     // connect button
+    connect(protaSpeed,SIGNAL(editingFinished()),this,SLOT(handleSpeed()));
     connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
     connect(start_game_button, SIGNAL (released()), this, SLOT (handleStartButton()));
     connect(chooseNewMap, SIGNAL (released()), this, SLOT (handleMapButton()));
@@ -177,7 +178,10 @@ void MainWindow::reset()
     connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
     connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
+    connect(terminalGameView,&TerminalGameView::destinationFind,graphicGameView,&GraphicGameView::drawThePath);
     connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
+    connect(terminalGameView,&TerminalGameView::wChanged,this,&MainWindow::showWChanged);
+    connect(terminalGameView,&TerminalGameView::automaticRun,this,&MainWindow::autoNavigate);
 
     layout->addWidget(graphicGameView,0,0,6,1);
     layout->addWidget(terminalGameView,0,0,6,1);
@@ -280,6 +284,11 @@ void MainWindow::restartTheGame()
     }
 }
 
+void MainWindow::showWChanged()
+{
+    aStarParameter->setText(QString::number(myModel->getW()));
+}
+
 
 void MainWindow::handleSwitchButton()
 {
@@ -288,10 +297,12 @@ void MainWindow::handleSwitchButton()
     if(whichView){
         terminalGameView->show();
         graphicGameView->hide();
+        aStarParameter->setReadOnly(true);
     }
     else{
         terminalGameView->hide();
         graphicGameView->show();
+        aStarParameter->setReadOnly(false);
     }
 }
 
@@ -300,8 +311,8 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-        myModel->setDestinationX(22);
-        myModel->setDestinationY(22);
+//        myModel->setDestinationX(22);
+//        myModel->setDestinationY(22);
     }
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
@@ -310,7 +321,8 @@ void MainWindow::handleStartButton()
 
     if(myModel->moveFast()){
         myModel->setOnceOrMore(true);
-        emit pathFound(round((protaSpeed->text()).toInt()));
+        //emit pathFound(round((protaSpeed->text()).toInt()));
+        emit pathFound(myModel->getSpeed());
 
     }else{
         qDebug()<<"Can not find the path";
@@ -346,12 +358,19 @@ void MainWindow::handleMapButton()
 
 void MainWindow::autoNavigate()
 {
-    myModel->setW((aStarParameter->text()).toFloat());
+    if(myModel->getWhichView()){
+        //terminal use command to change W.
+        qDebug()<<"auto terminal";
+    }
+    else{
+        myModel->setW((aStarParameter->text()).toFloat());
+        qDebug()<<"autonavigaet";
+    }
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
         myModel->setOnceOrMore(false);
-        emit pathFound(round((protaSpeed->text()).toInt()));
+        emit pathFound(myModel->getSpeed());
     }
     else
     {
@@ -405,6 +424,13 @@ void MainWindow::handleLoadButton()
     graphicGameView->initialGraphicView();   //terminal initial may be needed
     show();
     QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+}
+
+void MainWindow::handleSpeed()
+{
+    myModel->setSpeed(round((protaSpeed->text()).toDouble()));
+    emit speedChanged(round((protaSpeed->text()).toDouble()));
+    qDebug()<<"model is "<<myModel->getSpeed();
 }
 
 

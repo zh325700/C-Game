@@ -55,6 +55,7 @@ public slots:
     void refreshEandH();
     void refreshXandY();
     void restartTheGame();
+    void showWChanged();
 
 
 private slots:
@@ -66,8 +67,10 @@ private slots:
    void handlePauseButton();
    void handleSaveButton();
    void handleLoadButton();
+   void handleSpeed();
 signals:
    void pathFound(int speed);
+   void speedChanged(int newSpeed);
 
 private:
    void reset();

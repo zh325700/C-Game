@@ -562,3 +562,13 @@ void MyModel::setOnceOrMore(bool value)
     onceOrMore = value;
 }
 
+int MyModel::getSpeed() const
+{
+    return speed;
+}
+
+void MyModel::setSpeed(int value)
+{
+    speed = value;
+}
+

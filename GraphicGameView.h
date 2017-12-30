@@ -32,7 +32,7 @@ public:
     void setMultipleSizeOfCircle(int value);
 
     QPointF getEndPoint() const;
-    std::vector<QGraphicsPixmapItem *> pathTiles ={};
+    std::vector<QGraphicsPixmapItem *> pathTiles={};
     std::vector<QGraphicsPixmapItem *> getPathTiles() ;
 
 
