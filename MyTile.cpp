@@ -9,16 +9,16 @@ MyTile::MyTile(int xPosition, int yPosition, float tileWeight):
     Tile(xPosition, yPosition, tileWeight)
 {
 
-        this->setPos(xPos*20,yPos*20);
-         if(value<0.8){
-             setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
-         }
-         else if(value<=1 && value>0.8){
-            setPixmap(QPixmap(":/images/icons/grass.png"));
-         }
-         else {
-            setPixmap(QPixmap(":/images/icons/rock.png"));
-         }
+    this->setPos(xPos*20,yPos*20);
+    if(value<0.8){
+        setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
+    }
+    else if(value<=1 && value>0.8){
+        setPixmap(QPixmap(":/images/icons/grass.png"));
+    }
+    else {
+        setPixmap(QPixmap(":/images/icons/rock.png"));
+    }
 
 }
 

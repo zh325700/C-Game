@@ -113,51 +113,51 @@ void MyProtagonist::aquire_target(){      //  collide Tile or protagonist
 
     QList<QGraphicsItem *> colliding_items = this->collidingItems();
 
-            for (size_t i = 0, n = colliding_items.size(); i < n; i++){
-                MyEnemy * aMyenemy = dynamic_cast<MyEnemy *>(colliding_items[i]);
-                MyPEnemy *aPenemy = dynamic_cast<MyPEnemy *>(colliding_items[i]);
-                HealthPack *aHealthPack = dynamic_cast<HealthPack *>(colliding_items[i]);
-                MyTile *aMyTile = dynamic_cast<MyTile *>(colliding_items[i]);
-                if (aMyenemy){
-                     // If encounter with enemy,kill, decrease health,set black
-                    emit encounterEnemy();
-                    float currentHealth = decreaseHealth(aMyenemy->getValue());
-                    if(currentHealth<=0) return;
-                    recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
-                    aMyenemy->setDefeated(true);   //set defeated then emit dead()
+    for (size_t i = 0, n = colliding_items.size(); i < n; i++){
+        MyEnemy * aMyenemy = dynamic_cast<MyEnemy *>(colliding_items[i]);
+        MyPEnemy *aPenemy = dynamic_cast<MyPEnemy *>(colliding_items[i]);
+        HealthPack *aHealthPack = dynamic_cast<HealthPack *>(colliding_items[i]);
+        MyTile *aMyTile = dynamic_cast<MyTile *>(colliding_items[i]);
+        if (aMyenemy){
+            // If encounter with enemy,kill, decrease health,set black
+            emit encounterEnemy();
+            float currentHealth = decreaseHealth(aMyenemy->getValue());
+            if(currentHealth<=0) return;
+            recoverEnergy();
+            this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
+            aMyenemy->setDefeated(true);   //set defeated then emit dead()
 
-                }
-                else if(aPenemy){
-                    qDebug() << "PEnemy strength: " <<aPenemy->getValue();
-                    float currentHealth = decreaseHealth(aPenemy->getValue()/10);
-                    if(currentHealth<=0) return;
-                    recoverEnergy();
-                    this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
-                    QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
-                    emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
-                    qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();
-                }
-                else if(aHealthPack){
-                    emit encounterHealthPack();
-                    recoverHealth(aHealthPack->getValue());
-                    graphicGameView->scene->removeItem(aHealthPack);
-                    delete aHealthPack;
-                    for(unsigned i=0;i<myModel->getMyHealthPacks().size();i++){
-                        if(myModel->getMyHealthPacks()[i] == aHealthPack){
-                            myModel->getMyHealthPacks().erase(myModel->getMyHealthPacks().begin()+i);
-                        }
-                    }
-                }
-                else if(aMyTile){
-                    float costOfStep =this->getValue()-aMyTile->getValue();   //previous value - Next Tile value
-                    if(abs(costOfStep) == std::numeric_limits<float>::infinity()){
-                        costOfStep=0;
-                    }
-                    this->setValue(aMyTile->getValue());    //set value to this Tile
-                    this->setEnergy(this->getEnergy()-abs(costOfStep));    // - costOfStep which is the difference between twoo tiles
+        }
+        else if(aPenemy){
+            qDebug() << "PEnemy strength: " <<aPenemy->getValue();
+            float currentHealth = decreaseHealth(aPenemy->getValue()/10);
+            if(currentHealth<=0) return;
+            recoverEnergy();
+            this->getTileByXY(this->getXPos(),this->getYPos(),myModel->getMyTilesMap(),myModel->getCols())->setValue(std::numeric_limits<float>::infinity());
+            QObject::connect(this,&MyProtagonist::encounterPenemy,aPenemy,&MyPEnemy::poison);
+            emit encounterPenemy();  // emit signal encounterpenemy, So enemy can start poinsoning
+            qDebug()<<"The poison level is"<<aPenemy->getPoisonLevel();
+        }
+        else if(aHealthPack){
+            emit encounterHealthPack();
+            recoverHealth(aHealthPack->getValue());
+            graphicGameView->scene->removeItem(aHealthPack);
+            delete aHealthPack;
+            for(unsigned i=0;i<myModel->getMyHealthPacks().size();i++){
+                if(myModel->getMyHealthPacks()[i] == aHealthPack){
+                    myModel->getMyHealthPacks().erase(myModel->getMyHealthPacks().begin()+i);
                 }
             }
+        }
+        else if(aMyTile){
+            float costOfStep =this->getValue()-aMyTile->getValue();   //previous value - Next Tile value
+            if(abs(costOfStep) == std::numeric_limits<float>::infinity()){
+                costOfStep=0;
+            }
+            this->setValue(aMyTile->getValue());    //set value to this Tile
+            this->setEnergy(this->getEnergy()-abs(costOfStep));    // - costOfStep which is the difference between twoo tiles
+        }
+    }
 
 
 
@@ -177,8 +177,8 @@ void MyProtagonist::ifInPoisonarea(float poisonValue)
     for (size_t i = 0, n = colliding_items.size(); i < n; i++){
         QGraphicsEllipseItem * aCircle = dynamic_cast<QGraphicsEllipseItem *>(colliding_items[i]);
         if(aCircle){
-                this->setHealth(this->getHealth()-poisonValue/10);
-                emit inCircle();
+            this->setHealth(this->getHealth()-poisonValue/10);
+            emit inCircle();
         }
     }
 }

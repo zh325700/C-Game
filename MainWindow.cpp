@@ -485,10 +485,8 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
-
-
-    QStringList fileNameList;
     /*read filenames from local file*/
+    QStringList fileNameList;
     QFile file("save_filenames.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
@@ -518,9 +516,6 @@ void MainWindow::handleLoadButton()
         }
         else show();
     }
-
-
-
 }
 
 void MainWindow::handleAddHealthpackButton()

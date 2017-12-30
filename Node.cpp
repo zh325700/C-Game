@@ -38,7 +38,7 @@ void Node::setPos_y(int value)
 
 void Node::computeHeuristic(const int &goalP_x, const int &goalP_y)
 {
-//    float cost = sqrt(pow((this->getPos_x() - goalP_x),2)+pow((this->getPos_y() - goalP_y),2));
+    //    float cost = sqrt(pow((this->getPos_x() - goalP_x),2)+pow((this->getPos_y() - goalP_y),2));
     int cost = abs(this->getPos_x() - goalP_x)+abs(this->getPos_y() - goalP_y);
     this->setHcost(cost);
 }

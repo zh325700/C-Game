@@ -206,7 +206,7 @@ MyEnemy **MyModel::findNearestEnemy()
         wantedEnemy = &(myEnemies.front());
         currentMinDistance = calculateDistance((*wantedEnemy)->getXPos(),(*wantedEnemy)->getYPos());
 
-        for (unsigned index = 0; index < myEnemies.size()-1; index++)  //size is unsigned
+        for (unsigned index = 0; index < myEnemies.size()-1; index++)
         {
             int distance = calculateDistance(myEnemies[index]->getXPos(),myEnemies[index]->getYPos());
             if (distance < currentMinDistance)
@@ -351,7 +351,6 @@ void MyModel::loadGame(QString filename)
     myEnemies.clear();
     myPEnemies.clear();
 
-
     setting.beginGroup("MyProtagonist");
     myProtagonist->Protagonist::setPos(setting.value("protaX").toInt(),setting.value("protaY").toInt());
     myProtagonist->setHealth(setting.value("protaHealth").toFloat());
@@ -383,9 +382,7 @@ void MyModel::loadGame(QString filename)
         myPEnemies.push_back(aPMyEnemy);
     }
     setting.endArray();
-
-
-    setting.endGroup();                 //Till here is correct
+    setting.endGroup();
 
     setting.beginGroup("MyTiles");
     myTilesMap.clear();
