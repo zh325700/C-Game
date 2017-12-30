@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MyProtagonist_t {
-    QByteArrayData data[14];
-    char stringdata0[195];
+    QByteArrayData data[15];
+    char stringdata0[213];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,20 +39,21 @@ QT_MOC_LITERAL(4, 47, 14), // "encounterEnemy"
 QT_MOC_LITERAL(5, 62, 19), // "encounterHealthPack"
 QT_MOC_LITERAL(6, 82, 8), // "inCircle"
 QT_MOC_LITERAL(7, 91, 8), // "findNext"
-QT_MOC_LITERAL(8, 100, 14), // "moveToNextSpot"
-QT_MOC_LITERAL(9, 115, 13), // "aquire_target"
-QT_MOC_LITERAL(10, 129, 20), // "checkProtagonistDead"
-QT_MOC_LITERAL(11, 150, 14), // "ifInPoisonarea"
-QT_MOC_LITERAL(12, 165, 11), // "poisonValue"
-QT_MOC_LITERAL(13, 177, 17) // "moveAlongWithPath"
+QT_MOC_LITERAL(8, 100, 17), // "recoverAllButtons"
+QT_MOC_LITERAL(9, 118, 14), // "moveToNextSpot"
+QT_MOC_LITERAL(10, 133, 13), // "aquire_target"
+QT_MOC_LITERAL(11, 147, 20), // "checkProtagonistDead"
+QT_MOC_LITERAL(12, 168, 14), // "ifInPoisonarea"
+QT_MOC_LITERAL(13, 183, 11), // "poisonValue"
+QT_MOC_LITERAL(14, 195, 17) // "moveAlongWithPath"
 
     },
     "MyProtagonist\0protagonistDead\0\0"
     "encounterPenemy\0encounterEnemy\0"
     "encounterHealthPack\0inCircle\0findNext\0"
-    "moveToNextSpot\0aquire_target\0"
-    "checkProtagonistDead\0ifInPoisonarea\0"
-    "poisonValue\0moveAlongWithPath"
+    "recoverAllButtons\0moveToNextSpot\0"
+    "aquire_target\0checkProtagonistDead\0"
+    "ifInPoisonarea\0poisonValue\0moveAlongWithPath"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,29 +63,31 @@ static const uint qt_meta_data_MyProtagonist[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   69,    2, 0x06 /* Public */,
-       3,    0,   70,    2, 0x06 /* Public */,
-       4,    0,   71,    2, 0x06 /* Public */,
-       5,    0,   72,    2, 0x06 /* Public */,
-       6,    0,   73,    2, 0x06 /* Public */,
-       7,    0,   74,    2, 0x06 /* Public */,
+       1,    0,   74,    2, 0x06 /* Public */,
+       3,    0,   75,    2, 0x06 /* Public */,
+       4,    0,   76,    2, 0x06 /* Public */,
+       5,    0,   77,    2, 0x06 /* Public */,
+       6,    0,   78,    2, 0x06 /* Public */,
+       7,    0,   79,    2, 0x06 /* Public */,
+       8,    0,   80,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    0,   75,    2, 0x0a /* Public */,
-       9,    0,   76,    2, 0x0a /* Public */,
-      10,    0,   77,    2, 0x0a /* Public */,
-      11,    1,   78,    2, 0x0a /* Public */,
-      13,    0,   81,    2, 0x0a /* Public */,
+       9,    0,   81,    2, 0x0a /* Public */,
+      10,    0,   82,    2, 0x0a /* Public */,
+      11,    0,   83,    2, 0x0a /* Public */,
+      12,    1,   84,    2, 0x0a /* Public */,
+      14,    0,   87,    2, 0x0a /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -96,7 +99,7 @@ static const uint qt_meta_data_MyProtagonist[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Float,   12,
+    QMetaType::Void, QMetaType::Float,   13,
     QMetaType::Void,
 
        0        // eod
@@ -114,11 +117,12 @@ void MyProtagonist::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 3: _t->encounterHealthPack(); break;
         case 4: _t->inCircle(); break;
         case 5: _t->findNext(); break;
-        case 6: _t->moveToNextSpot(); break;
-        case 7: _t->aquire_target(); break;
-        case 8: _t->checkProtagonistDead(); break;
-        case 9: _t->ifInPoisonarea((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 10: _t->moveAlongWithPath(); break;
+        case 6: _t->recoverAllButtons(); break;
+        case 7: _t->moveToNextSpot(); break;
+        case 8: _t->aquire_target(); break;
+        case 9: _t->checkProtagonistDead(); break;
+        case 10: _t->ifInPoisonarea((*reinterpret_cast< float(*)>(_a[1]))); break;
+        case 11: _t->moveAlongWithPath(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -166,6 +170,13 @@ void MyProtagonist::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
                 return;
             }
         }
+        {
+            typedef void (MyProtagonist::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyProtagonist::recoverAllButtons)) {
+                *result = 6;
+                return;
+            }
+        }
     }
 }
 
@@ -196,13 +207,13 @@ int MyProtagonist::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }
@@ -241,6 +252,12 @@ void MyProtagonist::inCircle()
 void MyProtagonist::findNext()
 {
     QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
+}
+
+// SIGNAL 6
+void MyProtagonist::recoverAllButtons()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

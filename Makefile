@@ -2870,30 +2870,13 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QKeyEvent \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
-		ui_mainwindow.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QAction \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qaction.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qactiongroup.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qapplication.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qguiapplication.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qinputmethod.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QButtonGroup \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHeaderView \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qheaderview.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		Customdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMenuBar \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmenubar.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmenu.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QStatusBar \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qstatusbar.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QToolBar \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtoolbar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qaction.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QFileDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qfiledialog.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdir.h \
@@ -2907,9 +2890,7 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qinputdialog.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDateTime \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QStringList \
-		Customdialog.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 Graphics_view_zoom.o: Graphics_view_zoom.cpp Graphics_view_zoom.h \
@@ -3358,7 +3339,6 @@ MyModel.o: MyModel.cpp MyModel.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyModel.o MyModel.cpp
 
 Astar.o: Astar.cpp Astar.h \
-		Node.h \
 		libworld/world.h \
 		libworld/world_global.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
@@ -3431,7 +3411,8 @@ Astar.o: Astar.cpp Astar.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		Node.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Astar.o Astar.cpp
 
 Node.o: Node.cpp Node.h \
@@ -3645,8 +3626,11 @@ Node.o: Node.cpp Node.h \
 		Astar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Node.o Node.cpp
 
-GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtimer.h \
+GraphicGameView.o: GraphicGameView.cpp GraphicGameView.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
@@ -3668,46 +3652,50 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasictimer.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
@@ -3718,46 +3706,14 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsTextItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsEllipseItem \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QColor \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPixmap \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPoint \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsSceneMouseEvent \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDrag \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qdrag.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QMimeData \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedata.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPainter \
-		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainter.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLabel \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlabel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
@@ -3765,25 +3721,31 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
-		GraphicGameView.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsView \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsview.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qscrollarea.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPointF \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QMouseEvent \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragEnterEvent \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDragMoveEvent \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDropEvent \
 		MyEnemy.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/QMediaPlayer \
 		/opt/Qt/5.9.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
@@ -3806,7 +3768,11 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
 		libworld/world.h \
 		libworld/world_global.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QImage \
 		MyProtagonist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QTimer \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasictimer.h \
 		MyTile.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsPixmapItem \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPaintEvent \
@@ -3824,6 +3790,8 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlineedit.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextcursor.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLabel \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlabel.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabwidget.h \
@@ -3867,7 +3835,20 @@ GraphicGameView.o: GraphicGameView.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QTime
 		MyModel.h \
 		Astar.h \
 		Node.h \
-		Graphics_view_zoom.h
+		Graphics_view_zoom.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsTextItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsEllipseItem \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QColor \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPixmap \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QPoint \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsSceneMouseEvent \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicssceneevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QDrag \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qdrag.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QMimeData \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/QPainter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GraphicGameView.o GraphicGameView.cpp
 
 TerminalGameView.o: TerminalGameView.cpp ui_mainwindow.h \

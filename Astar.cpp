@@ -23,6 +23,11 @@ void Astar::smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
     aVector.insert(it,newNode);
 }
 
+void Astar::clearSolution()
+{
+    solution.clear();
+}
+
 bool Astar::getIsDone() const
 {
     return isDone;

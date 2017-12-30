@@ -201,7 +201,8 @@ void MyProtagonist::moveAlongWithPath()
             timer->stop();
             countSteps = 0;
             graphicGameView->pathTiles.clear();
-            if (! myModel->getOnceOrMore()) emit findNext();
+            if (myModel->getOnceOrMore()) emit recoverAllButtons();
+            else emit findNext();
         }
     }
 

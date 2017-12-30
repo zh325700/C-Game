@@ -87,6 +87,7 @@ private slots:
     void handleAddHealthpackButton();
     void handleClearAllFilesButton();
     void switchLayout();
+    void recoverButtons();
 
 signals:
     void pathFound();

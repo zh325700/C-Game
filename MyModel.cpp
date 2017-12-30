@@ -292,7 +292,6 @@ void MyModel::saveGame(QString filename)
     QTextStream in(&file);
     in<<filename<<endl;
 
-
     setting.beginGroup("MyProtagonist");
     setting.setValue("protaX",this->myProtagonist->getXPos());
     setting.setValue("protaY",this->myProtagonist->getYPos());
@@ -342,7 +341,6 @@ void MyModel::saveGame(QString filename)
     }
     setting.endArray();
     setting.endGroup();
-
 }
 
 void MyModel::loadGame(QString filename)
@@ -412,6 +410,9 @@ void MyModel::loadGame(QString filename)
     setting.endArray();
     setting.endGroup();
 
+    myAstar->clearSolution();
+    myProtagonist->setPaused(false);
+    onceOrMore = true;
 }
 
 void MyModel::clearAllSaves()

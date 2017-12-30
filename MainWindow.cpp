@@ -125,15 +125,15 @@ MainWindow::MainWindow(QWidget * parent):
     clearAllFiles_button->setFixedSize(100,30);
     addHealthpack_button->setFixedSize(100,30);
 
-    switch_button->setToolTip("switch between graphic and terminal views");
-    start_game_button->setToolTip("move to a specific destination");
-    chooseNewMap->setToolTip("open an image as new map");
-    auto_button->setToolTip("auto navigate the world");
-    pause_button->setToolTip("pause the game");
-    save_button->setToolTip("save the game");
-    load_button->setToolTip("load a game");
-    clearAllFiles_button->setToolTip("clear all saved records");
-    addHealthpack_button->setToolTip("add a health pack besides protagonist");
+    switch_button->setToolTip("Switch between graphic and terminal views");
+    start_game_button->setToolTip("Move to a specific destination");
+    chooseNewMap->setToolTip("Open an image as new map");
+    auto_button->setToolTip("Auto navigate the world");
+    pause_button->setToolTip("Pause the game");
+    save_button->setToolTip("Save the game");
+    load_button->setToolTip("Load a game");
+    clearAllFiles_button->setToolTip("Clear all saved records");
+    addHealthpack_button->setToolTip("Add a health pack besides protagonist");
 
 
     layoutButton = new QHBoxLayout();
@@ -199,6 +199,7 @@ void MainWindow::reset()
     connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
     connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
+    connect(myModel->getMyProtagonist(), SIGNAL (recoverAllButtons()), this, SLOT (recoverButtons()));
 
     connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
     connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
@@ -364,6 +365,14 @@ void MainWindow::handleSpeed(int idx)
 
 void MainWindow::handleStartButton()
 {
+    chooseNewMap->setEnabled(false);
+    start_game_button->setEnabled(false);
+    addHealthpack_button->setEnabled(false);
+    save_button->setEnabled(false);
+    load_button->setEnabled(false);
+    clearAllFiles_button->setEnabled(false);
+    auto_button->setEnabled(false);
+
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
@@ -418,6 +427,14 @@ void MainWindow::handleW()
 
 void MainWindow::autoNavigate()
 {
+    chooseNewMap->setEnabled(false);
+    start_game_button->setEnabled(false);
+    addHealthpack_button->setEnabled(false);
+    save_button->setEnabled(false);
+    load_button->setEnabled(false);
+    clearAllFiles_button->setEnabled(false);
+    auto_button->setEnabled(false);
+
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
@@ -459,6 +476,27 @@ void MainWindow::autoNavigate()
 void MainWindow::handlePauseButton()
 {
     myModel->getMyProtagonist()->setPaused(!myModel->getMyProtagonist()->getPaused());
+
+    if (myModel->getMyProtagonist()->getPaused())
+    {
+        pause_button->setText("Continue");
+        pause_button->setToolTip("Continue the game");
+        save_button->setEnabled(true);
+        load_button->setEnabled(true);
+        clearAllFiles_button->setEnabled(true);
+        chooseNewMap->setEnabled(true);
+        addHealthpack_button->setEnabled(true);
+    }
+    else
+    {
+        pause_button->setText("Pause");
+        pause_button->setToolTip("Pause the game");
+        save_button->setEnabled(false);
+        load_button->setEnabled(false);
+        clearAllFiles_button->setEnabled(false);
+        chooseNewMap->setEnabled(false);
+        addHealthpack_button->setEnabled(false);
+    }
 }
 
 void MainWindow::handleSaveButton()
@@ -485,37 +523,56 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
-    /*read filenames from local file*/
-    QStringList fileNameList;
-    QFile file("save_filenames.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        fileNameList<<line;
-    }
-
-    CustomDialog dialog(fileNameList);
-    if (dialog.exec() == QDialog::Accepted)
+    QFileInfo check_file("./save_filenames.txt");
+    if (check_file.exists() && check_file.isFile())
     {
-        QString fileName = dialog.comboBox()->currentText();
-        qDebug() << fileName;
+        QStringList fileNameList;
 
-        if (fileName != NULL)
-        {
-            hide();
-            QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-            removeEveryItemFromTheScene();
-            myModel->loadGame(fileName);
-            graphicGameView->initialGraphicView();
-            terminalGameView->initTerminal();
-            show();
-            QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+        /*read filenames from local file*/
+        QFile file("save_filenames.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            fileNameList<<line;
         }
-        else show();
+
+        CustomDialog dialog(fileNameList);
+        if (dialog.exec() == QDialog::Accepted)
+        {
+            QString fileName = dialog.comboBox()->currentText();
+
+            if (fileName != NULL)
+            {
+                hide();
+                QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+                removeEveryItemFromTheScene();
+                myModel->loadGame(fileName);
+
+                pause_button->setText("Pause");
+                                pause_button->setToolTip("Pause the game");
+                                chooseNewMap->setEnabled(true);
+                                start_game_button->setEnabled(true);
+                                addHealthpack_button->setEnabled(true);
+                                save_button->setEnabled(true);
+                                load_button->setEnabled(true);
+                                clearAllFiles_button->setEnabled(true);
+                                auto_button->setEnabled(true);
+
+                graphicGameView->initialGraphicView();
+                terminalGameView->initTerminal();
+                show();
+                QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+            }
+            else show();
+        }
     }
+    else
+    {
+        QMessageBox::information(this,"Error","Sorry.. there is no record yet",true);
+    }
+
 }
 
 void MainWindow::handleAddHealthpackButton()
@@ -531,9 +588,18 @@ void MainWindow::handleAddHealthpackButton()
 
 void MainWindow::handleClearAllFilesButton()
 {
-    QFile file("save_filenames.txt");
-    file.remove();
-    QMessageBox::information(this,"Success","The record file is deleted",true);
+    if(QDir(QDir::homePath()+"/.config/Team104").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() != 0)
+    {
+        QFile file("save_filenames.txt");
+        file.remove();
+        myModel->clearAllSaves();
+        QMessageBox::information(this,"Success","The record files are deleted!",true);
+    }
+    else
+    {
+        QMessageBox::information(this,"Warning","There are no record files!",true);
+    }
+
 }
 
 void MainWindow::switchLayout()
@@ -571,5 +637,16 @@ void MainWindow::switchLayout()
         addHealthpack_button->setVisible(true);
     }
 
+}
+
+void MainWindow::recoverButtons()
+{
+    chooseNewMap->setEnabled(true);
+    start_game_button->setEnabled(true);
+    addHealthpack_button->setEnabled(true);
+    save_button->setEnabled(true);
+    load_button->setEnabled(true);
+    clearAllFiles_button->setEnabled(true);
+    auto_button->setEnabled(true);
 }
 

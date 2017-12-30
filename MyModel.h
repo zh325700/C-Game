@@ -78,7 +78,7 @@ private:
     int rows;
     int destinationX;
     int destinationY;
-    int speed = 100;
+    int speed = 200;
     float w = 1.0;
     bool readyToNext;
     bool whichView = false;

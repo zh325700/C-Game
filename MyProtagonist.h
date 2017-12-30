@@ -50,6 +50,7 @@ signals:
     void encounterHealthPack();
     void inCircle();
     void findNext();
+    void recoverAllButtons();
 
 public slots:
     void moveToNextSpot();
