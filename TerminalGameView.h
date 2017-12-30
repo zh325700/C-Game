@@ -62,9 +62,10 @@ public:
     void setDY(int value);
 
 signals:
-    void destinationFind(int speed);
+    void destinationFind();
     void automaticRun();
     void wChanged();
+    void terminalSpeedChanged();
 
 public slots:
     void onEnter();

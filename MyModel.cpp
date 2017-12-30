@@ -542,6 +542,7 @@ float MyModel::getW() const
 void MyModel::setW(float value)
 {
     w = value;
+
 }
 
 int MyModel::getNrOfEnemies() const

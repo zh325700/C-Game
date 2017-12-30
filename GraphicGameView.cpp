@@ -170,7 +170,7 @@ void GraphicGameView::deleteEnemy()
 
 }
 
-void GraphicGameView::drawThePath(int speed)
+void GraphicGameView::drawThePath()
 {
 
     //MyModel *tempM = myModel;    //for testing purpose
@@ -184,7 +184,7 @@ void GraphicGameView::drawThePath(int speed)
         scene->addItem(aTile);
 
     }
-    myModel->getMyProtagonist()->timer->start(speed);
+    myModel->getMyProtagonist()->timer->start(myModel->getSpeed());
 
 }
 
@@ -198,6 +198,14 @@ void GraphicGameView::changeCircleColor()
     brush->setColor(color[getPoisonLevelcount()%7]);
     ellipse->setBrush(*brush);
     setPoisonLevelcount(getPoisonLevelcount()+1);
+}
+
+void GraphicGameView::changeTimer()
+{
+    if(myModel->getMyProtagonist()->timer->isActive()){
+        myModel->getMyProtagonist()->timer->stop();
+        myModel->getMyProtagonist()->timer->start(myModel->getSpeed());
+    }
 }
 
 
