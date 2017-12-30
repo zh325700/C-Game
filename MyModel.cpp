@@ -542,6 +542,7 @@ float MyModel::getW() const
 void MyModel::setW(float value)
 {
     w = value;
+
 }
 
 int MyModel::getNrOfEnemies() const
@@ -574,13 +575,14 @@ void MyModel::setOnceOrMore(bool value)
     onceOrMore = value;
 }
 
-int MyModel::getSpeedOfProta() const
+
+int MyModel::getSpeed() const
 {
-    return speedOfProta;
+    return speed;
 }
 
-void MyModel::setSpeedOfProta(int value)
+void MyModel::setSpeed(int value)
 {
-    speedOfProta = value;
+    speed = value;
 }
 

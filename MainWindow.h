@@ -14,6 +14,7 @@
 #include <QString>
 #include <string>
 #include <vector>
+#include <QComboBox>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -44,7 +45,8 @@ public:
     QLineEdit* destinationX;
     QLineEdit* destinationY;
     QLineEdit* aStarParameter;
-    QLineEdit* protaSpeed;
+   // QLineEdit* protaSpeed;
+    QComboBox *protaSpeed;
     QLineEdit* healthPackNum;
     QLineEdit* enemyNum;
     QProgressBar *healthbar ;
@@ -62,8 +64,12 @@ public slots:
 private slots:
 
    void handleSwitchButton();
+   void showSpeedChanged();
+   void handleSpeed(int idx);
    void handleStartButton();
    void handleMapButton();
+   void handleW();
+   void showWChanged();
    void autoNavigate();
    void handlePauseButton();
    void handleSaveButton();
@@ -72,6 +78,8 @@ private slots:
    void handleClearAllFilesButton();
 signals:
    void pathFound();
+   void speedChanged();
+
 
 private:
    void reset();

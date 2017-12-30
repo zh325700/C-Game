@@ -37,7 +37,7 @@ public:
     void setMultipleSizeOfCircle(int value);
 
     QPointF getEndPoint() const;
-    std::vector<QGraphicsPixmapItem *> pathTiles ={};
+    std::vector<QGraphicsPixmapItem *> pathTiles={};
     std::vector<QGraphicsPixmapItem *> getPathTiles() ;
 
 
@@ -58,8 +58,9 @@ public slots:
     void drawPoinsonCircle();
     void deletePnemy();
     void deleteEnemy();
-    void drawThePath(int speed);
+    void drawThePath();
     void changeCircleColor();
+    void changeTimer();
 
 signals:
 

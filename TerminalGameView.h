@@ -63,6 +63,9 @@ public:
 
 signals:
     void destinationFind();
+    void automaticRun();
+    void wChanged();
+    void terminalSpeedChanged();
 
 public slots:
     void onEnter();
