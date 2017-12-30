@@ -317,13 +317,13 @@ void MainWindow::handleSwitchButton()
         terminalGameView->show();
         graphicGameView->hide();
         aStarParameter->setReadOnly(true);
-        protaSpeed->setEditable(false);
+        protaSpeed->setEnabled(false);
     }
     else{
         terminalGameView->hide();
         graphicGameView->show();
         aStarParameter->setReadOnly(false);
-        protaSpeed->setEditable(true);
+        protaSpeed->setEnabled(true);
     }
 }
 
