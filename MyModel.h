@@ -1,6 +1,9 @@
 #ifndef MYMODEL_H
 #define MYMODEL_H
+
 #include<QWidget>
+#include <math.h>
+#include <limits.h>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -10,8 +13,7 @@
 #include "world.h"
 #include "GraphicGameView.h"
 #include "Astar.h"
-#include <math.h>
-#include <limits.h>
+
 
 
 class MyModel{
@@ -20,6 +22,8 @@ public:
     ~MyModel();
 
     void modelInitialize();
+
+    /*moving and strategy*/
     bool moveFast();      //move to a certain position
     bool FindNextStep();
     void gotoNextEnemy();
@@ -28,58 +32,44 @@ public:
     MyPEnemy ** findNearestPEnemy();
     HealthPack ** findNearestHealthPack();
     int calculateDistance(int givenX, int givenY);    //simplified but faster version, can be improved later if needed
+
+    /*saving and loading*/
     void saveGame(QString filename);
     void loadGame(QString filename);
     void clearAllSaves();
 
+    /*getters and setters*/
     bool getWhichView() const;
     void setWhichView(bool value);
-
     int & getCols() ;
     void setCols(int value);
-
     int & getRows() ;
     void setRows(int value);
-
     MyProtagonist *getMyProtagonist() ;
     void setMyProtagonist(MyProtagonist *value);
-
     std::vector<MyTile *> & getMyTilesMap() ;
     void setMyTilesMap( std::vector<MyTile *> &value);
-
     std::vector<MyEnemy *> & getMyEnemies() ;
     void setMyEnemies( std::vector<MyEnemy *> &value);
-
     std::vector<MyPEnemy *> & getMyPEnemies() ;
     void setMyPEnemies( std::vector<MyPEnemy *> &value);
-
     std::vector<HealthPack *> & getMyHealthPacks() ;
     void setMyHealthPacks( std::vector<HealthPack *> &value);
-
     int getDestinationX() const;
     void setDestinationX(int value);
-
     int getDestinationY() const;
     void setDestinationY(int value);
-
     std::shared_ptr<Astar> getMyAstar() const;
-
     bool getReadyToNext() const;
     void setReadyToNext(bool value);
-
     float getW() const;
     void setW(float value);
-
     int getNrOfEnemies() const;
     void setNrOfEnemies(int value);
-
     int getNrOfHealthPacks() const;
     void setNrOfHealthPacks(int value);
-
-
     bool getOnceOrMore() const;
     void setOnceOrMore(bool value);
-
     int getSpeed() const;
     void setSpeed(int value);
 

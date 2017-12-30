@@ -1,4 +1,5 @@
 #include "Astar.h"
+
 #include <iostream>
 #include <math.h>
 #include <algorithm>
@@ -150,26 +151,7 @@ NextPoint:
         }
     }
 
-
-    if(goalReached) {
-        //        std::cout<<"solution found!"<<std::endl;
-        //        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
-        //        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
-        //        while(!solution.empty())
-        //        {
-        //            auto printNode = solution.back();
-        //            std::cout<<"-> ("<<printNode->getPos_x()<<","<<printNode->getPos_y()<<") ["<<printNode->getHcost()
-        //                    <<"] ["<<printNode->getGivenCost()<<"] {"<<printNode->getTotalCost()<<"}"<<std::endl;
-        //            solution.pop_back();
-        //        }
-        isFound = true;
-    }
-    else {
-        //        std::cout<<"the given goal point is unreachable!"<<std::endl;
-        //        std::cout<<"starting point: ("<<startP_x<<","<<startP_y<<")"<<std::endl;
-        //        std::cout<<"goal point: ("<<goalP_x<<","<<goalP_y<<")"<<std::endl;
-        isFound = false;
-    }
+    isFound = goalReached ? true : false;
     isDone = true;
     return;
 }

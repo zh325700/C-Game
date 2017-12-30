@@ -10,6 +10,7 @@
 #include "MyModel.h"
 
 
+//defined in MainWindow.cpp
 extern GraphicGameView *graphicGameView;
 extern MyModel *myModel;
 

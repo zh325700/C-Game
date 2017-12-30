@@ -3,7 +3,8 @@
 #include "iostream"
 #include "MyModel.h"
 
-extern MyModel *myModel;
+extern MyModel *myModel;  //defined in MainWindow.cpp
+
 std::shared_ptr<Node> Node::getParent() const
 {
     return parent;

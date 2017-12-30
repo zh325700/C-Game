@@ -10,7 +10,7 @@
 
 class MyEnemy:public Enemy, public QGraphicsPixmapItem{
 public:
-    MyEnemy(int xPosition, int yPosition, float strength);  // allow you yo have a parent point
+    MyEnemy(int xPosition, int yPosition, float strength);
 public slots:
 
 private :

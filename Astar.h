@@ -18,6 +18,7 @@ public:
     void smartInsert(std::vector<std::shared_ptr<Node>> &aVector,
                      std::shared_ptr<Node> newNode);
 
+    /*getters and setters*/
     bool getIsFound() const;
     bool getIsDone() const;
     std::vector<std::shared_ptr<Node> > getSolution() const;

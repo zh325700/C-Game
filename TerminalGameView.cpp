@@ -6,7 +6,8 @@
 
 using namespace std;
 
-extern MyModel *myModel;
+extern MyModel *myModel;  //defined in MainWindow.cpp
+
 TerminalGameView::TerminalGameView(QWidget *parent) :
     QWidget(parent)
 {

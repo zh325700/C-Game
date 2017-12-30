@@ -14,30 +14,31 @@
 class MyProtagonist:public Protagonist, public QGraphicsPixmapItem{
     Q_OBJECT  // if you want to have signal and slot you have to be a QObject
 public:
+    QTimer * timer;
+    unsigned countSteps = 0;
+
     MyProtagonist(QGraphicsItem * parent=0);  // allow you yo have a parent point
+
     void keyPressEvent(QKeyEvent * event);
+
+    /*to get tiles and tile values from tile vector*/
     float getNextSpotValue(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
+    MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
+
+    /*to change health and energy*/
     float decreaseHealth(float healthCost);
     void recoverHealth(float health);
     void recoverEnergy();
-    MyTile *getTileByXY(int x,int y, std::vector<MyTile *> &myTiles,int &world_cols);
 
-
+    /*getters and setters*/
     float getStepCost() const;
     void setStepCost(float value);
     int getSizeOfTile() const;
     void setSizeOfTile(int value);
-
-    QTimer * timer;
-    unsigned countSteps = 0;
-
     bool getPaused() const;
     void setPaused(bool value);
-
-
     bool getAlReadyDrawCircle() const;
     void setAlReadyDrawCircle(bool value);
-
     unsigned getCountSteps() const;
     void setCountSteps(const unsigned &value);
 

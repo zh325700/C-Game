@@ -52,8 +52,16 @@ public:
 
     MainWindow(QWidget *parent =0);
     ~MainWindow();
-    void removeEveryFromTheScene();
 
+    void reset();
+
+    /*used to ask for number of enemies and healthpacks before game*/
+    void gameSetting();
+
+    /*used in loading record function to remove all the items*/
+    void removeEveryItemFromTheScene();
+
+    /*getters and setters*/
     QString getCurrentFileName() const;
     void setCurrentFileName(const QString &value);
 
@@ -100,9 +108,6 @@ private:
     QString currentFileName = ":/images/maps/worldmap.png";
 
     std::vector<QString> saveFileNames;
-
-    void reset();
-    void gameSetting();
 };
 
 #endif // MAINWINDOW_H

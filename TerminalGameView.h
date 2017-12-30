@@ -32,9 +32,12 @@ class TerminalGameView : public QWidget
 public:
     explicit TerminalGameView(QWidget *parent = 0);
     ~TerminalGameView();
+
     void initText();  //inite the help string and other string
     void setupLayout();  //set up layout
-    void initTerminal();
+    void initTerminal(); //set up connections with model
+
+    void keyPressEvent(QKeyEvent *event);
 
     //check enemy warning
     void moveEnemy();
@@ -53,12 +56,9 @@ public:
     int countNearHealth();
     QString showProta();
 
-    //event for keyboard
-    void keyPressEvent(QKeyEvent *event);
-
+    /*getters and setters*/
     int getDX() const;
     void setDX(int value);
-
     int getDY() const;
     void setDY(int value);
 
@@ -83,23 +83,23 @@ public slots:
     void poisonUser();
 
 private:
-    //layout
+    /*layout*/
     QLineEdit *lineEdit;
     QPlainTextEdit *output;
     QFont font=QFont("CodeNewRoman");
     std::vector<QString> inputs={};
     unsigned inputPosition = 0;
 
-    //hints string
-     const std::type_info& typeEn = typeid(Enemy);
-     const std::type_info& typePe = typeid(PEnemy);
-     QString helpText;
-     QString boundary;
-     QString existwall;
-     QString noEnergy;
-     int costOfStep = 0;
-     int dX=0;
-     int dY=0;
+    /*hints string*/
+    const std::type_info& typeEn = typeid(Enemy);
+    const std::type_info& typePe = typeid(PEnemy);
+    QString helpText;
+    QString boundary;
+    QString existwall;
+    QString noEnergy;
+    int costOfStep = 0;
+    int dX=0;
+    int dY=0;
 };
 
 

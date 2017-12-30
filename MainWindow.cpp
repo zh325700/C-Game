@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 #include "MyModel.h"
-
+#include "Customdialog.h"
 
 #include <QMessageBox>
 #include <QMenuBar>
@@ -10,9 +10,6 @@
 #include <QInputDialog>
 #include <QDateTime>
 #include <QStringList>
-#include "Customdialog.h"
-
-
 
 
 MyModel *myModel;
@@ -164,7 +161,7 @@ MainWindow::MainWindow(QWidget * parent):
     layoutStatistic->addWidget(switch_button);
 
 
-    // connect button
+    // connect buttons
     connect(aStarParameter,SIGNAL(editingFinished()),this,SLOT(handleW()));
     connect(protaSpeed,SIGNAL(activated(int)),this,SLOT(handleSpeed(int)));
     connect(switch_button, SIGNAL (released()), this, SLOT (handleSwitchButton()));
@@ -177,10 +174,8 @@ MainWindow::MainWindow(QWidget * parent):
     connect(addHealthpack_button,SIGNAL (released()), this, SLOT (handleAddHealthpackButton()));
     connect(clearAllFiles_button,SIGNAL (released()), this, SLOT (handleClearAllFilesButton()));
 
-
     reset();
     layout->addLayout(layoutStatistic,0,1,9,1);
-
 }
 
 void MainWindow::reset()
@@ -203,16 +198,18 @@ void MainWindow::reset()
     connect(myModel->getMyProtagonist(),&MyProtagonist::energyChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
+    connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
+
+    connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
+    connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
+
     connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,this,&MainWindow::showSpeedChanged);
     connect(terminalGameView,&TerminalGameView::loadNewMap,this,&MainWindow::handleMapButton);
     connect(terminalGameView,&TerminalGameView::clearSaves,this,&MainWindow::handleClearAllFilesButton);
     connect(terminalGameView,&TerminalGameView::saveRecord,this,&MainWindow::handleSaveButton);
     connect(terminalGameView,&TerminalGameView::loadRecord,this,&MainWindow::handleLoadButton);
-    connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
-    connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
     connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,graphicGameView,&GraphicGameView::changeTimer);
     connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::handleStartButton);
-    connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
     connect(terminalGameView,&TerminalGameView::wChanged,this,&MainWindow::showWChanged);
     connect(terminalGameView,&TerminalGameView::automaticRun,this,&MainWindow::autoNavigate);
 
@@ -246,7 +243,7 @@ void MainWindow::setCurrentFileName(const QString &valuehandleSaveButton)
     currentFileName = valuehandleSaveButton;
 }
 
-void MainWindow::removeEveryFromTheScene()
+void MainWindow::removeEveryItemFromTheScene()
 {
     for(auto &aTile:myModel->getMyTilesMap()){
         graphicGameView->scene->removeItem(aTile);
@@ -269,7 +266,7 @@ void MainWindow::removeEveryFromTheScene()
 
 MainWindow::~MainWindow()
 {
-    //deal with memory
+
 }
 
 
@@ -473,7 +470,7 @@ void MainWindow::handleSaveButton()
                                          NULL, &ok);
     if (ok && !text.isEmpty())
     {
-        /*by default stored in home./config/Team104/filename*/
+        /* by default stored in home./config/Team104/filename */
         QMessageBox::information(this,"Saving","The game is saving... please wait a bit...",true);
         myModel->saveGame(text);
         saveFileNames.push_back(text);
@@ -512,7 +509,7 @@ void MainWindow::handleLoadButton()
         {
             hide();
             QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-            removeEveryFromTheScene();
+            removeEveryItemFromTheScene();
             myModel->loadGame(fileName);
             graphicGameView->initialGraphicView();
             terminalGameView->initTerminal();

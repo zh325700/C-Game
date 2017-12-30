@@ -11,10 +11,12 @@ public:
 
     Node(int apos_x, int apos_y);
 
+    /*used to compute different kinds of costs*/
     void computeHeuristic(const int &goalP_x, const int &goalP_y);
     void computeGivenCost(const std::vector<std::unique_ptr<Tile> > &tiles);
     void computeTotalCost(const int &goalP_x, const int &goalP_y, const std::vector<std::unique_ptr<Tile> > &tiles);
 
+    /*getters and setters*/
     std::shared_ptr<Node> getParent() const;
     void setParent(const std::shared_ptr<Node> &value);
     int getPos_x() const;

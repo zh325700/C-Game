@@ -11,8 +11,8 @@
 class MyPEnemy:public PEnemy, public QGraphicsPixmapItem{
 public:
     MyPEnemy(int xPosition, int yPosition, float strength);  // allow you yo have a parent point
-//    ~PEnemy();
 
+    /*getters and setters*/
     bool getAlreadyDefeated() const;
     void setAlreadyDefeated(bool value);
 

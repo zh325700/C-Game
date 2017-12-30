@@ -35,14 +35,16 @@ public:
 
     GraphicGameView();
     ~GraphicGameView();
+
     void initialGraphicView();
 
-    //drag and drop
+    /*drag and drop of healthpack*/
     void mousePressEvent(QMouseEvent *);
     void dragEnterEvent(QDragEnterEvent *);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
 
+    /*getters and setters*/
     int getMultipleSizeOfCircle() const;
     void setMultipleSizeOfCircle(int value);
     QPointF getEndPoint() const;
