@@ -33,6 +33,7 @@ public:
     QGridLayout *layout;
     QLabel *healthLabel;
     QLabel * energyLabel;
+    QLabel * enemyNumLabel;
     QGroupBox* healthGroup;
     QHBoxLayout* layoutHealth;
     QGroupBox* energyGroup;
@@ -47,8 +48,9 @@ public:
     QComboBox *protaSpeed;
     QLineEdit* healthPackNum;
     QLineEdit* enemyNum;
-    QProgressBar *healthbar ;
+    QProgressBar *healthbar;
     QProgressBar *energtbar;
+    QProgressBar *enemyNumbar;
 
     MainWindow(QWidget *parent =0);
     ~MainWindow();

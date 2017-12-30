@@ -76,16 +76,16 @@ MainWindow::MainWindow(QWidget * parent):
     layoutPSG -> addWidget(protaSpeed);
 
     //create health group for health info
-    healthGroup = new QGroupBox();
-    layoutHealth = new QHBoxLayout(healthGroup);
-    healthLabel = new QLabel("Health:");
+    auto enemyNumGroup = new QGroupBox();
+    auto layoutEnemyNum = new QHBoxLayout(enemyNumGroup);
+    enemyNumLabel = new QLabel("Left Enemy:");
     //create progress bar
-    healthbar = new QProgressBar();
-    healthbar->setRange(0,100);
+    enemyNumbar = new QProgressBar();
+    enemyNumbar->setRange(0,myModel->getNrOfEnemies());
     //healthbar->setAlignment(Qt::AlignCenter);
-    healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
-    layoutHealth->addWidget(healthLabel);
-    layoutHealth->addWidget(healthbar);
+    enemyNumbar->setStyleSheet("::chunk{background-color: blue;border: 2px solid black;border-radius: 5px;text-align: center;}");
+    layoutEnemyNum->addWidget(enemyNumLabel);
+    layoutEnemyNum->addWidget(enemyNumbar);
 
     //create a energy group for energy info
     energyGroup = new QGroupBox();
@@ -97,6 +97,18 @@ MainWindow::MainWindow(QWidget * parent):
     energtbar->setStyleSheet("::chunk{background-color: yellow;border: 2px solid black;border-radius: 5px;text-align: center;}");
     layoutEnergy->addWidget(energyLabel);
     layoutEnergy->addWidget(energtbar);
+
+    healthGroup = new QGroupBox();
+    layoutHealth = new QHBoxLayout(healthGroup);
+    healthLabel = new QLabel("Health:");
+    //create progress bar
+    healthbar = new QProgressBar();
+    healthbar->setRange(0,100);
+    //healthbar->setAlignment(Qt::AlignCenter);
+    healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
+    layoutHealth->addWidget(healthLabel);
+    layoutHealth->addWidget(healthbar);
+
 
     //prepare button image
     QPixmap Healthpack(":/images/icons/healthpack.png");
@@ -154,6 +166,7 @@ MainWindow::MainWindow(QWidget * parent):
     layoutStatistic->addWidget(dxdyGroup);
     layoutStatistic->addWidget(healthGroup);
     layoutStatistic->addWidget(energyGroup);
+    layoutStatistic->addWidget(enemyNumGroup);
     layoutStatistic->addWidget(aStarNProtaGroup);
     layoutStatistic->addWidget(protaSpeedGroup);
     layoutStatistic->addLayout(layoutButton);
@@ -175,7 +188,7 @@ MainWindow::MainWindow(QWidget * parent):
     connect(clearAllFiles_button,SIGNAL (released()), this, SLOT (handleClearAllFilesButton()));
 
     reset();
-    layout->addLayout(layoutStatistic,0,1,9,1);
+    layout->addLayout(layoutStatistic,0,1,10,1);
 }
 
 void MainWindow::reset()
@@ -214,8 +227,8 @@ void MainWindow::reset()
     connect(terminalGameView,&TerminalGameView::wChanged,this,&MainWindow::showWChanged);
     connect(terminalGameView,&TerminalGameView::automaticRun,this,&MainWindow::autoNavigate);
 
-    layout->addWidget(graphicGameView,0,0,9,1);
-    layout->addWidget(terminalGameView,0,0,9,1);
+    layout->addWidget(graphicGameView,0,0,10,1);
+    layout->addWidget(terminalGameView,0,0,10,1);
     terminalGameView->hide();                     //by default show graphicView
 
 
