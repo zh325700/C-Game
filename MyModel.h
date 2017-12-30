@@ -28,6 +28,9 @@ public:
     MyPEnemy ** findNearestPEnemy();
     HealthPack ** findNearestHealthPack();
     int calculateDistance(int givenX, int givenY);    //simplified but faster version, can be improved later if needed
+    void saveGame(QString filename);
+    void loadGame(QString filename);
+    void clearAllSaves();
 
     bool getWhichView() const;
     void setWhichView(bool value);
@@ -66,10 +69,6 @@ public:
 
     float getW() const;
     void setW(float value);
-
-
-    void saveGame(QString filename);
-    void loadGame(QString filename);
 
     int getNrOfEnemies() const;
     void setNrOfEnemies(int value);

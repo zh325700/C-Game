@@ -69,12 +69,9 @@ private slots:
    void handlePauseButton();
    void handleSaveButton();
    void handleLoadButton();
-<<<<<<< HEAD
    void handleSpeed();
-=======
    void handleAddHealthpackButton();
    void handleClearAllFilesButton();
->>>>>>> d7ba1b1ad3fcfa5ef8055a5b30416e3d2d562326
 signals:
    void pathFound(int speed);
    void speedChanged(int newSpeed);

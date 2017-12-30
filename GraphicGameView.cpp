@@ -248,7 +248,6 @@ void GraphicGameView::mousePressEvent(QMouseEvent * event)
   QPixmap pixmap = ahealthpack->pixmap();
   float value = ahealthpack->getValue();
   QPointF eventPoint = mapToScene(event->pos()) ;
-  QPoint poiintHealthpack = QPoint(ahealthpack->pos().toPoint());
   QPoint offset = QPoint(eventPoint.toPoint() - ahealthpack->pos().toPoint());
   //in this example, the pixmap, the size of the label, the relative position of the label to the mouse
   dataStream << pixmap << value<< offset;

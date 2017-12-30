@@ -10,6 +10,8 @@
 #include <QInputDialog>
 #include <QDateTime>
 #include <QStringList>
+#include <QFileInfo>
+#include <QStandardPaths>
 #include "Customdialog.h"
 
 
@@ -320,8 +322,8 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-//        myModel->setDestinationX(22);
-//        myModel->setDestinationY(22);
+        //        myModel->setDestinationX(22);
+        //        myModel->setDestinationY(22);
     }
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
@@ -334,7 +336,8 @@ void MainWindow::handleStartButton()
         emit pathFound(myModel->getSpeed());
 
     }else{
-        qDebug()<<"Can not find the path";
+        //        qDebug()<<"Can not find the path";
+        QMessageBox::information(this,"Error","The given destination is unreachable!",true);
     }
 }
 
@@ -442,40 +445,49 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
-
-
-    QStringList fileNameList;
-    /*read filenames from local file*/
-    QFile file("save_filenames.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        fileNameList<<line;
-    }
-
-    CustomDialog dialog(fileNameList);
-    if (dialog.exec() == QDialog::Accepted)
+    QFileInfo check_file("./save_filenames.txt");
+    if (check_file.exists() && check_file.isFile())
     {
-        QString fileName = dialog.comboBox()->currentText();
-        qDebug() << fileName;
+        QStringList fileNameList;
 
-        if (fileName != NULL)
-        {
-            hide();
-            QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-            //    delete terminalGameView;
-            removeEveryFromTheScene();
-            myModel->loadGame(fileName);
-            //    terminalGameView = new TerminalGameView();
-            graphicGameView->initialGraphicView();   //terminal initial may be needed
-            show();
-            QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+        /*read filenames from local file*/
+        QFile file("save_filenames.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            fileNameList<<line;
         }
-        else show();
+
+        CustomDialog dialog(fileNameList);
+        if (dialog.exec() == QDialog::Accepted)
+        {
+            QString fileName = dialog.comboBox()->currentText();
+            qDebug() << fileName;
+
+            if (fileName != NULL)
+            {
+                hide();
+                QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+                //    delete terminalGameView;
+                removeEveryFromTheScene();
+                myModel->loadGame(fileName);
+                //    terminalGameView = new TerminalGameView();
+                graphicGameView->initialGraphicView();   //terminal initial may be needed
+                show();
+                QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+            }
+            else show();
+        }
+
     }
+    else
+    {
+        QMessageBox::information(this,"Error","Sorry.. there is no record yet",true);
+    }
+
 
 
 
@@ -494,9 +506,18 @@ void MainWindow::handleAddHealthpackButton()
 
 void MainWindow::handleClearAllFilesButton()
 {
-    QFile file("save_filenames.txt");
-    file.remove();
-    QMessageBox::information(this,"Success","The record file is deleted",true);
+    if(QDir("/home/jiahao/.config/Team104").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() != 0)
+    {
+        QFile file("save_filenames.txt");
+        file.remove();
+        myModel->clearAllSaves();
+        QMessageBox::information(this,"Success","The record files are deleted!",true);
+    }
+    else
+    {
+        QMessageBox::information(this,"Warning","There are no record files!",true);
+    }
+
 }
 
 void MainWindow::handleSpeed()

@@ -417,6 +417,18 @@ void MyModel::loadGame(QString filename)
 
 }
 
+void MyModel::clearAllSaves()
+{
+    QString path = "/home/jiahao/.config/Team104";
+    QDir dir(path);
+    dir.setNameFilters(QStringList() << "*.*");
+    dir.setFilter(QDir::Files);
+    foreach(QString dirFile, dir.entryList())
+    {
+        dir.remove(dirFile);
+    }
+}
+
 
 
 std::vector<MyEnemy *> & MyModel::getMyEnemies()
