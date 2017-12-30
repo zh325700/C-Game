@@ -8,7 +8,9 @@
 #include <QStateMachine>
 #include <QState>
 #include <QInputDialog>
-#include <string>
+#include <QDateTime>
+#include <QStringList>
+#include "Customdialog.h"
 
 
 
@@ -113,6 +115,8 @@ MainWindow::MainWindow(QWidget * parent):
     pause_button = new QPushButton("Pause",this);
     save_button = new QPushButton("Save",this);
     load_button = new QPushButton("Load",this);
+    clearAllFiles_button = new QPushButton("Clear Save",this);
+    addHealthpack_button = new QPushButton("Add Healthpack",this);
 
     start_game_button->setFixedSize(100,30);
     switch_button->setFixedHeight(30);
@@ -131,6 +135,8 @@ MainWindow::MainWindow(QWidget * parent):
     layoutSaveNload->addStretch(1);
     layoutSaveNload->addWidget(save_button);
     layoutSaveNload->addWidget(load_button);
+    layoutSaveNload->addWidget(clearAllFiles_button);
+    layoutSaveNload->addWidget(addHealthpack_button);
     layoutSaveNload->addStretch(1);
 
     //add all widget to overall layout
@@ -153,6 +159,8 @@ MainWindow::MainWindow(QWidget * parent):
     connect(pause_button,SIGNAL (released()), this, SLOT (handlePauseButton()));
     connect(save_button,SIGNAL (released()), this, SLOT (handleSaveButton()));
     connect(load_button,SIGNAL (released()), this, SLOT (handleLoadButton()));
+    connect(addHealthpack_button,SIGNAL (released()), this, SLOT (handleAddHealthpackButton()));
+    connect(clearAllFiles_button,SIGNAL (released()), this, SLOT (handleClearAllFilesButton()));
 
 
     reset();
@@ -220,16 +228,16 @@ void MainWindow::removeEveryFromTheScene()
     }
     //add pack to the scene and connect
     for(auto &aPack:myModel->getMyHealthPacks()){
-         graphicGameView->scene->removeItem(aPack);
+        graphicGameView->scene->removeItem(aPack);
     }
     // add the Enemies to the scene
     for(auto &aEnemy:myModel->getMyEnemies()){
-         graphicGameView->scene->removeItem(aEnemy);
+        graphicGameView->scene->removeItem(aEnemy);
     }
 
     //add pEnemies to the scene and connect
     for(auto &aPEnemy:myModel->getMyPEnemies()){
-         graphicGameView->scene->removeItem(aPEnemy);
+        graphicGameView->scene->removeItem(aPEnemy);
     }
     graphicGameView->scene->removeItem(myModel->getMyProtagonist());
 }
@@ -263,6 +271,7 @@ void MainWindow::restartTheGame()
     switch (result) {
     case QMessageBox::Yes:
         hide();
+        QMessageBox::information(this,"Loading","Restarting the game... please wait a bit...",true);
         delete myModel->getMyProtagonist();
         delete myModel;
         delete terminalGameView;
@@ -332,13 +341,14 @@ void MainWindow::handleStartButton()
 
 void MainWindow::handleMapButton()
 {
-    hide();
     QString fileName;
     fileName = QFileDialog::getOpenFileName(this,
                                             tr("Open Image"), "/home", tr("Image Files (*.png *.jpg *.bmp)"));
     qDebug()<<fileName;
     if(fileName != NULL)
     {
+        hide();
+        QMessageBox::information(this,"Loading","Creating the new world... please wait a bit...",true);
         delete myModel;
         delete terminalGameView;
         delete graphicGameView;
@@ -352,7 +362,7 @@ void MainWindow::handleMapButton()
         reset();
         show();
         QMessageBox::information(this,"Success","Congratulations! New map is ready to use! :)",true);
-    }
+    }        qDebug()<<"w is: "<<myModel->getW();
 
 }
 
@@ -375,11 +385,12 @@ void MainWindow::autoNavigate()
     else
     {
         int result = QMessageBox::information(this, tr("My Game"),
-                                          tr("Congratulations! You win!\n Do you want to play agin?"),
-                                          QMessageBox::Yes | QMessageBox::No);
+                                              tr("Congratulations! You win!\n Do you want to play agin?"),
+                                              QMessageBox::Yes | QMessageBox::No);
         switch (result) {
         case QMessageBox::Yes:
             hide();
+            QMessageBox::information(this,"Loading","Creating the new world... please wait a bit... :)",true);
             delete myModel;
             delete terminalGameView;
             delete graphicGameView;
@@ -409,21 +420,83 @@ void MainWindow::handlePauseButton()
 
 void MainWindow::handleSaveButton()
 {
-    myModel->saveGame();
-    QMessageBox::information(this,"Success","Save successfully!",true);
+
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Save"),
+                                         tr("Name:"), QLineEdit::Normal,
+                                         NULL, &ok);
+    if (ok && !text.isEmpty())
+    {
+        /*by default stored in home./config/Team104/filename*/
+        QMessageBox::information(this,"Saving","The game is saving... please wait a bit...",true);
+        myModel->saveGame(text);
+        saveFileNames.push_back(text);
+        QMessageBox::information(this,"Success","Save successfully!",true);
+    }
+    else if ((ok && text.isEmpty()))
+    {
+        QMessageBox::information(this,"Error","The record name cannot be empty!",true);
+    }
+
 }
 
 void MainWindow::handleLoadButton()
 {
-    hide();
-    QMessageBox::information(this,"Success","Game is loading... please wait a bit :)",true);
-//    delete terminalGameView;
-    removeEveryFromTheScene();
-    myModel->loadGame();
-//    terminalGameView = new TerminalGameView();
-    graphicGameView->initialGraphicView();   //terminal initial may be needed
-    show();
-    QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+
+
+    QStringList fileNameList;
+    /*read filenames from local file*/
+    QFile file("save_filenames.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        fileNameList<<line;
+    }
+
+    CustomDialog dialog(fileNameList);
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        QString fileName = dialog.comboBox()->currentText();
+        qDebug() << fileName;
+
+        if (fileName != NULL)
+        {
+            hide();
+            QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+            //    delete terminalGameView;
+            removeEveryFromTheScene();
+            myModel->loadGame(fileName);
+            //    terminalGameView = new TerminalGameView();
+            graphicGameView->initialGraphicView();   //terminal initial may be needed
+            show();
+            QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
+        }
+        else show();
+    }
+
+
+
+}
+
+void MainWindow::handleAddHealthpackButton()
+{
+    qsrand(QDateTime::currentMSecsSinceEpoch());
+    int x = myModel->getMyProtagonist()->getXPos();
+    int y = myModel->getMyProtagonist()->getYPos();
+    float value = qrand()%100;
+    HealthPack *aHealthpack = new HealthPack(x+1,y,value);
+    myModel->getMyHealthPacks().push_back(aHealthpack);
+    graphicGameView->scene->addItem(aHealthpack);
+}
+
+void MainWindow::handleClearAllFilesButton()
+{
+    QFile file("save_filenames.txt");
+    file.remove();
+    QMessageBox::information(this,"Success","The record file is deleted",true);
 }
 
 void MainWindow::handleSpeed()

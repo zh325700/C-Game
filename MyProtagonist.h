@@ -34,8 +34,13 @@ public:
     bool getPaused() const;
     void setPaused(bool value);
 
+
+    bool getAlReadyDrawCircle() const;
+    void setAlReadyDrawCircle(bool value);
+
     unsigned getCountSteps() const;
     void setCountSteps(const unsigned &value);
+
 
 signals:
     void protagonistDead();
@@ -57,6 +62,7 @@ private :
     int graphicX=0;
     int graphicY=0;
     bool paused = false;
+    bool alReadyDrawCircle = false;
 
 
 

@@ -12,6 +12,8 @@
 #include <QPushButton>
 #include <QProgressBar>
 #include <QString>
+#include <string>
+#include <vector>
 
 #include "MyProtagonist.h"
 #include "MyEnemy.h"
@@ -67,7 +69,12 @@ private slots:
    void handlePauseButton();
    void handleSaveButton();
    void handleLoadButton();
+<<<<<<< HEAD
    void handleSpeed();
+=======
+   void handleAddHealthpackButton();
+   void handleClearAllFilesButton();
+>>>>>>> d7ba1b1ad3fcfa5ef8055a5b30416e3d2d562326
 signals:
    void pathFound(int speed);
    void speedChanged(int newSpeed);
@@ -83,9 +90,13 @@ private:
    QPushButton *pause_button;
    QPushButton *save_button;
    QPushButton *load_button;
+   QPushButton *addHealthpack_button;
+   QPushButton *clearAllFiles_button;
 
     bool soundOn = true;
     QString currentFileName = ":/images/maps/worldmap.png";
+
+    std::vector<QString> saveFileNames;
 };
 
 #endif // MAINWINDOW_H
