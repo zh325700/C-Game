@@ -7,6 +7,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QWidget>
+#include <QMainWindow>
 #include <QGroupBox>
 #include <QMessageBox>
 #include <QPushButton>
@@ -25,11 +26,15 @@
 #include "GraphicGameView.h"
 #include "TerminalGameView.h"
 
+namespace Ui {
+class MainWindow;
+}
+
 class MainWindow: public QWidget
 {
     Q_OBJECT
 public:
-    MainWindow(QWidget *parent =0);
+    explicit MainWindow(QWidget *parent =0);
     ~MainWindow();
     QGridLayout *layout;
     QLabel *healthLabel;
@@ -45,7 +50,6 @@ public:
     QLineEdit* destinationX;
     QLineEdit* destinationY;
     QLineEdit* aStarParameter;
-   // QLineEdit* protaSpeed;
     QComboBox *protaSpeed;
     QLineEdit* healthPackNum;
     QLineEdit* enemyNum;
@@ -55,6 +59,7 @@ public:
     QString getCurrentFileName() const;
     void setCurrentFileName(const QString &value);
     void removeEveryFromTheScene();
+
 public slots:
     void refreshEandH();
     void refreshXandY();
@@ -76,15 +81,19 @@ private slots:
    void handleLoadButton();
    void handleAddHealthpackButton();
    void handleClearAllFilesButton();
+   void switchLayout();
+
 signals:
    void pathFound();
    void speedChanged();
 
-
 private:
+   Ui::MainWindow *ui;
    void reset();
    void gameSetting();
 
+   QHBoxLayout *layoutButton;
+   QHBoxLayout *layoutSaveNload;
    QPushButton *switch_button;
    QPushButton *start_game_button;
    QPushButton *chooseNewMap;

@@ -64,6 +64,10 @@ public:
 signals:
     void destinationFind();
     void automaticRun();
+    void saveRecord();
+    void loadRecord();
+    void loadNewMap();
+    void clearSaves();
     void wChanged();
     void terminalSpeedChanged();
 

@@ -55,8 +55,6 @@ HEADERS += \
     GraphicGameView.h \
     Customdialog.h
 
-FORMS +=
-
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libworld/release/ -lworld
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libworld/debug/ -lworld

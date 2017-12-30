@@ -20,12 +20,16 @@ TerminalGameView::TerminalGameView(QWidget *parent) :
                             "  show all enemies with: 'show all enemies' \n"
                             "  show near health packs with: 'show health packs' \n"
                             "  show all health packs with: 'show all health packs' \n"
-                            "  go to the destination automatically with: 'goto(3,5)' \n"
+                            "  go to the destination automatically with: 'moveto(3,5)' \n"
                             "  pause going to destination or autorun: 'pause' \n"
                             "  continue to go to destination or autorun: 'continue' \n"
                             "  set parameter w: 'setW(2)' \n"
                             "  choose the speed of protagonist from three levels(slow, normal and fast): 'setSpeed(slow)' \n"
                             "  automatically run the game: 'autorun' \n"
+                            "  save your current game process: 'save' \n"
+                            "  load the selected process: 'load' \n"
+                            "  open an image as new map: 'new map' \n"
+                            "  clear all saved records: 'clear save' \n"
                             "  use 'a,w,s,d' in the keyboard to control the movement \n"
                             "  you can enter 'help' to get manual at any time");
 
@@ -55,12 +59,16 @@ void TerminalGameView::init()
                "  'show all enemies' find all enemies in this map \n"
                "  'show health packs' find near health packs \n"
                "  'show all health packs' find all health packs \n"
-               "  'goto(3,5)' go to destination automatically \n"
-               "  'pause' pause the process of goto command \n"
-               "  'continue' continue the process of goto command \n"
+               "  'moveto(3,5)' go to destination automatically \n"
+               "  'pause' pause going to destination or autorun \n"
+               "  'continue' continue to go to destination or autorun \n"
                "  'setW(2)' set parameter w \n"
                "  'setSpeed(slow)' choose the speed of protagonist from three levels(slow, normal and fast) \n"
                "  'autorun' automatically run the game \n"
+               "  'save' save your current game process \n"
+               "  'load' load the selected process \n"
+               "  'new map' open an image as new map \n"
+               "  'clear save' clear all saved records \n"
                "  use 'a,w,s,d' in the keyboard to control the movement \n"
                "  you can enter 'help' to get manual at any time";
     boundary = "You are moving out of boundary\n";
@@ -510,13 +518,33 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
+    else if(input == "save"){
+        emit saveRecord();
+        lineEdit->clear();
+    }
+
+    else if(input == "load"){
+        emit loadRecord();
+        lineEdit->clear();
+    }
+
+    else if(input == "new map"){
+        emit loadNewMap();
+        lineEdit->clear();
+    }
+
+    else if(input == "clear save"){
+        emit clearSaves();
+        lineEdit->clear();
+    }
+
     else if((input == "setSpeed(slow)") ||(input == "setSpeed(normal)") || (input == "setSpeed(fast)")){
         if(input == "setSpeed(slow)"){
             myModel->setSpeed(500);
             emit terminalSpeedChanged();
         }
         else if(input == "setSpeed(normal)"){
-            myModel->setSpeed(100);
+            myModel->setSpeed(200);
             emit terminalSpeedChanged();
         }
         else{
@@ -544,13 +572,13 @@ void TerminalGameView::onEnter()
             }
         }
         else{
-            output->appendPlainText(">>Invalid command, if you want to go to set W, please use the right format,"
+            output->appendPlainText(">>Invalid command, if you want to set W, please use the right format,"
                                     "enter 'setW(2)'");
         }
         lineEdit->clear();
     }
 
-    else if(input.contains("goto(")&&input.contains(",")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
+    else if(input.contains("moveto(")&&input.contains(",")&&input.contains(")")&&((input.indexOf(")"))+1==input.length())){
         int index1 = 0;
         int index2 = 0;
         int index3 = 0;
@@ -565,14 +593,7 @@ void TerminalGameView::onEnter()
             if(okX && okY){
                 myModel->setDestinationX(dX);
                 myModel->setDestinationY(dY);
-                if(myModel->moveFast()){
-                    myModel->setOnceOrMore(true);
-                    emit destinationFind();
-                }
-                else{
-                    qDebug()<<"illegal";
-                    output->appendPlainText(">>Illegal destination,it may be a wall or out of range of map!");
-                }
+                emit destinationFind();
             }
             else{
                 output->appendPlainText(">>The coordinates of destination must be integers!");
@@ -580,7 +601,7 @@ void TerminalGameView::onEnter()
         }
         else{
             output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
-                                    "enter 'goto(3,5)'");
+                                    "enter 'moveto(3,5)'");
         }
         lineEdit->clear();
     }
@@ -597,9 +618,9 @@ void TerminalGameView::onEnter()
         lineEdit->clear();
     }
 
-    else if(input.contains("goto") || input.contains("go") || input.contains("to")){
+    else if(input.contains("moveto") || input.contains("move") || input.contains("to")){
         output->appendPlainText(">>Invalid command, if you want to go to one destination automatically, please use the right format,"
-                                "enter 'goto(3,5)'");
+                                "enter 'moveto(3,5)'");
         lineEdit->clear();
     }
 
@@ -612,6 +633,18 @@ void TerminalGameView::onEnter()
     else if(input.contains("setSpeed") || input.contains("setspeed")){
         output->appendPlainText(">>Invalid command, if you want to change the speed of protagonist, please use the right format,"
                                 "enter 'setSpeed(slow)' or 'setSpeed(normal)' or 'setSpeed(fast)'");
+        lineEdit->clear();
+    }
+
+    else if(input.contains("map")){
+        output->appendPlainText(">>Invalid command, if you want to open an image as new map, please use the right format,"
+                                "enter 'new map'");
+        lineEdit->clear();
+    }
+
+    else if(input.contains("clear")){
+        output->appendPlainText(">>Invalid command, if you want to clear all saved records, please use the right format,"
+                                "enter 'clear save'");
         lineEdit->clear();
     }
 

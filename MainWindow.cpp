@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "ui_mainwindow.h"
 #include "MyModel.h"
 
 
@@ -10,8 +11,6 @@
 #include <QInputDialog>
 #include <QDateTime>
 #include <QStringList>
-#include <QFileInfo>
-#include <QStandardPaths>
 #include "Customdialog.h"
 
 
@@ -24,7 +23,7 @@ TerminalGameView *terminalGameView;
 MainWindow::MainWindow(QWidget * parent):
     QWidget(parent)
 {
-    //  Add toolbar to the mainwindow
+   //  Add toolbar to the mainwindow
     myModel = new MyModel(currentFileName);
     gameSetting();
     myModel->modelInitialize();
@@ -33,28 +32,22 @@ MainWindow::MainWindow(QWidget * parent):
     graphicGameView->initialGraphicView();
 
     //create a Horizontal layout to show info
-
     layout = new QGridLayout(this);
     layoutStatistic = new QVBoxLayout();
 
-
-    //create xposition group for prota info
-    auto xpositionGroup = new QGroupBox();
-    auto layoutX = new QHBoxLayout(xpositionGroup);
+    //create xposition yposition group for prota info
+    auto xyGroup = new QGroupBox();
+    auto layoutXY = new QHBoxLayout(xyGroup);
     auto xLabel = new QLabel("xPosition : ");
     xValue = new QLineEdit();
     xValue->setReadOnly(true);
-    layoutX->addWidget(xLabel);
-    layoutX->addWidget(xValue);
-
-    //create yposition group for prota info
-    auto ypositionGroup = new QGroupBox();
-    auto layoutY = new QHBoxLayout(ypositionGroup);
+    layoutXY->addWidget(xLabel);
+    layoutXY->addWidget(xValue);
     auto yLabel = new QLabel("yPosition : ");
     yValue = new QLineEdit();
     yValue->setReadOnly(true);
-    layoutY->addWidget(yLabel);
-    layoutY->addWidget(yValue);
+    layoutXY->addWidget(yLabel);
+    layoutXY->addWidget(yValue);
 
     //create destination x and y  input
     auto dxdyGroup = new QGroupBox();
@@ -75,14 +68,17 @@ MainWindow::MainWindow(QWidget * parent):
     aStarParameter = new QLineEdit();
     layoutANP -> addWidget(aStarLabel);
     layoutANP -> addWidget(aStarParameter);
+
+    auto protaSpeedGroup = new QGroupBox();
+    auto layoutPSG = new QHBoxLayout(protaSpeedGroup);
     auto protaSpeedLabel = new QLabel("Speed of protagonist (ms)");
     protaSpeed = new QComboBox();
     protaSpeed->addItem("slow");
     protaSpeed->addItem("normal");
     protaSpeed->addItem("fast");
     protaSpeed->setCurrentIndex(1);
-    layoutANP -> addWidget(protaSpeedLabel);
-    layoutANP -> addWidget(protaSpeed);
+    layoutPSG -> addWidget(protaSpeedLabel);
+    layoutPSG -> addWidget(protaSpeed);
 
     //create health group for health info
     healthGroup = new QGroupBox();
@@ -108,52 +104,66 @@ MainWindow::MainWindow(QWidget * parent):
     layoutEnergy->addWidget(energtbar);
 
     //prepare button image
-    QPixmap startPix(":/images/icons/startGameIcon.png");
-    QIcon startGameIcon(startPix);
+    QPixmap Healthpack(":/images/icons/healthpack.png");
+    QIcon HealthpackIcon(Healthpack);
 
 
     //button
     switch_button = new QPushButton("Switch View", this);
     start_game_button = new QPushButton("Move to", this);
-    start_game_button->setIcon(startGameIcon);
-    chooseNewMap = new QPushButton("Choose a new map");
+    chooseNewMap = new QPushButton("New map");
     auto_button = new QPushButton("Auto run",this);
     pause_button = new QPushButton("Pause",this);
     save_button = new QPushButton("Save",this);
     load_button = new QPushButton("Load",this);
     clearAllFiles_button = new QPushButton("Clear Save",this);
-    addHealthpack_button = new QPushButton("Add Healthpack",this);
+    addHealthpack_button = new QPushButton("",this);
+    addHealthpack_button->setIcon(HealthpackIcon);
 
+    switch_button->setFixedSize(100,30);
     start_game_button->setFixedSize(100,30);
-    switch_button->setFixedHeight(30);
-    switch_button->setFixedWidth(100);
-    auto layoutButton = new QHBoxLayout();
-    auto layoutSaveNload = new QHBoxLayout();
+    chooseNewMap->setFixedSize(100,30);
+    auto_button->setFixedSize(100,30);
+    pause_button->setFixedSize(100,30);
+    save_button->setFixedSize(100,30);
+    load_button->setFixedSize(100,30);
+    clearAllFiles_button->setFixedSize(100,30);
+    addHealthpack_button->setFixedSize(100,30);
+
+    switch_button->setToolTip("switch between graphic and terminal views");
+    start_game_button->setToolTip("move to a specific destination");
+    chooseNewMap->setToolTip("open an image as new map");
+    auto_button->setToolTip("auto navigate the world");
+    pause_button->setToolTip("pause the game");
+    save_button->setToolTip("save the game");
+    load_button->setToolTip("load a game");
+    clearAllFiles_button->setToolTip("clear all saved records");
+    addHealthpack_button->setToolTip("add a health pack besides protagonist");
+
+
+    layoutButton = new QHBoxLayout();
+    layoutSaveNload = new QHBoxLayout();
     //add button to layout
-    layoutButton->addStretch(1);
-    layoutButton->addWidget(switch_button);
-    layoutButton->addWidget(start_game_button);
     layoutButton->addWidget(chooseNewMap);
+    layoutButton->addWidget(start_game_button);
     layoutButton->addWidget(auto_button);
     layoutButton->addWidget(pause_button);
-    layoutButton->addStretch(1);
 
-    layoutSaveNload->addStretch(1);
+    layoutSaveNload->addWidget(addHealthpack_button);
     layoutSaveNload->addWidget(save_button);
     layoutSaveNload->addWidget(load_button);
     layoutSaveNload->addWidget(clearAllFiles_button);
-    layoutSaveNload->addWidget(addHealthpack_button);
-    layoutSaveNload->addStretch(1);
 
     //add all widget to overall layout
-    layoutStatistic->addWidget(xpositionGroup);
-    layoutStatistic->addWidget(ypositionGroup);
+    layoutStatistic->addWidget(xyGroup);
     layoutStatistic->addWidget(dxdyGroup);
-    layoutStatistic->addWidget(aStarNProtaGroup);
     layoutStatistic->addWidget(healthGroup);
     layoutStatistic->addWidget(energyGroup);
+    layoutStatistic->addWidget(aStarNProtaGroup);
+    layoutStatistic->addWidget(protaSpeedGroup);
     layoutStatistic->addLayout(layoutButton);
     layoutStatistic->addLayout(layoutSaveNload);
+    layoutStatistic->addWidget(switch_button);
 
 
     // connect button
@@ -171,7 +181,8 @@ MainWindow::MainWindow(QWidget * parent):
 
 
     reset();
-    layout->addLayout(layoutStatistic,0,1,6,1);
+    layout->addLayout(layoutStatistic,0,1,9,1);
+
 }
 
 void MainWindow::reset()
@@ -195,16 +206,20 @@ void MainWindow::reset()
     connect(myModel->getMyProtagonist(),&MyProtagonist::healthChanged,this,&MainWindow::refreshEandH);
     connect(myModel->getMyProtagonist(),&MyProtagonist::protagonistDead,this,&MainWindow::restartTheGame);
     connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,this,&MainWindow::showSpeedChanged);
+    connect(terminalGameView,&TerminalGameView::loadNewMap,this,&MainWindow::handleMapButton);
+    connect(terminalGameView,&TerminalGameView::clearSaves,this,&MainWindow::handleClearAllFilesButton);
+    connect(terminalGameView,&TerminalGameView::saveRecord,this,&MainWindow::handleSaveButton);
+    connect(terminalGameView,&TerminalGameView::loadRecord,this,&MainWindow::handleLoadButton);
     connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
     connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
     connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,graphicGameView,&GraphicGameView::changeTimer);
-    connect(terminalGameView,&TerminalGameView::destinationFind,graphicGameView,&GraphicGameView::drawThePath);
+    connect(terminalGameView,&TerminalGameView::destinationFind,this,&MainWindow::handleStartButton);
     connect(myModel->getMyProtagonist(), SIGNAL (findNext()), this, SLOT (autoNavigate()));
     connect(terminalGameView,&TerminalGameView::wChanged,this,&MainWindow::showWChanged);
     connect(terminalGameView,&TerminalGameView::automaticRun,this,&MainWindow::autoNavigate);
 
-    layout->addWidget(graphicGameView,0,0,6,1);
-    layout->addWidget(terminalGameView,0,0,6,1);
+    layout->addWidget(graphicGameView,0,0,9,1);
+    layout->addWidget(terminalGameView,0,0,9,1);
     terminalGameView->hide();                     //by default show graphicView
 
 
@@ -314,19 +329,7 @@ void MainWindow::showWChanged()
 void MainWindow::handleSwitchButton()
 {
     myModel->setWhichView(!myModel->getWhichView());
-    bool whichView = myModel->getWhichView();
-    if(whichView){
-        terminalGameView->show();
-        graphicGameView->hide();
-        aStarParameter->setReadOnly(true);
-        protaSpeed->setEnabled(false);
-    }
-    else{
-        terminalGameView->hide();
-        graphicGameView->show();
-        aStarParameter->setReadOnly(false);
-        protaSpeed->setEnabled(true);
-    }
+    switchLayout();
 }
 
 void MainWindow::showSpeedChanged()
@@ -336,7 +339,7 @@ void MainWindow::showSpeedChanged()
         emit speedChanged();
     }
 
-    else if(myModel->getSpeed() == 100){
+    else if(myModel->getSpeed() == 200){
         protaSpeed->setCurrentIndex(1);
         emit speedChanged();
     }
@@ -355,7 +358,7 @@ void MainWindow::handleSpeed(int idx)
        emit speedChanged();
     }
     else if(idx == 1){
-       myModel->setSpeed(100);
+       myModel->setSpeed(200);
        emit speedChanged();
     }
     else{
@@ -371,8 +374,8 @@ void MainWindow::handleStartButton()
     //Model get the destination x and y , false is graphicView , true is terinalView
     bool whichView = myModel->getWhichView();
     if(whichView){
-        //        myModel->setDestinationX(22);
-        //        myModel->setDestinationY(22);
+        destinationX->setText(QString::number(myModel->getDestinationX()));
+        destinationY->setText(QString::number(myModel->getDestinationY()));
     }
     else{
         myModel->setDestinationX(round((destinationX->text()).toDouble()));
@@ -384,8 +387,7 @@ void MainWindow::handleStartButton()
         emit pathFound();
 
     }else{
-        //        qDebug()<<"Can not find the path";
-        QMessageBox::information(this,"Error","The given destination is unreachable!",true);
+        qDebug()<<"Can not find the path";
     }
 }
 
@@ -424,15 +426,11 @@ void MainWindow::handleW()
 
 void MainWindow::autoNavigate()
 {
-//    if(myModel->getWhichView()){
-//        //terminal use command to change W.
-//    }
-//    else{
-//        myModel->setW((aStarParameter->text()).toFloat());
-//    }
     bool moreEnemy = myModel->FindNextStep();
     if (moreEnemy)
     {
+        destinationX->setText(QString::number(myModel->getDestinationX()));
+        destinationY->setText(QString::number(myModel->getDestinationY()));
         myModel->setOnceOrMore(false);
         emit pathFound();
     }
@@ -496,48 +494,40 @@ void MainWindow::handleSaveButton()
 
 void MainWindow::handleLoadButton()
 {
-    QFileInfo check_file("./save_filenames.txt");
-    if (check_file.exists() && check_file.isFile())
+
+
+    QStringList fileNameList;
+    /*read filenames from local file*/
+    QFile file("save_filenames.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        fileNameList<<line;
+    }
+
+    CustomDialog dialog(fileNameList);
+    if (dialog.exec() == QDialog::Accepted)
     {
-        QStringList fileNameList;
+        QString fileName = dialog.comboBox()->currentText();
+        qDebug() << fileName;
 
-        /*read filenames from local file*/
-        QFile file("save_filenames.txt");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-            return;
-
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            fileNameList<<line;
-        }
-
-        CustomDialog dialog(fileNameList);
-        if (dialog.exec() == QDialog::Accepted)
+        if (fileName != NULL)
         {
-            QString fileName = dialog.comboBox()->currentText();
-
-            if (fileName != NULL)
-            {
-                hide();
-                QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
-                //    delete terminalGameView;
-                removeEveryFromTheScene();
-                myModel->loadGame(fileName);
-                //    terminalGameView = new TerminalGameView();
-                graphicGameView->initialGraphicView();   //terminal initial may be needed
-                show();
-                QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
-            }
-            else show();
+            hide();
+            QMessageBox::information(this,"Loading","Game is loading... please wait a bit :)",true);
+            //    delete terminalGameView;
+            removeEveryFromTheScene();
+            myModel->loadGame(fileName);
+            //    terminalGameView = new TerminalGameView();
+            graphicGameView->initialGraphicView();   //terminal initial may be needed
+            show();
+            QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
         }
-
+        else show();
     }
-    else
-    {
-        QMessageBox::information(this,"Error","Sorry.. there is no record yet",true);
-    }
-
 
 
 
@@ -556,19 +546,45 @@ void MainWindow::handleAddHealthpackButton()
 
 void MainWindow::handleClearAllFilesButton()
 {
-    if(QDir(QDir::homePath()+"/.config/Team104").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() != 0)
-    {
-        QFile file("save_filenames.txt");
-        file.remove();
-        myModel->clearAllSaves();
-        QMessageBox::information(this,"Success","The record files are deleted!",true);
-    }
-    else
-    {
-        QMessageBox::information(this,"Warning","There are no record files!",true);
-    }
+    QFile file("save_filenames.txt");
+    file.remove();
+    QMessageBox::information(this,"Success","The record file is deleted",true);
 }
 
+void MainWindow::switchLayout()
+{
+    if(myModel->getWhichView()){
+        terminalGameView->show();
+        graphicGameView->hide();
+        destinationX->setReadOnly(true);
+        destinationY->setReadOnly(true);
+        aStarParameter->setReadOnly(true);
+        protaSpeed->setEnabled(false);
+        start_game_button->setVisible(false);
+        chooseNewMap->setVisible(false);
+        auto_button->setVisible(false);
+        pause_button->setVisible(false);
+        save_button->setVisible(false);
+        load_button->setVisible(false);
+        clearAllFiles_button->setVisible(false);
+        addHealthpack_button->setVisible(false);
+    }
+    else{
+        terminalGameView->hide();
+        graphicGameView->show();
+        destinationX->setReadOnly(false);
+        destinationY->setReadOnly(false);
+        aStarParameter->setReadOnly(false);
+        protaSpeed->setEnabled(true);
+        start_game_button->setVisible(true);
+        chooseNewMap->setVisible(true);
+        auto_button->setVisible(true);
+        pause_button->setVisible(true);
+        save_button->setVisible(true);
+        load_button->setVisible(true);
+        clearAllFiles_button->setVisible(true);
+        addHealthpack_button->setVisible(true);
+    }
 
-
+}
 
