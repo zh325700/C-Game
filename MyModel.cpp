@@ -173,7 +173,7 @@ void MyModel::gotoNextEnemy()
 
 void MyModel::gotoNextPEnemy()
 {
-    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 0.11)  //(1 + 0.1)/10
+    if(myProtagonist->getHealth() > ((*nearestPEnemy)->getValue()) * 0.2 - 1)  //(2x-10)/10
     {
         this->setDestinationX((*nearestPEnemy)->getXPos());
         this->setDestinationY((*nearestPEnemy)->getYPos());
