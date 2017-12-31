@@ -139,6 +139,7 @@ void GraphicGameView::deletePnemy()
         for(unsigned i=0;i<myModel->getMyPEnemies().size();i++){
             if(myModel->getMyPEnemies()[i] == deadPenemy){
                 myModel->getMyPEnemies().erase(myModel->getMyPEnemies().begin()+i);
+                emit PEnermyNrDecreased();
             }
         }
     }
@@ -155,6 +156,7 @@ void GraphicGameView::deleteEnemy()
         for(unsigned i=0;i<myModel->getMyEnemies().size();i++){
             if(myModel->getMyEnemies()[i] == deadEnemy){
                 myModel->getMyEnemies().erase(myModel->getMyEnemies().begin()+i);
+                emit EnermyNrDecreased();
             }
         }
     }

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[23];
-    char stringdata0[328];
+    QByteArrayData data[24];
+    char stringdata0[343];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,32 +38,33 @@ QT_MOC_LITERAL(3, 22, 12), // "speedChanged"
 QT_MOC_LITERAL(4, 35, 12), // "refreshEandH"
 QT_MOC_LITERAL(5, 48, 12), // "refreshXandY"
 QT_MOC_LITERAL(6, 61, 14), // "restartTheGame"
-QT_MOC_LITERAL(7, 76, 18), // "handleSwitchButton"
-QT_MOC_LITERAL(8, 95, 16), // "showSpeedChanged"
-QT_MOC_LITERAL(9, 112, 11), // "handleSpeed"
-QT_MOC_LITERAL(10, 124, 3), // "idx"
-QT_MOC_LITERAL(11, 128, 17), // "handleStartButton"
-QT_MOC_LITERAL(12, 146, 15), // "handleMapButton"
-QT_MOC_LITERAL(13, 162, 7), // "handleW"
-QT_MOC_LITERAL(14, 170, 12), // "showWChanged"
-QT_MOC_LITERAL(15, 183, 12), // "autoNavigate"
-QT_MOC_LITERAL(16, 196, 17), // "handlePauseButton"
-QT_MOC_LITERAL(17, 214, 16), // "handleSaveButton"
-QT_MOC_LITERAL(18, 231, 16), // "handleLoadButton"
-QT_MOC_LITERAL(19, 248, 25), // "handleAddHealthpackButton"
-QT_MOC_LITERAL(20, 274, 25), // "handleClearAllFilesButton"
-QT_MOC_LITERAL(21, 300, 12), // "switchLayout"
-QT_MOC_LITERAL(22, 313, 14) // "recoverButtons"
+QT_MOC_LITERAL(7, 76, 14), // "refreshEnemyNr"
+QT_MOC_LITERAL(8, 91, 18), // "handleSwitchButton"
+QT_MOC_LITERAL(9, 110, 16), // "showSpeedChanged"
+QT_MOC_LITERAL(10, 127, 11), // "handleSpeed"
+QT_MOC_LITERAL(11, 139, 3), // "idx"
+QT_MOC_LITERAL(12, 143, 17), // "handleStartButton"
+QT_MOC_LITERAL(13, 161, 15), // "handleMapButton"
+QT_MOC_LITERAL(14, 177, 7), // "handleW"
+QT_MOC_LITERAL(15, 185, 12), // "showWChanged"
+QT_MOC_LITERAL(16, 198, 12), // "autoNavigate"
+QT_MOC_LITERAL(17, 211, 17), // "handlePauseButton"
+QT_MOC_LITERAL(18, 229, 16), // "handleSaveButton"
+QT_MOC_LITERAL(19, 246, 16), // "handleLoadButton"
+QT_MOC_LITERAL(20, 263, 25), // "handleAddHealthpackButton"
+QT_MOC_LITERAL(21, 289, 25), // "handleClearAllFilesButton"
+QT_MOC_LITERAL(22, 315, 12), // "switchLayout"
+QT_MOC_LITERAL(23, 328, 14) // "recoverButtons"
 
     },
     "MainWindow\0pathFound\0\0speedChanged\0"
     "refreshEandH\0refreshXandY\0restartTheGame\0"
-    "handleSwitchButton\0showSpeedChanged\0"
-    "handleSpeed\0idx\0handleStartButton\0"
-    "handleMapButton\0handleW\0showWChanged\0"
-    "autoNavigate\0handlePauseButton\0"
-    "handleSaveButton\0handleLoadButton\0"
-    "handleAddHealthpackButton\0"
+    "refreshEnemyNr\0handleSwitchButton\0"
+    "showSpeedChanged\0handleSpeed\0idx\0"
+    "handleStartButton\0handleMapButton\0"
+    "handleW\0showWChanged\0autoNavigate\0"
+    "handlePauseButton\0handleSaveButton\0"
+    "handleLoadButton\0handleAddHealthpackButton\0"
     "handleClearAllFilesButton\0switchLayout\0"
     "recoverButtons"
 };
@@ -75,7 +76,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,28 +84,29 @@ static const uint qt_meta_data_MainWindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,  114,    2, 0x06 /* Public */,
-       3,    0,  115,    2, 0x06 /* Public */,
+       1,    0,  119,    2, 0x06 /* Public */,
+       3,    0,  120,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,  116,    2, 0x0a /* Public */,
-       5,    0,  117,    2, 0x0a /* Public */,
-       6,    0,  118,    2, 0x0a /* Public */,
-       7,    0,  119,    2, 0x08 /* Private */,
-       8,    0,  120,    2, 0x08 /* Private */,
-       9,    1,  121,    2, 0x08 /* Private */,
-      11,    0,  124,    2, 0x08 /* Private */,
-      12,    0,  125,    2, 0x08 /* Private */,
-      13,    0,  126,    2, 0x08 /* Private */,
-      14,    0,  127,    2, 0x08 /* Private */,
-      15,    0,  128,    2, 0x08 /* Private */,
-      16,    0,  129,    2, 0x08 /* Private */,
-      17,    0,  130,    2, 0x08 /* Private */,
-      18,    0,  131,    2, 0x08 /* Private */,
-      19,    0,  132,    2, 0x08 /* Private */,
-      20,    0,  133,    2, 0x08 /* Private */,
-      21,    0,  134,    2, 0x08 /* Private */,
-      22,    0,  135,    2, 0x08 /* Private */,
+       4,    0,  121,    2, 0x0a /* Public */,
+       5,    0,  122,    2, 0x0a /* Public */,
+       6,    0,  123,    2, 0x0a /* Public */,
+       7,    0,  124,    2, 0x0a /* Public */,
+       8,    0,  125,    2, 0x08 /* Private */,
+       9,    0,  126,    2, 0x08 /* Private */,
+      10,    1,  127,    2, 0x08 /* Private */,
+      12,    0,  130,    2, 0x08 /* Private */,
+      13,    0,  131,    2, 0x08 /* Private */,
+      14,    0,  132,    2, 0x08 /* Private */,
+      15,    0,  133,    2, 0x08 /* Private */,
+      16,    0,  134,    2, 0x08 /* Private */,
+      17,    0,  135,    2, 0x08 /* Private */,
+      18,    0,  136,    2, 0x08 /* Private */,
+      19,    0,  137,    2, 0x08 /* Private */,
+      20,    0,  138,    2, 0x08 /* Private */,
+      21,    0,  139,    2, 0x08 /* Private */,
+      22,    0,  140,    2, 0x08 /* Private */,
+      23,    0,  141,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -116,7 +118,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -144,21 +147,22 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->refreshEandH(); break;
         case 3: _t->refreshXandY(); break;
         case 4: _t->restartTheGame(); break;
-        case 5: _t->handleSwitchButton(); break;
-        case 6: _t->showSpeedChanged(); break;
-        case 7: _t->handleSpeed((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->handleStartButton(); break;
-        case 9: _t->handleMapButton(); break;
-        case 10: _t->handleW(); break;
-        case 11: _t->showWChanged(); break;
-        case 12: _t->autoNavigate(); break;
-        case 13: _t->handlePauseButton(); break;
-        case 14: _t->handleSaveButton(); break;
-        case 15: _t->handleLoadButton(); break;
-        case 16: _t->handleAddHealthpackButton(); break;
-        case 17: _t->handleClearAllFilesButton(); break;
-        case 18: _t->switchLayout(); break;
-        case 19: _t->recoverButtons(); break;
+        case 5: _t->refreshEnemyNr(); break;
+        case 6: _t->handleSwitchButton(); break;
+        case 7: _t->showSpeedChanged(); break;
+        case 8: _t->handleSpeed((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->handleStartButton(); break;
+        case 10: _t->handleMapButton(); break;
+        case 11: _t->handleW(); break;
+        case 12: _t->showWChanged(); break;
+        case 13: _t->autoNavigate(); break;
+        case 14: _t->handlePauseButton(); break;
+        case 15: _t->handleSaveButton(); break;
+        case 16: _t->handleLoadButton(); break;
+        case 17: _t->handleAddHealthpackButton(); break;
+        case 18: _t->handleClearAllFilesButton(); break;
+        case 19: _t->switchLayout(); break;
+        case 20: _t->recoverButtons(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -206,13 +210,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 21)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 20;
+        _id -= 21;
     }
     return _id;
 }

@@ -71,6 +71,7 @@ public slots:
     void refreshEandH();
     void refreshXandY();
     void restartTheGame();
+    void refreshEnemyNr();
 
 
 private slots:

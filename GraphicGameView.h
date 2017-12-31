@@ -62,6 +62,8 @@ public slots:
     void changeTimer();
 
 signals:
+    void EnermyNrDecreased();
+    void PEnermyNrDecreased();
 
 
 private:

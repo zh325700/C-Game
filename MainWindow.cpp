@@ -59,14 +59,14 @@ MainWindow::MainWindow(QWidget * parent):
     //create Astar parameter
     auto aStarNProtaGroup = new QGroupBox();
     auto layoutANP = new QHBoxLayout(aStarNProtaGroup);
-    auto  aStarLabel  =new QLabel("AStar Parameter");
+    auto  aStarLabel  =new QLabel("AStar Parameter:");
     aStarParameter = new QLineEdit();
     layoutANP -> addWidget(aStarLabel);
     layoutANP -> addWidget(aStarParameter);
 
     auto protaSpeedGroup = new QGroupBox();
     auto layoutPSG = new QHBoxLayout(protaSpeedGroup);
-    auto protaSpeedLabel = new QLabel("Speed of protagonist (ms)");
+    auto protaSpeedLabel = new QLabel("Speed of protagonist");
     protaSpeed = new QComboBox();
     protaSpeed->addItem("slow");
     protaSpeed->addItem("normal");
@@ -75,15 +75,14 @@ MainWindow::MainWindow(QWidget * parent):
     layoutPSG -> addWidget(protaSpeedLabel);
     layoutPSG -> addWidget(protaSpeed);
 
-    //create health group for health info
+    //create enemy group for enemy info
     auto enemyNumGroup = new QGroupBox();
     auto layoutEnemyNum = new QHBoxLayout(enemyNumGroup);
-    enemyNumLabel = new QLabel("Left Enemy:");
+    enemyNumLabel = new QLabel("Enemy:");
     //create progress bar
     enemyNumbar = new QProgressBar();
     enemyNumbar->setRange(0,myModel->getNrOfEnemies());
-    //healthbar->setAlignment(Qt::AlignCenter);
-    enemyNumbar->setStyleSheet("::chunk{background-color: blue;border: 2px solid black;border-radius: 5px;text-align: center;}");
+    enemyNumbar->setStyleSheet("::chunk{background-color: orange;border: 2px solid black;border-radius: 5px;text-align: center;}");
     layoutEnemyNum->addWidget(enemyNumLabel);
     layoutEnemyNum->addWidget(enemyNumbar);
 
@@ -98,13 +97,13 @@ MainWindow::MainWindow(QWidget * parent):
     layoutEnergy->addWidget(energyLabel);
     layoutEnergy->addWidget(energtbar);
 
+    //create health group for health info
     healthGroup = new QGroupBox();
     layoutHealth = new QHBoxLayout(healthGroup);
     healthLabel = new QLabel("Health:");
     //create progress bar
     healthbar = new QProgressBar();
     healthbar->setRange(0,100);
-    //healthbar->setAlignment(Qt::AlignCenter);
     healthbar->setStyleSheet("::chunk{background-color: red;border: 2px solid black;border-radius: 5px;text-align: center;}");
     layoutHealth->addWidget(healthLabel);
     layoutHealth->addWidget(healthbar);
@@ -202,6 +201,9 @@ void MainWindow::reset()
     energtbar->setValue(myModel->getMyProtagonist()->getEnergy());
     energtbar->setFormat("The current enegy is: "+ QString::number(myModel->getMyProtagonist()->getEnergy()));
 
+    enemyNumbar->setValue(myModel->getMyEnemies().size()+myModel->getMyPEnemies().size());
+    enemyNumbar->setFormat("Still "+ QString::number(myModel->getMyEnemies().size()+myModel->getMyPEnemies().size())+" enemies left");
+
     aStarParameter->setText(QString::number(myModel->getW()));
 
     // protaSpeed->setText(QString::number(myModel->getSpeed()));
@@ -216,6 +218,8 @@ void MainWindow::reset()
 
     connect(this,&MainWindow::pathFound,graphicGameView,&GraphicGameView::drawThePath);
     connect(this,&MainWindow::speedChanged,graphicGameView,&GraphicGameView::changeTimer);
+    connect(graphicGameView,&GraphicGameView::EnermyNrDecreased,this,&MainWindow::refreshEnemyNr);
+    connect(graphicGameView,&GraphicGameView::PEnermyNrDecreased,this,&MainWindow::refreshEnemyNr);
 
     connect(terminalGameView,&TerminalGameView::terminalSpeedChanged,this,&MainWindow::showSpeedChanged);
     connect(terminalGameView,&TerminalGameView::loadNewMap,this,&MainWindow::handleMapButton);
@@ -335,6 +339,12 @@ void MainWindow::restartTheGame()
     default:
         break;
     }
+}
+
+void MainWindow::refreshEnemyNr()
+{
+    enemyNumbar->setValue(myModel->getMyEnemies().size()+myModel->getMyPEnemies().size());
+    enemyNumbar->setFormat("Still "+ QString::number(myModel->getMyEnemies().size()+myModel->getMyPEnemies().size())+" enemies left");
 }
 
 void MainWindow::showWChanged()
@@ -606,6 +616,7 @@ void MainWindow::handleLoadButton()
 
                 graphicGameView->initialGraphicView();
                 terminalGameView->initTerminal();
+                refreshEnemyNr();
                 show();
                 QMessageBox::information(this,"Success","Load successfully! Welcome back!",true);
             }
