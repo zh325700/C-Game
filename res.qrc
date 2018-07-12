@@ -18,6 +18,7 @@
         <file>icons/startGameIcon.png</file>
         <file>icons/sound.png</file>
         <file>icons/soundoff.png</file>
+        <file>icons/white.jpg</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>butterfly.mp3</file>

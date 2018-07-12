@@ -14,7 +14,7 @@ MyTile::MyTile(int xPosition, int yPosition, float tileWeight):
         setPixmap(QPixmap(":/images/icons/blueSea.jpg"));
     }
     else if(value<=1 && value>0.8){
-        setPixmap(QPixmap(":/images/icons/grass.png"));
+        setPixmap(QPixmap(":/images/icons/white.jpg"));
     }
     else {
         setPixmap(QPixmap(":/images/icons/rock.png"));

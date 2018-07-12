@@ -31,7 +31,7 @@ GraphicGameView::GraphicGameView()
 
     // create the scene
     scene = new QGraphicsScene((QGraphicsView *)this);
-    scene->setSceneRect(0,0,20000,20000); // make the scene 800x600 instead of infinity by infinity (default)
+    scene->setSceneRect(0,0,20*myModel->getCols(),20*myModel->getRows()); // make the scene 800x600 instead of infinity by infinity (default)
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes
@@ -110,7 +110,7 @@ void GraphicGameView::drawPoinsonCircle()
     if(!myModel->getMyProtagonist()->getAlReadyDrawCircle()){
         //add one circle to the scene the x,y is based on protagoinist current position
         setMultipleSizeOfCircle(2);
-        int xCircle = myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile() ;
+        int xCircle = myModel->getMyProtagonist()->getXPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile();
         int yCircle = myModel->getMyProtagonist()->getYPos()*myModel->getMyProtagonist()->getSizeOfTile() - multipleSizeOfCircle*myModel->getMyProtagonist()->getSizeOfTile();
         float widthOfCircle = 2*(0.5 + multipleSizeOfCircle)*myModel->getMyProtagonist()->getSizeOfTile();
         float heightOfCircle = widthOfCircle;

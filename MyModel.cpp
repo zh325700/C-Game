@@ -377,7 +377,7 @@ void MyModel::loadGame(QString filename)
         int yPEnemy = setting.value("PEnemyY").toInt();
         float pStrength =setting.value("PEnemyValue").toFloat();;
         MyPEnemy *aPMyEnemy = new MyPEnemy(xPEnemy,yPEnemy,pStrength);
-        myPEnemies.push_back(aPMyEnemy);
+        myPEnemies.push_back(aPMyEnemcustomery);
     }
     setting.endArray();
     setting.endGroup();
